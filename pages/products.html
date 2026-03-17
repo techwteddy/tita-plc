@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Tita PLC</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tita PLC</span>
+      <span class="nav-logo-sub">Industries</span>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="export.html">Export</a></li>
+    <li><a href="tracking.html">Track Order</a></li>
+    <li><a href="admin.html">Dashboard</a></li>
+    <li><a href="../index.html#quote" class="nav-cta">Request Quote</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <h1>Product Catalog</h1>
+  <p>Finished bags, shopping bags, and raw polypropylene materials — available in bulk for local and international buyers.</p>
+</section>
+
+<section class="products-section" style="padding-top:60px;">
+  <div class="products-inner">
+    <div style="margin-bottom:8px;">
+      <span class="rate-badge">1 USD = 57.0 ETB (live)</span>
+    </div>
+    <div class="products-filter fade-up">
+      <button class="filter-btn active" data-filter="all">All Products</button>
+      <button class="filter-btn" data-filter="finished">Finished Bags</button>
+      <button class="filter-btn" data-filter="raw">Raw Materials</button>
+      <button class="filter-btn" data-filter="shopping">Shopping Bags</button>
+      <button class="filter-btn" data-filter="custom">Custom Print</button>
+    </div>
+
+    <div class="products-grid">
+      <!-- FINISHED BAGS -->
+      <div class="product-card fade-up" data-category="finished">
+        <div class="product-img">🛍️<div class="product-badge">Bestseller</div></div>
+        <div class="product-body">
+          <div class="product-name">PP Woven Bag — Standard</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 50×80 cm</span>
+            <span class="product-spec">⚖️ 80–120 g</span>
+            <span class="product-spec">🔢 MOQ: 1,000</span>
+          </div>
+          <div class="product-price"><span data-usd="0.68"><span class="price-usd">$0.68</span></span><span class="product-price-unit">/ unit</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <div class="product-card fade-up" data-category="finished">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(30,58,30,0.9),rgba(45,90,45,0.5));">📦<div class="product-badge">Export Ready</div></div>
+        <div class="product-body">
+          <div class="product-name">PP Woven Bag — Heavy Duty</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 60×90 cm</span>
+            <span class="product-spec">⚖️ 150–200 g</span>
+            <span class="product-spec">🔢 MOQ: 500</span>
+          </div>
+          <div class="product-price"><span data-usd="1.10"><span class="price-usd">$1.10</span></span><span class="product-price-unit">/ unit</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <div class="product-card fade-up" data-category="finished">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(26,46,26,0.95),rgba(58,122,58,0.4));">🌾</div>
+        <div class="product-body">
+          <div class="product-name">Grain Sack — 50kg</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 60×100 cm</span>
+            <span class="product-spec">⚖️ 200–260 g</span>
+            <span class="product-spec">🔢 MOQ: 500</span>
+          </div>
+          <div class="product-price"><span data-usd="1.35"><span class="price-usd">$1.35</span></span><span class="product-price-unit">/ unit</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <!-- SHOPPING BAGS -->
+      <div class="product-card fade-up" data-category="shopping">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.8),rgba(196,154,60,0.4));">🛒</div>
+        <div class="product-body">
+          <div class="product-name">Reusable Shopping Bag</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 38×42 cm</span>
+            <span class="product-spec">⚖️ 55–70 g</span>
+            <span class="product-spec">🔢 MOQ: 2,000</span>
+          </div>
+          <div class="product-price"><span data-usd="0.45"><span class="price-usd">$0.45</span></span><span class="product-price-unit">/ unit</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <div class="product-card fade-up" data-category="shopping custom">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.6),rgba(26,46,26,0.9));">🖨️<div class="product-badge">Custom Print</div></div>
+        <div class="product-body">
+          <div class="product-name">BOPP Laminated Bag</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 Custom</span>
+            <span class="product-spec">🎨 6 colors</span>
+            <span class="product-spec">🔢 MOQ: 5,000</span>
+          </div>
+          <div class="product-price"><span data-usd="1.40"><span class="price-usd">$1.40</span></span><span class="product-price-unit">/ unit</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <div class="product-card fade-up" data-category="shopping">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(196,154,60,0.3),rgba(26,46,26,0.9));">👜</div>
+        <div class="product-body">
+          <div class="product-name">Non-Woven Tote Bag</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 40×45 cm</span>
+            <span class="product-spec">⚖️ 40–55 g</span>
+            <span class="product-spec">🔢 MOQ: 3,000</span>
+          </div>
+          <div class="product-price"><span data-usd="0.38"><span class="price-usd">$0.38</span></span><span class="product-price-unit">/ unit</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <!-- RAW MATERIALS -->
+      <div class="product-card fade-up" data-category="raw">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(26,46,26,0.95),rgba(74,154,74,0.2));">🧵<div class="product-badge">Raw</div></div>
+        <div class="product-body">
+          <div class="product-name">PP Granules — Virgin Grade</div>
+          <div class="product-specs">
+            <span class="product-spec">MFI 2–4 g/10min</span>
+            <span class="product-spec">⚖️ Min 500 kg</span>
+          </div>
+          <div class="product-price"><span data-usd="1.85"><span class="price-usd">$1.85</span></span><span class="product-price-unit">/ kg</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <div class="product-card fade-up" data-category="raw">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95));">🧶</div>
+        <div class="product-body">
+          <div class="product-name">Woven Fabric Roll — 90 cm</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 90 cm width</span>
+            <span class="product-spec">65 g/m²</span>
+          </div>
+          <div class="product-price"><span data-usd="2.20"><span class="price-usd">$2.20</span></span><span class="product-price-unit">/ kg</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+      <div class="product-card fade-up" data-category="raw">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(26,46,26,0.9),rgba(196,154,60,0.2));">🔩</div>
+        <div class="product-body">
+          <div class="product-name">PP Raffia Tape — Flat Yarn</div>
+          <div class="product-specs">
+            <span class="product-spec">1200–2400 denier</span>
+            <span class="product-spec">⚖️ Min 200 kg</span>
+          </div>
+          <div class="product-price"><span data-usd="2.40"><span class="price-usd">$2.40</span></span><span class="product-price-unit">/ kg</span></div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
+    <h2>Place an Order</h2>
+    <p>Fill in the details below. Our team will confirm within 24 hours.</p>
+    <form>
+      <div class="form-group">
+        <label class="form-label">Company Name *</label>
+        <input type="text" class="form-input" placeholder="Your company name" required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Quantity *</label>
+          <input type="number" class="form-input" placeholder="e.g. 5000" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shipping Type</label>
+          <select class="form-select">
+            <option>Local — Ethiopia</option>
+            <option>International — Sea</option>
+            <option>International — Air</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Destination Country</label>
+        <input type="text" class="form-input" placeholder="e.g. UAE, Kenya, Germany..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes / Customization</label>
+        <textarea class="form-textarea" placeholder="Any special requirements..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Submit Order Request</button>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
+
+<footer style="background:var(--green-900);padding:32px 5%;text-align:center;">
+  <div style="color:rgba(255,255,255,0.4);font-size:13px;">© 2025 Tita PLC · <a href="../index.html" style="color:var(--green-300);">Back to Home</a></div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

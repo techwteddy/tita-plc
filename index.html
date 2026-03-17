@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tita PLC — B2B Packaging & Logistics Platform</title>
+  <meta name="description" content="Leading manufacturer of PP woven bags, shopping bags, and polypropylene packaging materials. Local & international export from Ethiopia." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tita PLC</span>
+      <span class="nav-logo-sub">Industries</span>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="pages/about.html">About</a></li>
+    <li><a href="pages/products.html">Products</a></li>
+    <li><a href="pages/export.html">Export</a></li>
+    <li><a href="pages/tracking.html">Track Order</a></li>
+    <li><a href="pages/admin.html">Dashboard</a></li>
+    <li><a href="#quote" class="nav-cta">Request Quote</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge fade-up">
+        <div class="hero-badge-dot"></div>
+        <span>Manufacturing · Desē, Ethiopia</span>
+      </div>
+      <h1 class="hero-title fade-up">
+        Premium <span class="accent">PP Packaging</span><br/>
+        For a <span class="earth">Global</span> Market
+      </h1>
+      <p class="hero-desc fade-up">
+        Ethiopia's leading manufacturer of polypropylene woven bags, shopping bags, and industrial packaging. We supply local businesses and export to over 18 countries worldwide.
+      </p>
+      <div class="hero-actions fade-up">
+        <a href="pages/products.html" class="btn-primary">
+          Browse Products <span>→</span>
+        </a>
+        <a href="#quote" class="btn-outline">
+          Request Quote
+        </a>
+      </div>
+      <div class="hero-stats fade-up">
+        <div>
+          <div class="hero-stat-num" data-count="2400" data-suffix="+">0+</div>
+          <div class="hero-stat-label">Tons / Month</div>
+        </div>
+        <div>
+          <div class="hero-stat-num" data-count="18" data-suffix="">0</div>
+          <div class="hero-stat-label">Export Countries</div>
+        </div>
+        <div>
+          <div class="hero-stat-num" data-count="340" data-suffix="+">0+</div>
+          <div class="hero-stat-label">B2B Clients</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card hero-card-main">
+          <div class="hero-card-badge">Live Order Status</div>
+          <div class="hero-card-title">PP Woven Bags — Bulk Order</div>
+          <div class="hero-card-desc">Customer: Selam Trading PLC · Dubai, UAE</div>
+          <div class="hero-card-metrics">
+            <div class="metric-box">
+              <div class="metric-val">42,000</div>
+              <div class="metric-label">Units</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">18.4t</div>
+              <div class="metric-label">Total Weight</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">$28,560</div>
+              <div class="metric-label">Order Value</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" style="color:var(--green-300)">In Transit</div>
+              <div class="metric-label">Status</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card hero-card-float">
+          <div style="color:rgba(255,255,255,0.5);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Shipment</div>
+          <div style="color:white;font-weight:600;font-size:14px;margin-bottom:4px">🚢 Sea Freight</div>
+          <div style="color:rgba(255,255,255,0.45);font-size:12px">Container: TCKU3456789</div>
+          <div style="color:var(--earth-300);font-size:12px;margin-top:8px;font-weight:500">ETA: 8 days</div>
+        </div>
+        <div class="hero-card hero-card-float2">
+          <div style="color:rgba(255,255,255,0.5);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Inventory</div>
+          <div style="color:var(--green-300);font-weight:600;font-size:22px">94%</div>
+          <div style="color:rgba(255,255,255,0.45);font-size:12px">Production capacity</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<section style="background:var(--earth-100);padding:28px 5%;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:48px;flex-wrap:wrap;">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text-dark);font-weight:700;">Trusted by leading companies across Africa & the Middle East</div>
+    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:center;flex:1;">
+      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🌍 Ethiopia</div>
+      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇦🇪 UAE</div>
+      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇸🇦 Saudi Arabia</div>
+      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇰🇪 Kenya</div>
+      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇩🇪 Germany</div>
+      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">+ 13 more</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="section">
+  <div class="section-label fade-up">
+    <div class="section-label-line"></div>
+    <span>Why Tita PLC</span>
+  </div>
+  <h2 class="section-title fade-up">End-to-End Manufacturing<br/>& Logistics Excellence</h2>
+  <p class="section-desc fade-up">From raw polypropylene granules to finished bags at your door — we manage the full chain.</p>
+
+  <div class="features-grid">
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🏭</div>
+      <h3>In-House Manufacturing</h3>
+      <p>State-of-the-art extrusion, weaving, and printing lines producing 2,400+ tons monthly with full quality control.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🎨</div>
+      <h3>Custom Printing & Branding</h3>
+      <p>Up to 6-color BOPP lamination and gravure printing. Your brand on every bag, exactly as designed.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">📦</div>
+      <h3>Flexible Order Sizes</h3>
+      <p>Minimum order quantities start at 1,000 units for finished bags, or 500kg for raw woven fabric rolls.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🚢</div>
+      <h3>International Export</h3>
+      <p>Full container load (FCL) and less-than-container load (LCL) options with sea, air, and road freight.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">📊</div>
+      <h3>Real-Time Order Tracking</h3>
+      <p>Follow your order from production floor to delivery with live status updates and shipment tracking.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">✅</div>
+      <h3>Certified Quality</h3>
+      <p>ISO 9001:2015 certified. All products undergo tensile strength, UV resistance, and print durability testing.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS PREVIEW -->
+<section class="products-section" id="products">
+  <div class="products-inner">
+    <div class="section-label fade-up">
+      <div class="section-label-line"></div>
+      <span>Our Products</span>
+    </div>
+    <h2 class="section-title fade-up">Finished Goods & Raw Materials</h2>
+    <p class="section-desc fade-up">Browse our catalog of PP packaging products available for local delivery or international export.</p>
+
+    <div class="fade-up" style="margin-bottom:8px;">
+      <span class="rate-badge">1 USD = 57.0 ETB (live)</span>
+    </div>
+    <div class="products-filter fade-up">
+      <button class="filter-btn active" data-filter="all">All Products</button>
+      <button class="filter-btn" data-filter="finished">Finished Bags</button>
+      <button class="filter-btn" data-filter="raw">Raw Materials</button>
+      <button class="filter-btn" data-filter="shopping">Shopping Bags</button>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card fade-up" data-category="finished">
+        <div class="product-img">
+          🛍️
+          <div class="product-badge">Bestseller</div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">PP Woven Bag — Standard</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 50×80 cm</span>
+            <span class="product-spec">⚖️ 80–120 g/unit</span>
+          </div>
+          <div class="product-price">
+            <span class="product-price-val">$0.68</span>
+            <span class="product-price-unit">/ unit</span>
+          </div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-category="finished">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(30,58,30,0.9),rgba(45,90,45,0.6));">
+          📦
+          <div class="product-badge">Export Ready</div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">PP Woven Bag — Heavy Duty</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 60×90 cm</span>
+            <span class="product-spec">⚖️ 150–200 g/unit</span>
+          </div>
+          <div class="product-price">
+            <span class="product-price-val">$1.10</span>
+            <span class="product-price-unit">/ unit</span>
+          </div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-category="shopping">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.8),rgba(196,154,60,0.4));">
+          🛒
+        </div>
+        <div class="product-body">
+          <div class="product-name">Reusable Shopping Bag</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 38×42 cm</span>
+            <span class="product-spec">⚖️ 55–70 g/unit</span>
+          </div>
+          <div class="product-price">
+            <span class="product-price-val">$0.45</span>
+            <span class="product-price-unit">/ unit</span>
+          </div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-category="raw">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(26,46,26,0.95),rgba(74,154,74,0.2));">
+          🧵
+          <div class="product-badge">Raw</div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">PP Granules — Virgin Grade</div>
+          <div class="product-specs">
+            <span class="product-spec">🏷️ MFI: 2–4 g/10min</span>
+            <span class="product-spec">⚖️ Min 500 kg</span>
+          </div>
+          <div class="product-price">
+            <span class="product-price-val">$1.85</span>
+            <span class="product-price-unit">/ kg</span>
+          </div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-category="raw">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95));">
+          🧶
+        </div>
+        <div class="product-body">
+          <div class="product-name">Woven Fabric Roll — 90 cm</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 90 cm width</span>
+            <span class="product-spec">⚖️ 65 g/m²</span>
+          </div>
+          <div class="product-price">
+            <span class="product-price-val">$2.20</span>
+            <span class="product-price-unit">/ kg</span>
+          </div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-category="shopping">
+        <div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.6),rgba(26,46,26,0.9));">
+          🖨️
+          <div class="product-badge">Custom Print</div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">BOPP Laminated Bag</div>
+          <div class="product-specs">
+            <span class="product-spec">📐 Custom sizes</span>
+            <span class="product-spec">🎨 Up to 6 colors</span>
+          </div>
+          <div class="product-price">
+            <span class="product-price-val">$1.40</span>
+            <span class="product-price-unit">/ unit</span>
+          </div>
+          <button class="btn-product" onclick="openModal('orderModal')">Order Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <a href="pages/products.html" class="btn-primary" style="display:inline-flex;">View Full Catalog →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHIPPING & TRACKING -->
+<section class="shipping-section">
+  <div class="shipping-inner">
+    <div class="section-label fade-up">
+      <div class="section-label-line"></div>
+      <span>Logistics</span>
+    </div>
+    <h2 class="section-title fade-up">Local Delivery & International Export</h2>
+    <p class="section-desc fade-up">From Addis Ababa to anywhere in the world — we handle the logistics so you don't have to.</p>
+
+    <div class="shipping-grid">
+      <div>
+        <h3 class="fade-up">Shipping Options</h3>
+        <p class="fade-up" style="color:var(--text-light);line-height:1.75;margin-bottom:24px;">Whether you're a local business in Ethiopia or an international buyer, we offer flexible, reliable shipping tailored to your needs and timeline.</p>
+        <div class="shipping-types">
+          <div class="shipping-type fade-up">
+            <div class="shipping-type-icon">🚛</div>
+            <div>
+              <div class="shipping-type-name">Local Road Freight</div>
+              <div class="shipping-type-desc">Delivery across Ethiopia within 2–5 business days</div>
+            </div>
+          </div>
+          <div class="shipping-type fade-up">
+            <div class="shipping-type-icon">🚢</div>
+            <div>
+              <div class="shipping-type-name">Sea Freight (FCL / LCL)</div>
+              <div class="shipping-type-desc">Container shipping via Djibouti port — 14–28 days</div>
+            </div>
+          </div>
+          <div class="shipping-type fade-up">
+            <div class="shipping-type-icon">✈️</div>
+            <div>
+              <div class="shipping-type-name">Air Freight</div>
+              <div class="shipping-type-desc">Express delivery worldwide in 3–7 days</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="fade-up" style="margin-bottom:24px;">Order Journey</h3>
+        <div class="order-stages">
+          <div class="stage fade-up">
+            <div class="stage-dot active">1</div>
+            <div class="stage-content">
+              <div class="stage-name">New Order</div>
+              <div class="stage-desc">Order confirmed, production scheduled</div>
+            </div>
+          </div>
+          <div class="stage fade-up">
+            <div class="stage-dot pending">2</div>
+            <div class="stage-content">
+              <div class="stage-name">In Production</div>
+              <div class="stage-desc">Weaving, cutting, printing in progress</div>
+            </div>
+          </div>
+          <div class="stage fade-up">
+            <div class="stage-dot pending">3</div>
+            <div class="stage-content">
+              <div class="stage-name">Packaging & QC</div>
+              <div class="stage-desc">Quality check and bulk packaging</div>
+            </div>
+          </div>
+          <div class="stage fade-up">
+            <div class="stage-dot pending">4</div>
+            <div class="stage-content">
+              <div class="stage-name">Ready for Shipping</div>
+              <div class="stage-desc">Loaded at warehouse, awaiting freight</div>
+            </div>
+          </div>
+          <div class="stage fade-up">
+            <div class="stage-dot pending">5</div>
+            <div class="stage-content">
+              <div class="stage-name">In Transit</div>
+              <div class="stage-desc">Shipment dispatched, live tracking active</div>
+            </div>
+          </div>
+          <div class="stage fade-up">
+            <div class="stage-dot pending">6</div>
+            <div class="stage-content">
+              <div class="stage-name">Delivered ✓</div>
+              <div class="stage-desc">Order received and confirmed by customer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section class="quote-section" id="quote">
+  <div class="quote-inner">
+    <div>
+      <div class="section-label fade-up">
+        <div class="section-label-line"></div>
+        <span>Get a Quote</span>
+      </div>
+      <h2 class="section-title fade-up">Ready to Place<br/>Your Order?</h2>
+      <p class="section-desc fade-up" style="margin-bottom:32px;">Fill in your requirements and our sales team will respond within 24 hours with a detailed quotation.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;" class="fade-up">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📧</div>
+          <div>
+            <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Email</div>
+            <div style="font-size:15px;font-weight:500;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a594b464f596a4f5e4243455a4b494104494547">[email&#160;protected]</a></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📞</div>
+          <div>
+            <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Phone</div>
+            <div style="font-size:15px;font-weight:500;">+251 911 234 567</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📍</div>
+          <div>
+            <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Factory</div>
+            <div style="font-size:15px;font-weight:500;">Desē, Ethiopia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-form-wrap fade-up">
+      <div class="form-title">Request a Quote</div>
+      <div class="form-subtitle">Get pricing within 24 hours for any product or quantity.</div>
+      <form id="quoteForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Company Name *</label>
+            <input type="text" class="form-input" placeholder="Your company" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact Name *</label>
+            <input type="text" class="form-input" placeholder="Full name" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-input" placeholder="you@company.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone / WhatsApp</label>
+            <input type="tel" class="form-input" placeholder="+1 234 567 890" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Product Type *</label>
+          <select class="form-select" required>
+            <option value="">Select a product...</option>
+            <option>PP Woven Bag — Standard</option>
+            <option>PP Woven Bag — Heavy Duty</option>
+            <option>Reusable Shopping Bag</option>
+            <option>BOPP Laminated Bag</option>
+            <option>PP Granules — Virgin Grade</option>
+            <option>Woven Fabric Roll</option>
+            <option>Custom / Multiple Products</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Quantity *</label>
+            <input type="number" class="form-input" id="calcQty" placeholder="e.g. 10000" min="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Weight per Unit (kg)</label>
+            <input type="number" class="form-input" id="calcWeight" placeholder="e.g. 0.12" step="0.01" min="0" />
+          </div>
+        </div>
+        <div class="form-group" style="display:none;">
+          <input type="number" id="calcPrice" value="2.5" />
+        </div>
+        <div class="form-calc">
+          <div>
+            <div class="calc-label">Estimated Total Weight</div>
+            <div class="calc-value" id="calcTotalWeight">0.0 kg</div>
+          </div>
+          <div style="text-align:right">
+            <div class="calc-label">Estimated Order Value</div>
+            <div class="calc-value" id="calcTotal">$0.00</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shipping Destination</label>
+          <select class="form-select">
+            <option>Local — Ethiopia</option>
+            <option>International — Sea Freight</option>
+            <option>International — Air Freight</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Customization / Notes</label>
+          <textarea class="form-textarea" placeholder="Printing requirements, bag size, color, delivery timeline..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Submit Quote Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN PREVIEW -->
+<section class="admin-section" id="dashboard">
+  <div class="admin-inner">
+    <div class="section-label fade-up">
+      <div class="section-label-line"></div>
+      <span>Admin Dashboard</span>
+    </div>
+    <h2 class="section-title fade-up">Powerful Management<br/>for Your Operations</h2>
+    <p class="section-desc fade-up">Full control over orders, inventory, staff, and shipments — all in one place.</p>
+
+    <div class="admin-demo fade-up">
+      <div class="admin-topbar">
+        <div class="admin-topbar-title">Tita PLC — Admin Panel</div>
+        <div class="admin-topbar-right">
+          <span class="admin-badge">● Live</span>
+          <span style="color:rgba(255,255,255,0.5);font-size:13px;">Admin User</span>
+        </div>
+      </div>
+      <div class="admin-layout">
+        <div class="admin-sidebar">
+          <div class="admin-nav-item active" data-tab="tab-orders"><span class="nav-icon">📋</span> Orders</div>
+          <div class="admin-nav-item" data-tab="tab-inventory"><span class="nav-icon">📦</span> Inventory</div>
+          <div class="admin-nav-item" data-tab="tab-shipments"><span class="nav-icon">🚢</span> Shipments</div>
+          <div class="admin-nav-item" data-tab="tab-customers"><span class="nav-icon">👥</span> Customers</div>
+          <div class="admin-nav-item" data-tab="tab-products"><span class="nav-icon">🏷️</span> Products</div>
+          <div class="admin-nav-item" data-tab="tab-staff"><span class="nav-icon">👤</span> Staff</div>
+        </div>
+        <div class="admin-main">
+          <div class="admin-stats">
+            <div class="admin-stat">
+              <div class="admin-stat-val">147</div>
+              <div class="admin-stat-label">Active Orders</div>
+              <div class="admin-stat-change">↑ 12 this week</div>
+            </div>
+            <div class="admin-stat">
+              <div class="admin-stat-val">38.4t</div>
+              <div class="admin-stat-label">In Warehouse</div>
+              <div class="admin-stat-change">↓ 4.2t shipped</div>
+            </div>
+            <div class="admin-stat">
+              <div class="admin-stat-val">$142k</div>
+              <div class="admin-stat-label">Revenue (MTD)</div>
+              <div class="admin-stat-change">↑ 18% vs last month</div>
+            </div>
+            <div class="admin-stat">
+              <div class="admin-stat-val">94%</div>
+              <div class="admin-stat-label">On-Time Delivery</div>
+              <div class="admin-stat-change">↑ 3% vs target</div>
+            </div>
+          </div>
+
+          <!-- ORDERS TAB -->
+          <div class="admin-tab" id="tab-orders">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-table-title">Recent Orders</div>
+                <div class="admin-table-actions">
+                  <button class="btn-sm">+ New Order</button>
+                  <button class="btn-sm">Export CSV</button>
+                </div>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th><th>Customer</th><th>Product</th><th>Qty</th><th>Value</th><th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>#ETH-2941</td><td>Selam Trading PLC</td><td>PP Woven Bags</td><td>42,000 units</td><td>$28,560</td><td><span class="status-pill status-ship">In Transit</span></td></tr>
+                  <tr><td>#ETH-2940</td><td>Al Noor Imports</td><td>Shopping Bags</td><td>80,000 units</td><td>$36,000</td><td><span class="status-pill status-prod">In Production</span></td></tr>
+                  <tr><td>#ETH-2939</td><td>Ethio Grain PLC</td><td>Heavy Duty Bags</td><td>15,000 units</td><td>$16,500</td><td><span class="status-pill status-new">New Order</span></td></tr>
+                  <tr><td>#ETH-2938</td><td>Nairobi Pack Ltd</td><td>PP Granules</td><td>5,000 kg</td><td>$9,250</td><td><span class="status-pill status-done">Delivered</span></td></tr>
+                  <tr><td>#ETH-2937</td><td>Gulf Star Trading</td><td>BOPP Lam. Bags</td><td>25,000 units</td><td>$35,000</td><td><span class="status-pill status-done">Delivered</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- INVENTORY TAB -->
+          <div class="admin-tab" id="tab-inventory" style="display:none;">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-table-title">Warehouse Inventory</div>
+                <div class="admin-table-actions">
+                  <button class="btn-sm">Update Stock</button>
+                </div>
+              </div>
+              <table>
+                <thead><tr><th>Item</th><th>Category</th><th>Stock (Units)</th><th>Stock (kg)</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>PP Woven Bags — Std</td><td>Finished Goods</td><td>120,000</td><td>14,400 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+                  <tr><td>PP Granules — Virgin</td><td>Raw Material</td><td>—</td><td>48,000 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+                  <tr><td>Woven Fabric Rolls</td><td>Raw Material</td><td>240 rolls</td><td>18,600 kg</td><td><span class="status-pill status-prod">Reorder Soon</span></td></tr>
+                  <tr><td>Shopping Bags</td><td>Finished Goods</td><td>56,000</td><td>3,080 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+                  <tr><td>BOPP Film Roll</td><td>Raw Material</td><td>—</td><td>2,100 kg</td><td><span class="status-pill status-ship">Low Stock</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- SHIPMENTS TAB -->
+          <div class="admin-tab" id="tab-shipments" style="display:none;">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-table-title">Active Shipments</div>
+                <div class="admin-table-actions"><button class="btn-sm">+ New Shipment</button></div>
+              </div>
+              <table>
+                <thead><tr><th>Shipment ID</th><th>Destination</th><th>Type</th><th>Container</th><th>Weight</th><th>ETA</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>SHP-0841</td><td>Dubai, UAE</td><td>🚢 Sea</td><td>TCKU3456789</td><td>18.4t</td><td>Mar 24</td><td><span class="status-pill status-ship">In Transit</span></td></tr>
+                  <tr><td>SHP-0840</td><td>Riyadh, SA</td><td>✈️ Air</td><td>—</td><td>2.1t</td><td>Mar 18</td><td><span class="status-pill status-prod">Booked</span></td></tr>
+                  <tr><td>SHP-0839</td><td>Nairobi, KE</td><td>🚛 Road</td><td>—</td><td>8.7t</td><td>Mar 20</td><td><span class="status-pill status-new">Loading</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- CUSTOMERS TAB -->
+          <div class="admin-tab" id="tab-customers" style="display:none;">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-table-title">Customer Accounts</div>
+                <div class="admin-table-actions"><button class="btn-sm">+ Add Customer</button></div>
+              </div>
+              <table>
+                <thead><tr><th>Company</th><th>Country</th><th>Orders</th><th>Total Value</th><th>Type</th></tr></thead>
+                <tbody>
+                  <tr><td>Selam Trading PLC</td><td>🇦🇪 UAE</td><td>18</td><td>$214,000</td><td><span class="status-pill status-prod">International</span></td></tr>
+                  <tr><td>Ethio Grain PLC</td><td>🇪🇹 Ethiopia</td><td>42</td><td>$98,400</td><td><span class="status-pill status-new">Local</span></td></tr>
+                  <tr><td>Nairobi Pack Ltd</td><td>🇰🇪 Kenya</td><td>7</td><td>$54,200</td><td><span class="status-pill status-prod">International</span></td></tr>
+                  <tr><td>Al Noor Imports</td><td>🇸🇦 Saudi</td><td>12</td><td>$178,600</td><td><span class="status-pill status-prod">International</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- PRODUCTS TAB -->
+          <div class="admin-tab" id="tab-products" style="display:none;">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-table-title">Product Catalog</div>
+                <div class="admin-table-actions"><button class="btn-sm">+ Add Product</button></div>
+              </div>
+              <table>
+                <thead><tr><th>Product</th><th>Category</th><th>Unit Price</th><th>Pricing By</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>PP Woven Bag — Standard</td><td>Finished Bags</td><td>$0.68</td><td>Per Unit</td><td><span class="status-pill status-new">Active</span></td></tr>
+                  <tr><td>PP Woven Bag — Heavy Duty</td><td>Finished Bags</td><td>$1.10</td><td>Per Unit</td><td><span class="status-pill status-new">Active</span></td></tr>
+                  <tr><td>PP Granules — Virgin</td><td>Raw Material</td><td>$1.85</td><td>Per kg</td><td><span class="status-pill status-new">Active</span></td></tr>
+                  <tr><td>Woven Fabric Roll</td><td>Raw Material</td><td>$2.20</td><td>Per kg</td><td><span class="status-pill status-new">Active</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- STAFF TAB -->
+          <div class="admin-tab" id="tab-staff" style="display:none;">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-table-title">Staff & Roles</div>
+                <div class="admin-table-actions"><button class="btn-sm">+ Add Staff</button></div>
+              </div>
+              <table>
+                <thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Access Level</th></tr></thead>
+                <tbody>
+                  <tr><td>Abebe Kebede</td><td>Admin</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9d8dbdcdbdcf9dccdd1d0d6c9d8dad297dad6d4">[email&#160;protected]</a></td><td><span class="status-pill status-prod">Full Access</span></td></tr>
+                  <tr><td>Tigist Haile</td><td>Sales Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd89949a948e89bd98899594928d9c9e96d39e9290">[email&#160;protected]</a></td><td><span class="status-pill status-new">Orders + CRM</span></td></tr>
+                  <tr><td>Dawit Tesfaye</td><td>Warehouse Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3c7c2d4cad7e3c6d7cbcaccd3c2c0c88dc0ccce">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Inventory</span></td></tr>
+                  <tr><td>Meron Alemu</td><td>Logistics Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8be6eef9e4e5cbeeffe3e2e4fbeae8e0a5e8e4e6">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Shipments</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <a href="pages/admin.html" class="btn-primary" style="display:inline-flex;">Open Full Dashboard →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label fade-up">
+      <div class="section-label-line"></div>
+      <span>Contact Us</span>
+    </div>
+    <h2 class="section-title fade-up">Let's Talk Business</h2>
+
+    <div class="contact-grid">
+      <div class="contact-info-block fade-up">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Factory Address</div>
+            <div class="contact-item-value">Desē, Amhara Region<br/>, Ethiopia</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Phone / WhatsApp</div>
+            <div class="contact-item-value">+251 911 234 567<br/>+251 116 789 012</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7102101d140231140519181e0110121a5f121e1c">[email&#160;protected]</a><br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caafb2baa5b8be8aafbea2a3a5baaba9a1e4a9a5a7">[email&#160;protected]</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="contact-item-label">Working Hours</div>
+            <div class="contact-item-value">Mon–Fri: 8:00 AM – 6:00 PM EAT<br/>Sat: 9:00 AM – 2:00 PM EAT</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-card fade-up">
+        <form>
+          <div class="form-title" style="font-size:20px;margin-bottom:20px;">Send us a Message</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-input" placeholder="Full name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="you@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" placeholder="How can we help?" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Tell us about your requirements..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="nav-logo">
+          <div class="nav-logo-mark">T</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Tita PLC</span>
+            <span class="nav-logo-sub">Industries</span>
+          </div>
+        </div>
+        <p>Ethiopia's leading manufacturer of PP woven bags and polypropylene packaging, supplying local and international markets since 2008.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="#">Manufacturing</a></li>
+          <li><a href="#">Certifications</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul class="footer-links">
+          <li><a href="pages/products.html">PP Woven Bags</a></li>
+          <li><a href="pages/products.html">Shopping Bags</a></li>
+          <li><a href="pages/products.html">Raw Materials</a></li>
+          <li><a href="pages/products.html">Custom Orders</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="pages/export.html">Export Services</a></li>
+          <li><a href="pages/tracking.html">Order Tracking</a></li>
+          <li><a href="#quote">Request Quote</a></li>
+          <li><a href="pages/admin.html">Admin Login</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Tita PLC. All rights reserved.</div>
+      <div class="footer-copy">Made in Ethiopia 🇪🇹 · Shipped Worldwide 🌍</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
+    <h2>Place an Order</h2>
+    <p>Fill in the details below. Our team will confirm within 24 hours.</p>
+    <form>
+      <div class="form-group">
+        <label class="form-label">Company Name *</label>
+        <input type="text" class="form-input" placeholder="Your company name" required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Quantity *</label>
+          <input type="number" class="form-input" placeholder="e.g. 5000" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Shipping Type</label>
+          <select class="form-select">
+          

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Order — Tita PLC</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .tracker-wrap {
+      max-width: 800px; margin: 0 auto;
+      padding: 60px 5% 100px;
+    }
+    .track-input-row {
+      display: flex; gap: 12px; margin-bottom: 48px;
+    }
+    .track-input-row .form-input {
+      flex: 1; padding: 14px 18px; font-size: 15px;
+    }
+    .btn-track {
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      color: white; border-radius: var(--radius);
+      font-size: 14px; font-weight: 600;
+      white-space: nowrap; transition: var(--transition);
+    }
+    .btn-track:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,154,74,0.3); }
+
+    .order-result {
+      background: white; border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.07);
+      box-shadow: var(--shadow-med);
+      overflow: hidden; display: none;
+    }
+    .order-result.visible { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+    .order-result-header {
+      background: var(--green-900); padding: 24px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .order-id { font-family: 'Playfair Display', serif; color: white; font-size: 22px; }
+    .order-status-big {
+      background: rgba(74,154,74,0.2); color: var(--green-300);
+      border: 1px solid rgba(74,154,74,0.3);
+      padding: 8px 18px; border-radius: 100px;
+      font-size: 14px; font-weight: 600;
+    }
+    .order-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: rgba(0,0,0,0.07);
+    }
+    .order-meta-item {
+      background: white; padding: 18px 22px;
+    }
+    .order-meta-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+    .order-meta-val { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+
+    .timeline-wrap { padding: 28px; }
+    .timeline-title { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 24px; }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: ''; position: absolute;
+      left: 15px; top: 36px;
+      width: 2px; height: 48px;
+      background: linear-gradient(to bottom, var(--green-400), rgba(0,0,0,0.08));
+    }
+    .t-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      flex-shrink: 0; display: flex; align-items: center;
+      justify-content: center; font-size: 13px; font-weight: 700;
+      color: white; z-index: 1; margin-top: 4px;
+    }
+    .t-done { background: var(--green-600); }
+    .t-active { background: var(--green-500); box-shadow: 0 0 0 4px rgba(74,154,74,0.2); }
+    .t-pending { background: rgba(0,0,0,0.1); color: var(--text-light); }
+
+    .t-body { padding-bottom: 44px; }
+    .t-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+    .t-date { font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+    .t-note { font-size: 13px; color: var(--text-mid); }
+
+    .shipment-card {
+      margin: 0 28px 28px;
+      background: var(--earth-100); border-radius: 12px;
+      padding: 20px 24px;
+      border: 1px solid rgba(107,76,30,0.15);
+    }
+    .shipment-card-title { font-weight: 700; font-size: 15px; margin-bottom: 14px; color: var(--text-dark); }
+    .ship-details { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .ship-item { }
+    .ship-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
+    .ship-val { font-size: 14px; font-weight: 500; }
+
+    @media(max-width:600px) {
+      .order-meta { grid-template-columns: 1fr 1fr; }
+      .ship-details { grid-template-columns: 1fr 1fr; }
+      .track-input-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tita PLC</span>
+      <span class="nav-logo-sub">Industries</span>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="export.html">Export</a></li>
+    <li><a href="tracking.html" class="active">Track Order</a></li>
+    <li><a href="admin.html">Dashboard</a></li>
+    <li><a href="../index.html#quote" class="nav-cta">Request Quote</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <h1>Track Your Order</h1>
+  <p>Enter your order ID or shipment tracking number to see real-time status updates.</p>
+</section>
+
+<div class="tracker-wrap">
+  <div class="track-input-row fade-up">
+    <input type="text" class="form-input" id="trackInput" placeholder="Enter Order ID (e.g. ETH-2941) or Shipment ID..." />
+    <button class="btn-track" onclick="lookupOrder()">Track →</button>
+  </div>
+
+  <div class="order-result" id="orderResult">
+    <div class="order-result-header">
+      <div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Order</div>
+        <div class="order-id">#ETH-2941</div>
+      </div>
+      <div class="order-status-big">🚢 In Transit</div>
+    </div>
+    <div class="order-meta">
+      <div class="order-meta-item">
+        <div class="order-meta-label">Customer</div>
+        <div class="order-meta-val">Selam Trading PLC</div>
+      </div>
+      <div class="order-meta-item">
+        <div class="order-meta-label">Product</div>
+        <div class="order-meta-val">PP Woven Bags</div>
+      </div>
+      <div class="order-meta-item">
+        <div class="order-meta-label">Quantity</div>
+        <div class="order-meta-val">42,000 units</div>
+      </div>
+      <div class="order-meta-item">
+        <div class="order-meta-label">Total Weight</div>
+        <div class="order-meta-val">18.4 tonnes</div>
+      </div>
+    </div>
+
+    <div class="shipment-card">
+      <div class="shipment-card-title">🚢 Shipment Details</div>
+      <div class="ship-details">
+        <div class="ship-item"><div class="ship-label">Container No.</div><div class="ship-val">TCKU3456789</div></div>
+        <div class="ship-item"><div class="ship-label">Transport Type</div><div class="ship-val">Sea Freight (FCL)</div></div>
+        <div class="ship-item"><div class="ship-label">Origin Port</div><div class="ship-val">Djibouti</div></div>
+        <div class="ship-item"><div class="ship-label">Destination</div><div class="ship-val">Dubai, UAE</div></div>
+        <div class="ship-item"><div class="ship-label">Departed</div><div class="ship-val">Mar 10, 2025</div></div>
+        <div class="ship-item"><div class="ship-label">Estimated Arrival</div><div class="ship-val" style="color:var(--green-600);font-weight:700;">Mar 24, 2025</div></div>
+      </div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="timeline-title">Order Journey</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="t-dot t-done">✓</div>
+          <div class="t-body">
+            <div class="t-name">Order Confirmed</div>
+            <div class="t-date">Feb 28, 2025 — 10:14 AM</div>
+            <div class="t-note">Order #ETH-2941 received and payment confirmed. Production scheduled.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-dot t-done">✓</div>
+          <div class="t-body">
+            <div class="t-name">In Production</div>
+            <div class="t-date">Mar 1–6, 2025</div>
+            <div class="t-note">Weaving, cutting, and 2-color printing completed at our Bole facility.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-dot t-done">✓</div>
+          <div class="t-body">
+            <div class="t-name">Quality Control & Packaging</div>
+            <div class="t-date">Mar 7–8, 2025</div>
+            <div class="t-note">All 42,000 units passed QC inspection. Packed in 840 bales of 50 units.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-dot t-done">✓</div>
+          <div class="t-body">
+            <div class="t-name">Ready for Shipping</div>
+            <div class="t-date">Mar 9, 2025</div>
+            <div class="t-note">Container TCKU3456789 loaded and sealed. Customs cleared at Addis Ababa.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-dot t-active">→</div>
+          <div class="t-body">
+            <div class="t-name">In Transit — Sea Freight</div>
+            <div class="t-date">Mar 10, 2025 — Present</div>
+            <div class="t-note">Container departed Djibouti port aboard MV Al Farabi. Currently in Red Sea — ETA Dubai Port: Mar 24.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-dot t-pending">6</div>
+          <div class="t-body">
+            <div class="t-name">Delivered</div>
+            <div class="t-date">Estimated: Mar 24–26, 2025</div>
+            <div class="t-note">Pending delivery to Selam Trading PLC warehouse, Jebel Ali, Dubai.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:48px;background:var(--earth-100);border-radius:12px;padding:28px;" class="fade-up">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px;">Try these demo order IDs:</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+      <button onclick="demoLookup('ETH-2941')" class="btn-sm" style="background:var(--green-700);color:white;border:none;">ETH-2941 — In Transit</button>
+      <button onclick="demoLookup('ETH-2940')" class="btn-sm" style="background:var(--earth-600);color:white;border:none;">ETH-2940 — In Production</button>
+      <button onclick="demoLookup('ETH-2938')" class="btn-sm" style="background:rgba(0,0,0,0.15);color:var(--text-mid);border:1px solid rgba(0,0,0,0.1);">ETH-2938 — Delivered</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
+<footer style="background:var(--green-900);padding:32px 5%;text-align:center;">
+  <div style="color:rgba(255,255,255,0.4);font-size:13px;">© 2025 Tita PLC · <a href="../index.html" style="color:var(--green-300);">Back to Home</a></div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+function lookupOrder() {
+  const val = document.getElementById('trackInput').value.trim();
+  if (!val) { showToast('Please enter an order ID'); return; }
+  document.getElementById('orderResult').classList.add('visible');
+  document.getElementById('orderResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function demoLookup(id) {
+  document.getElementById('trackInput').value = id;
+  lookupOrder();
+}
+
+document.getElementById('trackInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') lookupOrder();
+});
+</script>
+</body>
+</html>

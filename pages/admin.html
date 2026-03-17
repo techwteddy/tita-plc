@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Tita PLC</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body { background: #0d1a0d; }
+
+    .admin-page {
+      display: flex; min-height: 100vh;
+      padding-top: 72px;
+    }
+
+    .sidebar-full {
+      width: 240px; flex-shrink: 0;
+      background: rgba(0,0,0,0.3);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 24px 0;
+      position: fixed; top: 72px; bottom: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-section-label {
+      padding: 16px 20px 8px;
+      font-size: 10px; color: rgba(255,255,255,0.25);
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+
+    .admin-main-content {
+      flex: 1; margin-left: 240px;
+      padding: 32px; overflow-x: hidden;
+    }
+
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+    }
+
+    .page-header h2 {
+      color: white; font-size: 26px;
+    }
+
+    .admin-stats-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 16px; margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 20px;
+      transition: var(--transition);
+    }
+    .stat-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(106,184,106,0.2); }
+
+    .stat-icon { font-size: 24px; margin-bottom: 12px; }
+    .stat-val { font-family: 'Playfair Display', serif; color: var(--earth-300); font-size: 28px; font-weight: 700; }
+    .stat-label { color: rgba(255,255,255,0.4); font-size: 12px; text-transform: uppercase; letter-spacing: .07em; margin-top: 4px; }
+    .stat-change { font-size: 12px; margin-top: 8px; color: var(--green-400); }
+
+    .panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .panel-title { color: white; font-size: 15px; font-weight: 600; }
+
+    .panel-body { padding: 0; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .inv-bar-wrap { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+    .inv-bar-item {}
+    .inv-bar-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
+    .inv-bar-name { color: rgba(255,255,255,0.75); }
+    .inv-bar-val { color: var(--earth-300); font-weight: 600; }
+    .inv-bar-track {
+      height: 6px; background: rgba(255,255,255,0.07); border-radius: 100px; overflow: hidden;
+    }
+    .inv-bar-fill { height: 100%; border-radius: 100px; transition: width 1s ease; }
+
+    .activity-list { display: flex; flex-direction: column; }
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-icon {
+      width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 15px;
+    }
+    .activity-text { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .activity-time { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+
+    .login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #0d1a0d;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 48px;
+      width: 100%; max-width: 420px;
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--green-400), var(--earth-500));
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 900; color: white;
+      margin: 0 auto 20px;
+    }
+
+    .login-card h2 { color: white; font-size: 24px; margin-bottom: 6px; }
+    .login-card p { color: rgba(255,255,255,0.45); font-size: 14px; margin-bottom: 32px; }
+
+    .login-form .form-input, .login-form .form-select {
+      background: rgba(255,255,255,0.07); color: white;
+      border-color: rgba(255,255,255,0.1);
+    }
+    .login-form .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .login-form .form-label { color: rgba(255,255,255,0.6); }
+
+    .role-select {
+      display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; justify-content: center;
+    }
+
+    .role-pill {
+      padding: 7px 16px; border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 500;
+      cursor: pointer; transition: var(--transition);
+    }
+
+    .role-pill.active, .role-pill:hover {
+      background: var(--green-700); border-color: var(--green-500);
+      color: white;
+    }
+
+    @media(max-width:900px) {
+      .sidebar-full { display: none; }
+      .admin-main-content { margin-left: 0; }
+      .admin-stats-row { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    @media(max-width:600px) {
+      .admin-stats-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tita PLC</span>
+      <span class="nav-logo-sub">Admin</span>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html">← Website</a></li>
+    <li><a href="admin.html" class="active">Dashboard</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px;" id="adminUserBar">
+    <span style="color:rgba(255,255,255,0.45);font-size:13px;" id="adminUserName">Not logged in</span>
+    <button onclick="logout()" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);padding:7px 14px;border-radius:6px;font-size:13px;border:1px solid rgba(255,255,255,0.1);">Logout</button>
+  </div>
+</nav>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">E</div>
+    <h2>Admin Login</h2>
+    <p>Sign in to access the Tita PLC management dashboard</p>
+    <div class="role-select">
+      <div class="role-pill active" data-role="Admin">Admin</div>
+      <div class="role-pill" data-role="Sales Manager">Sales</div>
+      <div class="role-pill" data-role="Warehouse Manager">Warehouse</div>
+      <div class="role-pill" data-role="Logistics Manager">Logistics</div>
+    </div>
+    <form class="login-form" onsubmit="doLogin(event)">
+      <div class="form-group" style="text-align:left;">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="admin@tita-plc.com" value="admin@tita-plc.com" />
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="••••••••" value="demo1234" />
+      </div>
+      <button type="submit" class="btn-submit" style="margin-top:8px;">Sign In to Dashboard</button>
+    </form>
+    <p style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.3);">Demo: Any credentials work for this presentation</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="admin-page" id="dashboardPage" style="display:none;">
+  <aside class="sidebar-full">
+    <div class="sidebar-section-label">Main</div>
+    <div class="admin-nav-item active" data-tab="tab-overview"><span class="nav-icon">📊</span> Overview</div>
+    <div class="admin-nav-item" data-tab="tab-orders"><span class="nav-icon">📋</span> Orders</div>
+    <div class="admin-nav-item" data-tab="tab-shipments"><span class="nav-icon">🚢</span> Shipments</div>
+
+    <div class="sidebar-section-label">Inventory</div>
+    <div class="admin-nav-item" data-tab="tab-inventory"><span class="nav-icon">📦</span> Warehouse</div>
+    <div class="admin-nav-item" data-tab="tab-products"><span class="nav-icon">🏷️</span> Products</div>
+
+    <div class="sidebar-section-label">People</div>
+    <div class="admin-nav-item" data-tab="tab-customers"><span class="nav-icon">👥</span> Customers</div>
+    <div class="admin-nav-item" data-tab="tab-staff"><span class="nav-icon">👤</span> Staff</div>
+
+    <div style="padding:20px;margin-top:auto;">
+      <div style="background:rgba(74,154,74,0.1);border:1px solid rgba(74,154,74,0.2);border-radius:10px;padding:14px;text-align:center;">
+        <div style="color:var(--green-300);font-size:13px;font-weight:600;margin-bottom:4px;">System Status</div>
+        <div style="color:rgba(255,255,255,0.4);font-size:12px;">All systems operational</div>
+        <div style="margin-top:8px;display:inline-flex;align-items:center;gap:6px;">
+          <div style="width:7px;height:7px;background:var(--green-400);border-radius:50%;animation:pulse 2s infinite;"></div>
+          <span style="color:var(--green-300);font-size:12px;">Live</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="admin-main-content">
+    <!-- OVERVIEW -->
+    <div id="tab-overview" class="admin-content-tab">
+      <div class="page-header">
+        <div>
+          <h2>Dashboard Overview</h2>
+          <p style="color:rgba(255,255,255,0.4);font-size:13px;margin-top:4px;">Monday, March 16, 2026</p>
+        </div>
+        <button class="btn-sm" onclick="showToast('Report generated!')">Export Report</button>
+      </div>
+
+      <div class="admin-stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-val">147</div>
+          <div class="stat-label">Active Orders</div>
+          <div class="stat-change">↑ 12 this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-val">$142k</div>
+          <div class="stat-label">Revenue MTD</div>
+          <div class="stat-change">↑ 18% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <div class="stat-val">38.4t</div>
+          <div class="stat-label">In Warehouse</div>
+          <div class="stat-change">↓ 4.2t shipped today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-val">94%</div>
+          <div class="stat-label">On-Time Delivery</div>
+          <div class="stat-change">↑ 3% vs target</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Inventory Levels</div>
+            <span style="font-size:12px;color:rgba(255,255,255,0.3);">Live</span>
+          </div>
+          <div class="inv-bar-wrap">
+            <div class="inv-bar-item">
+              <div class="inv-bar-label"><span class="inv-bar-name">PP Woven Bags — Std</span><span class="inv-bar-val">120,000 units</span></div>
+              <div class="inv-bar-track"><div class="inv-bar-fill" style="width:82%;background:var(--green-500);"></div></div>
+            </div>
+            <div class="inv-bar-item">
+              <div class="inv-bar-label"><span class="inv-bar-name">PP Granules — Virgin</span><span class="inv-bar-val">48,000 kg</span></div>
+              <div class="inv-bar-track"><div class="inv-bar-fill" style="width:70%;background:var(--earth-500);"></div></div>
+            </div>
+            <div class="inv-bar-item">
+              <div class="inv-bar-label"><span class="inv-bar-name">Woven Fabric Rolls</span><span class="inv-bar-val">18,600 kg</span></div>
+              <div class="inv-bar-track"><div class="inv-bar-fill" style="width:38%;background:#e8a040;"></div></div>
+            </div>
+            <div class="inv-bar-item">
+              <div class="inv-bar-label"><span class="inv-bar-name">BOPP Film</span><span class="inv-bar-val">2,100 kg</span></div>
+              <div class="inv-bar-track"><div class="inv-bar-fill" style="width:18%;background:#e06060;"></div></div>
+            </div>
+            <div class="inv-bar-item">
+              <div class="inv-bar-label"><span class="inv-bar-name">Shopping Bags</span><span class="inv-bar-val">56,000 units</span></div>
+              <div class="inv-bar-track"><div class="inv-bar-fill" style="width:60%;background:var(--green-400);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Recent Activity</div>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(74,154,74,0.15);">📦</div>
+              <div><div class="activity-text">New order #ETH-2942 from Habesha Exports — 25,000 units</div><div class="activity-time">2 min ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(74,144,226,0.15);">🚢</div>
+              <div><div class="activity-text">Shipment SHP-0841 entered Red Sea corridor</div><div class="activity-time">1 hr ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(196,154,60,0.15);">⚠️</div>
+              <div><div class="activity-text">BOPP Film stock below reorder threshold (18%)</div><div class="activity-time">3 hrs ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(74,154,74,0.15);">✅</div>
+              <div><div class="activity-text">Order #ETH-2938 delivered — Nairobi Pack Ltd confirmed</div><div class="activity-time">5 hrs ago</div></div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(255,255,255,0.07);">👤</div>
+              <div><div class="activity-text">New customer account: Gulf Star Trading (UAE)</div><div class="activity-time">Yesterday</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="tab-orders" class="admin-content-tab" style="display:none;">
+      <div class="page-header">
+        <h2>Orders</h2>
+        <div style="display:flex;gap:10px;">
+          <input type="text" class="form-input" style="background:rgba(255,255,255,0.07);color:white;border-color:rgba(255,255,255,0.1);padding:8px 14px;width:220px;" placeholder="Search orders..." />
+          <button class="btn-sm" onclick="showToast('Order form coming in full version!')">+ New Order</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table>
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Quantity</th><th>Value</th><th>Destination</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>#ETH-2941</td><td>Selam Trading PLC</td><td>PP Woven Bags</td><td>42,000 units</td><td>$28,560</td><td>Dubai, UAE</td><td><span class="status-pill status-ship">In Transit</span></td><td><button class="btn-sm" onclick="showToast('Order detail view')">View</button></td></tr>
+              <tr><td>#ETH-2940</td><td>Al Noor Imports</td><td>Shopping Bags</td><td>80,000 units</td><td>$36,000</td><td>Riyadh, SA</td><td><span class="status-pill status-prod">In Production</span></td><td><button class="btn-sm" onclick="showToast('Order detail view')">View</button></td></tr>
+              <tr><td>#ETH-2939</td><td>Ethio Grain PLC</td><td>Heavy Duty Bags</td><td>15,000 units</td><td>$16,500</td><td>Addis Ababa</td><td><span class="status-pill status-new">New Order</span></td><td><button class="btn-sm" onclick="showToast('Order detail view')">View</button></td></tr>
+              <tr><td>#ETH-2938</td><td>Nairobi Pack Ltd</td><td>PP Granules</td><td>5,000 kg</td><td>$9,250</td><td>Nairobi, KE</td><td><span class="status-pill status-done">Delivered</span></td><td><button class="btn-sm" onclick="showToast('Order detail view')">View</button></td></tr>
+              <tr><td>#ETH-2937</td><td>Gulf Star Trading</td><td>BOPP Lam. Bags</td><td>25,000 units</td><td>$35,000</td><td>Dubai, UAE</td><td><span class="status-pill status-done">Delivered</span></td><td><button class="btn-sm" onclick="showToast('Order detail view')">View</button></td></tr>
+              <tr><td>#ETH-2936</td><td>Habesha Exports</td><td>Woven Fabric Roll</td><td>4,200 kg</td><td>$9,240</td><td>Frankfurt, DE</td><td><span class="status-pill status-prod">Packaging</span></td><td><button class="btn-sm" onclick="showToast('Order detail view')">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPMENTS -->
+    <div id="tab-shipments" class="admin-content-tab" style="display:none;">
+      <div class="page-header">
+        <h2>Shipments</h2>
+        <button class="btn-sm" onclick="showToast('Shipment creation coming in full version!')">+ New Shipment</button>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table>
+            <thead><tr><th>ID</th><th>Destination</th><th>Type</th><th>Container</th><th>Weight</th><th>Departed</th><th>ETA</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>SHP-0841</td><td>Dubai, UAE</td><td>🚢 Sea FCL</td><td>TCKU3456789</td><td>18.4t</td><td>Mar 10</td><td>Mar 24</td><td><span class="status-pill status-ship">In Transit</span></td></tr>
+              <tr><td>SHP-0840</td><td>Riyadh, SA</td><td>✈️ Air</td><td>—</td><td>2.1t</td><td>Mar 14</td><td>Mar 18</td><td><span class="status-pill status-prod">Booked</span></td></tr>
+              <tr><td>SHP-0839</td><td>Nairobi, KE</td><td>🚛 Road</td><td>—</td><td>8.7t</td><td>Mar 16</td><td>Mar 20</td><td><span class="status-pill status-new">Loading</span></td></tr>
+              <tr><td>SHP-0838</td><td>Frankfurt, DE</td><td>🚢 Sea LCL</td><td>MSCU8821011</td><td>6.2t</td><td>Mar 5</td><td>Mar 30</td><td><span class="status-pill status-ship">In Transit</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVENTORY -->
+    <div id="tab-inventory" class="admin-content-tab" style="display:none;">
+      <div class="page-header">
+        <h2>Warehouse Inventory</h2>
+        <button class="btn-sm" onclick="showToast('Stock update form coming soon!')">Update Stock</button>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table>
+            <thead><tr><th>Item</th><th>Category</th><th>Stock (Units)</th><th>Stock (kg)</th><th>Reorder Level</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>PP Woven Bags — Std</td><td>Finished Goods</td><td>120,000</td><td>14,400</td><td>20,000 units</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+              <tr><td>PP Granules — Virgin</td><td>Raw Material</td><td>—</td><td>48,000</td><td>10,000 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+              <tr><td>Woven Fabric Rolls</td><td>Raw Material</td><td>240 rolls</td><td>18,600</td><td>20,000 kg</td><td><span class="status-pill status-prod" style="background:rgba(232,160,64,0.2);color:#e8a040;">Reorder Soon</span></td></tr>
+              <tr><td>Shopping Bags</td><td>Finished Goods</td><td>56,000</td><td>3,080</td><td>15,000 units</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+              <tr><td>BOPP Film Roll</td><td>Raw Material</td><td>—</td><td>2,100</td><td>5,000 kg</td><td><span class="status-pill" style="background:rgba(224,96,96,0.2);color:#e06060;">Low Stock</span></td></tr>
+              <tr><td>Heavy Duty Bags</td><td>Finished Goods</td><td>34,000</td><td>6,120</td><td>10,000 units</td><td><span class="status-pill status-new">In Stock</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="tab-products" class="admin-content-tab" style="display:none;">
+      <div class="page-header">
+        <h2>Product Catalog</h2>
+        <button class="btn-sm" onclick="showToast('Add product form coming in full version!')">+ Add Product</button>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table>
+            <thead><tr><th>Product</th><th>Category</th><th>Unit Price</th><th>Pricing By</th><th>MOQ</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>PP Woven Bag — Std</td><td>Finished Bags</td><td>$0.68</td><td>Per Unit</td><td>1,000</td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>PP Woven Bag — HD</td><td>Finished Bags</td><td>$1.10</td><td>Per Unit</td><td>500</td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>Reusable Shopping Bag</td><td>Shopping Bags</td><td>$0.45</td><td>Per Unit</td><td>2,000</td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>BOPP Laminated Bag</td><td>Custom Print</td><td>$1.40</td><td>Per Unit</td><td>5,000</td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>PP Granules — Virgin</td><td>Raw Material</td><td>$1.85</td><td>Per kg</td><td>500 kg</td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>Woven Fabric Roll</td><td>Raw Material</td><td>$2.20</td><td>Per kg</td><td>200 kg</td><td><span class="status-pill status-new">Active</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS -->
+    <div id="tab-customers" class="admin-content-tab" style="display:none;">
+      <div class="page-header">
+        <h2>Customers</h2>
+        <button class="btn-sm" onclick="showToast('Customer form coming soon!')">+ Add Customer</button>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table>
+            <thead><tr><th>Company</th><th>Country</th><th>Contact</th><th>Orders</th><th>Total Value</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td>Selam Trading PLC</td><td>🇦🇪 UAE</td><td>Ahmed Al Farsi</td><td>18</td><td>$214,000</td><td><span class="status-pill status-prod">International</span></td></tr>
+              <tr><td>Ethio Grain PLC</td><td>🇪🇹 Ethiopia</td><td>Bekele Tadesse</td><td>42</td><td>$98,400</td><td><span class="status-pill status-new">Local</span></td></tr>
+              <tr><td>Nairobi Pack Ltd</td><td>🇰🇪 Kenya</td><td>James Kamau</td><td>7</td><td>$54,200</td><td><span class="status-pill status-prod">International</span></td></tr>
+              <tr><td>Al Noor Imports</td><td>🇸🇦 Saudi Arabia</td><td>Khalid Mansour</td><td>12</td><td>$178,600</td><td><span class="status-pill status-prod">International</span></td></tr>
+              <tr><td>Gulf Star Trading</td><td>🇦🇪 UAE</td><td>Fatima Al Rashid</td><td>9</td><td>$126,000</td><td><span class="status-pill status-prod">International</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAFF -->
+    <div id="tab-staff" class="admin-content-tab" style="display:none;">
+      <div class="page-header">
+        <h2>Staff Management</h2>
+        <button class="btn-sm" onclick="showToast('Add staff form coming soon!')">+ Add Staff</button>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table>
+            <thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Phone</th><th>Access Level</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Abebe Kebede</td><td>Admin</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98f9fafdfafdd8fdecf0f1f7e8f9fbf3b6fbf7f5">[email&#160;protected]</a></td><td>+251 911 001</td><td><span class="status-pill status-prod">Full Access</span></td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>Tigist Haile</td><td>Sales Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2155484648525561445549484e5140424a0f424e4c">[email&#160;protected]</a></td><td>+251 911 002</td><td><span class="status-pill status-new">Orders + CRM</span></td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>Dawit Tesfaye</td><td>Warehouse Mgr</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="01656076687541647569686e7160626a2f626e6c">[email&#160;protected]</a></td><td>+251 911 003</td><td><span class="status-pill status-ship">Inventory Only</span></td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>Meron Alemu</td><td>Logistics Mgr</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e030b1c01002e0b1a0607011e0f0d05400d0103">[email&#160;protected]</a></td><td>+251 911 004</td><td><span class="status-pill status-ship">Shipments Only</span></td><td><span class="status-pill status-new">Active</span></td></tr>
+              <tr><td>Yonas Girma</td><td>Sales Rep</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eb9284858a98ab8e9f8382849b8a8880c5888486">[email&#160;protected]</a></td><td>+251 911 005</td><td><span class="status-pill" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);">View Only</span></td><td><span class="status-pill status-new">Active</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../js/main.js"></script>
+<script>
+  let selectedRole = 'Admin';
+
+  document.querySelectorAll('.role-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.role-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedRole = pill.dataset.role;
+    });
+  });
+
+  function doLogin(e) {
+    e.preventDefault();
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboardPage').style.display = 'flex';
+    document.getElementById('adminUserName').textContent = selectedRole + ' · Logged In';
+    showToast('Wel
