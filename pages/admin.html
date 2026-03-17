@@ -182,41 +182,13 @@
     <li><a href="admin.html" class="active">Dashboard</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:12px;" id="adminUserBar">
+    <span style="color:rgba(255,255,255,0.45);font-size:13px;" id="loggedInUser"></span>
     <button id="logoutBtn" style="display:none;background:rgba(224,96,96,0.12);color:#e89090;padding:7px 14px;border-radius:6px;font-size:13px;border:1px solid rgba(224,96,96,0.2);cursor:pointer;">Logout</button>
-    <span style="color:rgba(255,255,255,0.45);font-size:13px;" id="adminUserName">Not logged in</span>
-    <button onclick="logout()" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);padding:7px 14px;border-radius:6px;font-size:13px;border:1px solid rgba(255,255,255,0.1);">Logout</button>
   </div>
 </nav>
 
-<!-- LOGIN SCREEN -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-card">
-    <div class="login-logo">E</div>
-    <h2>Admin Login</h2>
-    <p>Sign in to access the Tita PLC management dashboard</p>
-    <div class="role-select">
-      <div class="role-pill active" data-role="Admin">Admin</div>
-      <div class="role-pill" data-role="Sales Manager">Sales</div>
-      <div class="role-pill" data-role="Warehouse Manager">Warehouse</div>
-      <div class="role-pill" data-role="Logistics Manager">Logistics</div>
-    </div>
-    <form class="login-form" onsubmit="doLogin(event)">
-      <div class="form-group" style="text-align:left;">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="admin@tita-plc.com" value="admin@tita-plc.com" />
-      </div>
-      <div class="form-group" style="text-align:left;">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-input" placeholder="••••••••" value="demo1234" />
-      </div>
-      <button type="submit" class="btn-submit" style="margin-top:8px;">Sign In to Dashboard</button>
-    </form>
-    <p style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.3);">Demo: Any credentials work for this presentation</p>
-  </div>
-</div>
-
 <!-- DASHBOARD -->
-<div class="admin-page" id="dashboardPage" style="display:none;">
+<div class="admin-page" id="dashboardPage">
   <aside class="sidebar-full">
     <div class="sidebar-section-label">Main</div>
     <div class="admin-nav-item active" data-tab="tab-overview"><span class="nav-icon">📊</span> Overview</div>
@@ -486,20 +458,5 @@
 <div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../js/main.js"></script>
-<script>
-  let selectedRole = 'Admin';
-
-  document.querySelectorAll('.role-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.role-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      selectedRole = pill.dataset.role;
-    });
-  });
-
-  function doLogin(e) {
-    e.preventDefault();
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('dashboardPage').style.display = 'flex';
-    document.getElementById('adminUserName').textContent = selectedRole + ' · Logged In';
-    showToast('Wel
+</body>
+</html>
