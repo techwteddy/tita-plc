@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production Report — Tita PLC</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body { background: #0d1a0d; }
+
+    .report-wrap { max-width: 1200px; margin: 0 auto; padding: 100px 24px 60px; }
+
+    .report-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 36px; flex-wrap: wrap; gap: 16px;
+    }
+
+    .report-header h1 { color: white; font-size: 30px; }
+    .report-header p { color: rgba(255,255,255,0.4); font-size: 14px; margin-top: 4px; }
+
+    .summary-cards {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 16px; margin-bottom: 32px;
+    }
+
+    .summary-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 18px;
+      transition: var(--transition);
+    }
+
+    .summary-card:hover { background: rgba(255,255,255,0.07); }
+
+    .summary-icon { font-size: 22px; margin-bottom: 10px; }
+    .summary-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .summary-label { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: .07em; }
+    .summary-sub { font-size: 12px; color: var(--green-400); margin-top: 6px; }
+
+    .panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .panel-title { color: white; font-size: 15px; font-weight: 600; }
+
+    .flow-stages {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 0; padding: 28px 24px;
+      position: relative;
+    }
+
+    .flow-stage {
+      text-align: center; position: relative;
+    }
+
+    .flow-stage:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -10px; top: 24px;
+      color: rgba(255,255,255,0.2); font-size: 18px;
+      z-index: 1;
+    }
+
+    .flow-circle {
+      width: 52px; height: 52px; border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      transition: var(--transition);
+    }
+
+    .flow-circle.active {
+      border-color: var(--green-500);
+      background: rgba(74,154,74,0.15);
+      box-shadow: 0 0 20px rgba(74,154,74,0.2);
+    }
+
+    .flow-name { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 500; margin-bottom: 6px; }
+
+    .flow-in { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .flow-out { font-size: 13px; color: var(--green-300); font-weight: 600; }
+    .flow-waste { font-size: 11px; color: #e89090; margin-top: 2px; }
+
+    .waste-bar-wrap { padding: 24px; }
+
+    .waste-row {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .waste-stage-name {
+      width: 160px; font-size: 13px;
+      color: rgba(255,255,255,0.7); flex-shrink: 0;
+    }
+
+    .waste-bar-track {
+      flex: 1; height: 8px; background: rgba(255,255,255,0.06);
+      border-radius: 100px; overflow: hidden;
+    }
+
+    .waste-bar-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, var(--green-600), #e06060);
+      transition: width 1s ease;
+    }
+
+    .waste-pct {
+      width: 50px; text-align: right;
+      font-size: 13px; font-weight: 600;
+      color: #e89090;
+    }
+
+    .waste-cost-val {
+      width: 100px; text-align: right;
+      font-size: 13px; color: var(--earth-300);
+    }
+
+    .batch-table-wrap { overflow-x: auto; }
+
+    .batch-row { cursor: pointer; }
+    .batch-row:hover td { background: rgba(255,255,255,0.03); }
+
+    .expand-row { display: none; }
+    .expand-row.open { display: table-row; }
+
+    .expand-content {
+      padding: 20px 24px;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .stage-summary-grid {
+      display: grid; grid-template-columns: repeat(6,1fr);
+      gap: 12px;
+    }
+
+    .stage-summary-box {
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px; padding: 12px;
+      text-align: center;
+    }
+
+    .stage-summary-box .s-icon { font-size: 18px; margin-bottom: 6px; }
+    .stage-summary-box .s-name { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .stage-summary-box .s-in { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .stage-summary-box .s-out { font-size: 13px; color: var(--green-300); font-weight: 600; }
+    .stage-summary-box .s-waste { font-size: 11px; color: #e89090; margin-top: 2px; }
+
+    .no-data {
+      text-align: center; padding: 60px 20px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .no-data-icon { font-size: 48px; margin-bottom: 16px; }
+    .no-data h3 { color: rgba(255,255,255,0.5); font-size: 18px; margin-bottom: 8px; }
+    .no-data p { font-size: 14px; }
+
+    @media(max-width:900px) {
+      .summary-cards { grid-template-columns: repeat(2,1fr); }
+      .flow-stages { grid-template-columns: repeat(3,1fr); gap: 16px; }
+      .flow-stage::after { display: none; }
+      .stage-summary-grid { grid-template-columns: repeat(3,1fr); }
+    }
+
+    @media(max-width:600px) {
+      .summary-cards { grid-template-columns: 1fr 1fr; }
+      .waste-stage-name { width: 100px; font-size: 11px; }
+      .waste-cost-val { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tita PLC</span>
+      <span class="nav-logo-sub">Production Report</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <a href="production-entry.html" style="color:var(--green-300);font-size:13px;border:1px solid rgba(74,154,74,0.3);padding:7px 14px;border-radius:6px;">+ New Entry</a>
+    <a href="admin.html" style="color:rgba(255,255,255,0.5);font-size:13px;">← Dashboard</a>
+  </div>
+</nav>
+
+<div class="report-wrap">
+  <div class="report-header">
+    <div>
+      <h1>Production Report</h1>
+      <p id="reportDate">Loading...</p>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <select class="dark-input" id="filterProduct" style="background:rgba(255,255,255,0.07);color:white;border-color:rgba(255,255,255,0.1);padding:8px 14px;width:180px;" onchange="renderAll()">
+        <option value="">All Products</option>
+        <option>Shopping Bags</option>
+        <option>Salt Bags</option>
+        <option>Flour Bags</option>
+        <option>Cereal Bags</option>
+        <option>Charcoal Bags</option>
+      </select>
+      <button class="btn-sm" onclick="loadDemoData()">Load Demo Data</button>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards" id="summaryCards">
+    <div class="summary-card">
+      <div class="summary-icon">🏭</div>
+      <div class="summary-val" style="color:white;" id="s-batches">0</div>
+      <div class="summary-label">Total Batches</div>
+      <div class="summary-sub" id="s-batches-sub">This month</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">⚖️</div>
+      <div class="summary-val" style="color:var(--green-300);" id="s-input">0 kg</div>
+      <div class="summary-label">Total Input</div>
+      <div class="summary-sub" id="s-input-sub">Raw material used</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">📦</div>
+      <div class="summary-val" style="color:var(--earth-300);" id="s-output">0 kg</div>
+      <div class="summary-label">Finished Output</div>
+      <div class="summary-sub" id="s-output-sub">Bags produced</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">🗑️</div>
+      <div class="summary-val" style="color:#e89090;" id="s-waste">0 kg</div>
+      <div class="summary-label">Total Waste</div>
+      <div class="summary-sub" id="s-waste-pct">0% yield loss</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-icon">💸</div>
+      <div class="summary-val" style="color:#e8c080;" id="s-cost">0 ETB</div>
+      <div class="summary-label">Waste Cost</div>
+      <div class="summary-sub">Material lost value</div>
+    </div>
+  </div>
+
+  <!-- Material Flow -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">🔄 Material Flow — Latest Batch</div>
+      <span style="font-size:12px;color:rgba(255,255,255,0.3);" id="flowBatchId">No batch selected</span>
+    </div>
+    <div class="flow-stages" id="flowStages">
+      <div class="flow-stage">
+        <div class="flow-circle active">🔥</div>
+        <div class="flow-name">Extrusion</div>
+        <div class="flow-in">In: <span id="f0-in">—</span></div>
+        <div class="flow-out">Out: <span id="f0-out">—</span></div>
+        <div class="flow-waste">Waste: <span id="f0-waste">—</span></div>
+      </div>
+      <div class="flow-stage">
+        <div class="flow-circle">🧵</div>
+        <div class="flow-name">Weaving</div>
+        <div class="flow-in">In: <span id="f1-in">—</span></div>
+        <div class="flow-out">Out: <span id="f1-out">—</span></div>
+        <div class="flow-waste">Waste: <span id="f1-waste">—</span></div>
+      </div>
+      <div class="flow-stage">
+        <div class="flow-circle">🖨️</div>
+        <div class="flow-name">Printing</div>
+        <div class="flow-in">In: <span id="f2-in">—</span></div>
+        <div class="flow-out">Out: <span id="f2-out">—</span></div>
+        <div class="flow-waste">Waste: <span id="f2-waste">—</span></div>
+      </div>
+      <div class="flow-stage">
+        <div class="flow-circle">✂️</div>
+        <div class="flow-name">Cutting</div>
+        <div class="flow-in">In: <span id="f3-in">—</span></div>
+        <div class="flow-out">Out: <span id="f3-out">—</span></div>
+        <div class="flow-waste">Waste: <span id="f3-waste">—</span></div>
+      </div>
+      <div class="flow-stage">
+        <div class="flow-circle">✅</div>
+        <div class="flow-name">QC</div>
+        <div class="flow-in">In: <span id="f4-in">—</span></div>
+        <div class="flow-out">Out: <span id="f4-out">—</span></div>
+        <div class="flow-waste">Waste: <span id="f4-waste">—</span></div>
+      </div>
+      <div class="flow-stage">
+        <div class="flow-circle">📦</div>
+        <div class="flow-name">Packaging</div>
+        <div class="flow-in">In: <span id="f5-in">—</span></div>
+        <div class="flow-out">Out: <span id="f5-out">—</span></div>
+        <div class="flow-waste" id="f5-yield" style="color:var(--earth-300);">Yield: —</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Waste by Stage -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">📊 Waste by Production Stage</div>
+    </div>
+    <div class="waste-bar-wrap" id="wasteByStage">
+      <div class="no-data">
+        <div class="no-data-icon">📊</div>
+        <h3>No data yet</h3>
+        <p>Load demo data or submit a batch to see waste analysis</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Batch History -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">📋 Batch History</div>
+      <a href="production-entry.html" class="btn-sm">+ New Batch</a>
+    </div>
+    <div class="batch-table-wrap">
+      <table id="batchTable">
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Product</th>
+            <th>Worker</th>
+            <th>Date</th>
+            <th>Input (kg)</th>
+            <th>Output (kg)</th>
+            <th>Waste (kg)</th>
+            <th>Waste %</th>
+            <th>Waste Cost</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody id="batchTableBody">
+          <tr>
+            <td colspan="10">
+              <div class="no-data">
+                <div class="no-data-icon">🏭</div>
+                <h3>No batches recorded yet</h3>
+                <p>Workers can submit batches from the <a href="production-entry.html" style="color:var(--green-300);">Production Entry</a> page</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
+
+<script src="../js/main.js"></script>
+<script>
+  document.getElementById('reportDate').textContent = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  const STAGES = ['Extrusion','Weaving','Printing','Cutting & Sewing','Quality Check','Packaging'];
+  const STAGE_ICONS = ['🔥','🧵','🖨️','✂️','✅','📦'];
+
+  // Demo data
+  function loadDemoData() {
+    const demo = [
+      {
+        id: 'BATCH-2025-0041', product: 'Flour Bags', worker: 'Dawit Tesfaye',
+        shift: 'Morning Shift (6AM–2PM)', date: '3/16/2025',
+        stages: {
+          0: { input: 100, output: 94, saved: true },
+          1: { input: 94, output: 91.5, saved: true },
+          2: { input: 91.5, output: 90.2, saved: true },
+          3: { input: 90.2, output: 88.4, saved: true },
+          4: { total: 1200, passed: 1160, rejected: 40, rejectKg: 3.2, saved: true },
+          5: { bags: 1160, weight: 85.2, bundles: 23, saved: true }
+        },
+        rawCost: 85
+      },
+      {
+        id: 'BATCH-2025-0040', product: 'Salt Bags', worker: 'Yonas Girma',
+        shift: 'Afternoon Shift (2PM–10PM)', date: '3/15/2025',
+        stages: {
+          0: { input: 150, output: 141, saved: true },
+          1: { input: 141, output: 138.2, saved: true },
+          2: { input: 138.2, output: 136.8, saved: true },
+          3: { input: 136.8, output: 133.5, saved: true },
+          4: { total: 1800, passed: 1750, rejected: 50, rejectKg: 4.5, saved: true },
+          5: { bags: 1750, weight: 129, bundles: 35, saved: true }
+        },
+        rawCost: 85
+      },
+      {
+        id: 'BATCH-2025-0039', product: 'Shopping Bags', worker: 'Meron Alemu',
+        shift: 'Morning Shift (6AM–2PM)', date: '3/14/2025',
+        stages: {
+          0: { input: 80, output: 75.5, saved: true },
+          1: { input: 75.5, output: 73.8, saved: true },
+          2: { input: 73.8, output: 72.9, saved: true },
+          3: { input: 72.9, output: 71.2, saved: true },
+          4: { total: 950, passed: 920, rejected: 30, rejectKg: 2.1, saved: true },
+          5: { bags: 920, weight: 69.1, bundles: 18, saved: true }
+        },
+        rawCost: 85
+      }
+    ];
+
+    try {
+      localStorage.setItem('tita_batches', JSON.stringify(demo));
+    } catch(e) {}
+    renderAll();
+    showToast('Demo data loaded!');
+  }
+
+  function getBatches() {
+    try {
+      return JSON.parse(localStorage.getItem('tita_batches') || '[]');
+    } catch(e) { return []; }
+  }
+
+  function getStageInput(batch, s) {
+    if (s === 0) return batch.stages[0]?.input || 0;
+    return batch.stages[s]?.input || batch.stages[s-1]?.output || 0;
+  }
+
+  function getStageOutput(batch, s) {
+    if (s === 5) return batch.stages[5]?.weight || 0;
+    if (s === 4) {
+      const rejectKg = batch.stages[4]?.rejectKg || 0;
+      const prevOut = batch.stages[3]?.output || 0;
+      return prevOut - rejectKg;
+    }
+    return batch.stages[s]?.output || 0;
+  }
+
+  function renderAll() {
+    const filter = document.getElementById('filterProduct').value;
+    let batches = getBatches();
+    if (filter) batches = batches.filter(b => b.product === filter);
+    renderSummary(batches);
+    renderFlow(batches[0]);
+    renderWasteChart(batches);
+    renderTable(batches);
+  }
+
+  function renderSummary(batches) {
+    let totalInput = 0, totalOutput = 0, totalWasteCost = 0;
+    batches.forEach(b => {
+      const input = b.stages[0]?.input || 0;
+      const output = b.stages[5]?.weight || 0;
+      const waste = input - output;
+      totalInput += input;
+      totalOutput += output;
+      totalWasteCost += waste * (b.rawCost || 85);
+    });
+    const totalWaste = totalInput - totalOutput;
+    const wastePct = totalInput > 0 ? ((totalWaste / totalInput) * 100).toFixed(1) : 0;
+    document.getElementById('s-batches').textContent = batches.length;
+    document.getElementById('s-input').textContent = totalInput.toFixed(1) + ' kg';
+    document.getElementById('s-output').textContent = totalOutput.toFixed(1) + ' kg';
+    document.getElementById('s-waste').textContent = totalWaste.toFixed(1) + ' kg';
+    document.getElementById('s-waste-pct').textContent = wastePct + '% yield loss';
+    document.getElementById('s-cost').textContent = Math.round(totalWasteCost).toLocaleString() + ' ETB';
+  }
+
+  function renderFlow(batch) {
+    if (!batch) return;
+    document.getElementById('flowBatchId').textContent = batch.id + ' — ' + batch.product;
+    for (let s = 0; s < 6; s++) {
+      const inn = getStageInput(batch, s);
+      const out = getStageOutput(batch, s);
+      const waste = Math.max(0, inn - out);
+      if (s < 5) {
+        document.getElementById(`f${s}-in`).textContent = inn.toFixed(1) + ' kg';
+        document.getElementById(`f${s}-out`).textContent = out.toFixed(1) + ' kg';
+        document.getElementById(`f${s}-waste`).textContent = waste.toFixed(1) + ' kg';
+      } else {
+        const initialInput = batch.stages[0]?.input || 0;
+        const yieldPct = initialInput > 0 ? ((out / initialInput) * 100).toFixed(1) : 0;
+        document.getElementById('f5-in').textContent = inn.toFixed(1) + ' kg';
+        document.getElementById('f5-out').textContent = out.toFixed(1) + ' kg';
+        document.getElementById('f5-yield').textContent = `Yield: ${yieldPct}%`;
+      }
+      const circle = document.querySelectorAll('.flow-circle')[s];
+      circle.classList.toggle('active', batch.stages[s]?.saved);
+    }
+  }
+
+  function renderWasteChart(batches) {
+    if (!batches.length) return;
+    const stageWaste = [0,0,0,0,0];
+    batches.forEach(b => {
+      for (let s = 0; s < 5; s++) {
+        const inn = getStageInput(b, s);
+        const out = getStageOutput(b, s);
+        stageWaste[s] += Math.max(0, inn - out);
+      }
+    });
+    const maxWaste = Math.max(...stageWaste, 1);
+    const rawCost = batches[0]?.rawCost || 85;
+    const html = stageWaste.map((w, i) => {
+      const pct = (w / maxWaste * 100).toFixed(0);
+      const wastePctOfInput = batches.reduce((acc, b) => acc + getStageInput(b, i), 0);
+      const displayPct = wastePctOfInput > 0 ? ((w / wastePctOfInput) * 100).toFixed(1) : 0;
+      const cost = Math.round(w * rawCost);
+      return `
+        <div class="waste-row">
+          <div class="waste-stage-name">${STAGE_ICONS[i]} ${STAGES[i]}</div>
+          <div class="waste-bar-track"><div class="waste-bar-fill" style="width:${pct}%"></div></div>
+          <div class="waste-pct">${displayPct}%</div>
+          <div class="waste-cost-val">${cost.toLocaleString()} ETB</div>
+        </div>`;
+    }).join('');
+    document.getElementById('wasteByStage').innerHTML = html;
+  }
+
+  function renderTable(batches) {
+    if (!batches.length) {
+      document.getElementById('batchTableBody').innerHTML = `
+        <tr><td colspan="10">
+          <div class="no-data">
+            <div class="no-data-icon">🏭</div>
+            <h3>No batches recorded yet</h3>
+            <p>Workers can submit batches from the <a href="production-entry.html" style="color:var(--green-300);">Production Entry</a> page</p>
+          </div>
+        </td></tr>`;
+      return;
+    }
+
+    const rows = batches.map((b, idx) => {
+      const input = b.stages[0]?.input || 0;
+      const output = b.stages[5]?.weight || 0;
+      const waste = Math.max(0, input - output);
+      const wastePct = input > 0 ? ((waste / input) * 100).toFixed(1) : 0;
+      const wasteCost = Math.round(waste * (b.rawCost || 85));
+
+      const stageDetails = [0,1,2,3,4,5].map(s => {
+        const inn = getStageInput(b, s);
+        const out = getStageOutput(b, s);
+        const w = Math.max(0, inn - out);
+        return `
+          <div class="stage-summary-box">
+            <div class="s-icon">${STAGE_ICONS[s]}</div>
+            <div class="s-name">${STAGES[s]}</div>
+            <div class="s-in">In: ${inn.toFixed(1)} kg</div>
+            <div class="s-out">Out: ${out.toFixed(1)} kg</div>
+            <div class="s-waste">Waste: ${w.toFixed(1)} kg</div>
+          </div>`;
+      }).join('');
+
+      return `
+        <tr class="batch-row" onclick="toggleExpand(${idx})">
+          <td><strong style="color:var(--green-300)">${b.id}</strong></td>
+          <td>${b.product}</td>
+          <td>${b.worker}</td>
+          <td>${b.date}</td>
+          <td>${input.toFixed(1)}</td>
+          <td style="color:var(--green-300)">${output.toFixed(1)}</td>
+          <td style="color:#e89090">${waste.toFixed(1)}</td>
+          <td style="color:#e89090">${wastePct}%</td>
+          <td style="color:var(--earth-300)">${wasteCost.toLocaleString()} ETB</td>
+          <td><button class="btn-sm" onclick="event.stopPropagation();toggleExpand(${idx})">▼ View</button></td>
+        </tr>
+        <tr class="expand-row" id="expand-${idx}">
+          <td colspan="10">
+            <div class="expand-content">
+              <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:12px;">Stage-by-Stage Breakdown — ${b.id}</div>
+              <div class="stage-summary-grid">${stageDetails}</div>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+
+    document.getElementById('batchTableBody').innerHTML = rows;
+  }
+
+  function toggleExpand(idx) {
+    const row = document.getElementById(`expand-${idx}`);
+    row.classList.toggle('open');
+    const btn = document.querySelectorAll('.batch-row')[idx]?.querySelector('.btn-sm');
+    if (btn) btn.textContent = row.classList.contains('open') ? '▲ Hide' : '▼ View';
+  }
+
+  // Init
+  renderAll();
+</script>
+</body>
+</html>
