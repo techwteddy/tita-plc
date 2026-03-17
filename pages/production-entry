@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production Entry — Tita PLC</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body { background: #0d1a0d; min-height: 100vh; }
+
+    .entry-wrap {
+      max-width: 860px; margin: 0 auto;
+      padding: 100px 24px 60px;
+    }
+
+    .entry-header {
+      text-align: center; margin-bottom: 40px;
+    }
+
+    .entry-header h1 {
+      color: white; font-size: 32px; margin-bottom: 8px;
+    }
+
+    .entry-header p {
+      color: rgba(255,255,255,0.45); font-size: 15px;
+    }
+
+    .stage-tabs {
+      display: flex; gap: 8px;
+      overflow-x: auto; padding-bottom: 8px;
+      margin-bottom: 32px;
+      scrollbar-width: none;
+    }
+
+    .stage-tabs::-webkit-scrollbar { display: none; }
+
+    .stage-tab {
+      flex-shrink: 0;
+      padding: 10px 18px; border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.55);
+      font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: var(--transition);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .stage-tab:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    .stage-tab.active {
+      background: var(--green-700);
+      border-color: var(--green-500);
+      color: white;
+    }
+
+    .stage-tab .tab-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+    }
+
+    .stage-tab.active .tab-num { background: rgba(255,255,255,0.25); }
+    .stage-tab.completed .tab-num { background: var(--green-500); }
+    .stage-tab.completed { border-color: rgba(74,154,74,0.4); }
+
+    .entry-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; overflow: hidden;
+    }
+
+    .entry-card-header {
+      background: rgba(0,0,0,0.2);
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 16px;
+    }
+
+    .stage-icon-big {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--green-600), var(--green-800));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+
+    .entry-card-header h2 {
+      color: white; font-size: 20px; margin-bottom: 4px;
+    }
+
+    .entry-card-header p {
+      color: rgba(255,255,255,0.4); font-size: 13px;
+    }
+
+    .entry-card-body { padding: 28px; }
+
+    .section-divider {
+      font-size: 11px; color: rgba(255,255,255,0.3);
+      text-transform: uppercase; letter-spacing: .1em;
+      margin: 24px 0 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .section-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .form-row-3 {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .dark-input {
+      width: 100%; padding: 12px 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 14px; outline: none;
+      transition: var(--transition);
+    }
+
+    .dark-input::placeholder { color: rgba(255,255,255,0.25); }
+
+    .dark-input:focus {
+      border-color: var(--green-500);
+      box-shadow: 0 0 0 3px rgba(74,154,74,0.15);
+    }
+
+    .dark-label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: rgba(255,255,255,0.5); margin-bottom: 6px;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+
+    .mix-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px; margin-bottom: 8px;
+    }
+
+    .mix-total {
+      display: flex; justify-content: flex-end;
+      font-size: 13px; color: rgba(255,255,255,0.4);
+      margin-top: 8px;
+    }
+
+    .mix-total span { color: white; font-weight: 600; margin-left: 6px; }
+    .mix-total.error span { color: #e06060; }
+    .mix-total.ok span { color: var(--green-400); }
+
+    .live-calc {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 20px 24px;
+      margin: 24px 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .calc-item { text-align: center; }
+
+    .calc-item-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .calc-item-label {
+      font-size: 11px; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; letter-spacing: .07em;
+    }
+
+    .val-green { color: var(--green-300); }
+    .val-gold { color: var(--earth-300); }
+    .val-red { color: #e89090; }
+    .val-white { color: white; }
+
+    .notes-area {
+      width: 100%; min-height: 80px; padding: 12px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 14px;
+      outline: none; resize: vertical;
+      transition: var(--transition);
+    }
+
+    .notes-area:focus { border-color: var(--green-500); }
+    .notes-area::placeholder { color: rgba(255,255,255,0.2); }
+
+    .btn-row {
+      display: flex; gap: 12px; justify-content: flex-end;
+      margin-top: 24px;
+    }
+
+    .btn-save {
+      padding: 13px 32px;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      color: white; border-radius: var(--radius);
+      font-size: 14px; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(74,154,74,0.3);
+      transition: var(--transition);
+    }
+
+    .btn-save:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(74,154,74,0.4); }
+
+    .btn-next {
+      padding: 13px 32px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white; border-radius: var(--radius);
+      font-size: 14px; font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .btn-next:hover { background: rgba(255,255,255,0.13); }
+
+    .stage-panel { display: none; }
+    .stage-panel.active { display: block; }
+
+    .warning-box {
+      background: rgba(232,160,64,0.1);
+      border: 1px solid rgba(232,160,64,0.25);
+      border-radius: 10px; padding: 14px 18px;
+      color: #e8c080; font-size: 13px;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .success-screen {
+      text-align: center; padding: 60px 20px;
+      display: none;
+    }
+
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin: 0 auto 24px;
+      box-shadow: 0 8px 32px rgba(74,154,74,0.4);
+    }
+
+    .success-screen h2 { color: white; font-size: 28px; margin-bottom: 12px; }
+    .success-screen p { color: rgba(255,255,255,0.5); font-size: 15px; margin-bottom: 32px; }
+
+    select.dark-input option { background: #1a2e1a; }
+
+    @media(max-width: 640px) {
+      .form-row-3 { grid-template-columns: 1fr; }
+      .mix-row { grid-template-columns: 1fr; }
+      .live-calc { grid-template-columns: 1fr 1fr; }
+      .entry-wrap { padding: 88px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">T</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tita PLC</span>
+      <span class="nav-logo-sub">Production Entry</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span style="color:rgba(255,255,255,0.4);font-size:13px;" id="workerName">Worker Entry Form</span>
+    <a href="admin.html" style="color:var(--green-300);font-size:13px;">← Dashboard</a>
+  </div>
+</nav>
+
+<div class="entry-wrap">
+  <div class="entry-header">
+    <h1>Production Stage Entry</h1>
+    <p>Enter data for each production stage. All entries are saved and visible to management.</p>
+  </div>
+
+  <!-- Batch Info -->
+  <div class="entry-card" style="margin-bottom:24px;">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">📋</div>
+      <div>
+        <h2>Batch Information</h2>
+        <p>Fill in the batch details before entering stage data</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Batch / Production ID</label>
+          <input type="text" class="dark-input" id="batchId" placeholder="e.g. BATCH-2025-0041" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Product Type</label>
+          <select class="dark-input" id="productType">
+            <option value="">Select product...</option>
+            <option>Shopping Bags</option>
+            <option>Salt Bags</option>
+            <option>Flour Bags</option>
+            <option>Cereal Bags</option>
+            <option>Charcoal Bags</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Worker Name</label>
+          <input type="text" class="dark-input" id="workerNameInput" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Date & Shift</label>
+          <select class="dark-input" id="shift">
+            <option>Morning Shift (6AM–2PM)</option>
+            <option>Afternoon Shift (2PM–10PM)</option>
+            <option>Night Shift (10PM–6AM)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="dark-label">Raw Material Cost per kg (ETB)</label>
+        <input type="number" class="dark-input" id="rawCostEtb" placeholder="e.g. 85" value="85" style="max-width:280px;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage Tabs -->
+  <div class="stage-tabs" id="stageTabs">
+    <div class="stage-tab active" data-stage="0"><div class="tab-num">1</div> Extrusion</div>
+    <div class="stage-tab" data-stage="1"><div class="tab-num">2</div> Weaving</div>
+    <div class="stage-tab" data-stage="2"><div class="tab-num">3</div> Printing</div>
+    <div class="stage-tab" data-stage="3"><div class="tab-num">4</div> Cutting & Sewing</div>
+    <div class="stage-tab" data-stage="4"><div class="tab-num">5</div> Quality Check</div>
+    <div class="stage-tab" data-stage="5"><div class="tab-num">6</div> Packaging</div>
+  </div>
+
+  <!-- STAGE 1: Extrusion -->
+  <div class="entry-card stage-panel active" id="stage-0">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">🔥</div>
+      <div>
+        <h2>Stage 1 — Extrusion & Tape Making</h2>
+        <p>Raw material melted and stretched into flat plastic tapes</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="section-divider">Raw Material Mix Input</div>
+      <div class="mix-row">
+        <div class="form-group">
+          <label class="dark-label">PP Pellets (kg)</label>
+          <input type="number" class="dark-input mix-input" id="s0-pp" placeholder="e.g. 80" min="0" oninput="updateMix(0)" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Filler / CaCO₃ (kg)</label>
+          <input type="number" class="dark-input mix-input" id="s0-filler" placeholder="e.g. 12" min="0" oninput="updateMix(0)" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Recycled Material (kg)</label>
+          <input type="number" class="dark-input mix-input" id="s0-recycle" placeholder="e.g. 8" min="0" oninput="updateMix(0)" />
+        </div>
+      </div>
+      <div class="mix-total" id="s0-mix-total">Total Input: <span>0 kg</span></div>
+
+      <div class="section-divider">Output & Waste</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Output — Tape Produced (kg)</label>
+          <input type="number" class="dark-input" id="s0-output" placeholder="e.g. 94" min="0" oninput="calcStage(0)" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Machine Speed (m/min) — Optional</label>
+          <input type="number" class="dark-input" id="s0-speed" placeholder="e.g. 120" min="0" />
+        </div>
+      </div>
+
+      <div class="live-calc" id="s0-calc">
+        <div class="calc-item">
+          <div class="calc-item-val val-white" id="s0-total-in">0 kg</div>
+          <div class="calc-item-label">Total Input</div>
+        </div>
+        <div class="calc-item">
+          <div class="calc-item-val val-green" id="s0-total-out">0 kg</div>
+          <div class="calc-item-label">Output</div>
+        </div>
+        <div class="calc-item">
+          <div class="calc-item-val val-red" id="s0-waste-kg">0 kg</div>
+          <div class="calc-item-label">Waste</div>
+        </div>
+        <div class="calc-item">
+          <div class="calc-item-val val-gold" id="s0-waste-cost">0 ETB</div>
+          <div class="calc-item-label">Waste Cost</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="dark-label">Notes / Issues</label>
+        <textarea class="notes-area" id="s0-notes" placeholder="Any machine issues, observations, or comments..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStage(0)">Save Stage 1</button>
+        <button class="btn-next" onclick="goToStage(1)">Next: Weaving →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 2: Weaving -->
+  <div class="entry-card stage-panel" id="stage-1">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">🧵</div>
+      <div>
+        <h2>Stage 2 — Weaving</h2>
+        <p>Plastic tapes woven into fabric rolls on circular looms</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="section-divider">Input & Output</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Tape Input (kg)</label>
+          <input type="number" class="dark-input" id="s1-input" placeholder="From extrusion output" min="0" oninput="calcStageSimple(1)" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Fabric Output (kg)</label>
+          <input type="number" class="dark-input" id="s1-output" placeholder="e.g. 92" min="0" oninput="calcStageSimple(1)" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Number of Looms Running</label>
+          <input type="number" class="dark-input" id="s1-looms" placeholder="e.g. 8" min="0" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Fabric Rolls Produced</label>
+          <input type="number" class="dark-input" id="s1-rolls" placeholder="e.g. 24" min="0" />
+        </div>
+      </div>
+
+      <div class="live-calc" id="s1-calc">
+        <div class="calc-item"><div class="calc-item-val val-white" id="s1-total-in">0 kg</div><div class="calc-item-label">Input</div></div>
+        <div class="calc-item"><div class="calc-item-val val-green" id="s1-total-out">0 kg</div><div class="calc-item-label">Output</div></div>
+        <div class="calc-item"><div class="calc-item-val val-red" id="s1-waste-kg">0 kg</div><div class="calc-item-label">Waste</div></div>
+        <div class="calc-item"><div class="calc-item-val val-gold" id="s1-waste-cost">0 ETB</div><div class="calc-item-label">Waste Cost</div></div>
+      </div>
+
+      <div class="form-group">
+        <label class="dark-label">Notes / Issues</label>
+        <textarea class="notes-area" id="s1-notes" placeholder="Loom breakdowns, quality issues..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStage(1)">Save Stage 2</button>
+        <button class="btn-next" onclick="goToStage(2)">Next: Printing →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 3: Printing -->
+  <div class="entry-card stage-panel" id="stage-2">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">🖨️</div>
+      <div>
+        <h2>Stage 3 — Printing</h2>
+        <p>Logos and designs printed onto woven fabric</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="section-divider">Input & Output</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Fabric Input (kg)</label>
+          <input type="number" class="dark-input" id="s2-input" placeholder="From weaving output" min="0" oninput="calcStageSimple(2)" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Printed Fabric Output (kg)</label>
+          <input type="number" class="dark-input" id="s2-output" placeholder="e.g. 91" min="0" oninput="calcStageSimple(2)" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Number of Colors Used</label>
+          <input type="number" class="dark-input" id="s2-colors" placeholder="e.g. 2" min="1" max="6" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Ink Used (kg)</label>
+          <input type="number" class="dark-input" id="s2-ink" placeholder="e.g. 1.2" step="0.1" min="0" />
+        </div>
+      </div>
+
+      <div class="live-calc">
+        <div class="calc-item"><div class="calc-item-val val-white" id="s2-total-in">0 kg</div><div class="calc-item-label">Input</div></div>
+        <div class="calc-item"><div class="calc-item-val val-green" id="s2-total-out">0 kg</div><div class="calc-item-label">Output</div></div>
+        <div class="calc-item"><div class="calc-item-val val-red" id="s2-waste-kg">0 kg</div><div class="calc-item-label">Waste</div></div>
+        <div class="calc-item"><div class="calc-item-val val-gold" id="s2-waste-cost">0 ETB</div><div class="calc-item-label">Waste Cost</div></div>
+      </div>
+
+      <div class="form-group">
+        <label class="dark-label">Notes / Issues</label>
+        <textarea class="notes-area" id="s2-notes" placeholder="Print quality, color issues..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStage(2)">Save Stage 3</button>
+        <button class="btn-next" onclick="goToStage(3)">Next: Cutting & Sewing →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 4: Cutting & Sewing -->
+  <div class="entry-card stage-panel" id="stage-3">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">✂️</div>
+      <div>
+        <h2>Stage 4 — Cutting & Sewing</h2>
+        <p>Fabric cut to bag size and bottoms stitched</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="section-divider">Input & Output</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Fabric Input (kg)</label>
+          <input type="number" class="dark-input" id="s3-input" placeholder="From printing output" min="0" oninput="calcStageSimple(3)" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Bags Output (kg)</label>
+          <input type="number" class="dark-input" id="s3-output" placeholder="e.g. 89" min="0" oninput="calcStageSimple(3)" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Number of Bags Produced</label>
+          <input type="number" class="dark-input" id="s3-bags" placeholder="e.g. 5000" min="0" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Thread Used (kg)</label>
+          <input type="number" class="dark-input" id="s3-thread" placeholder="e.g. 0.8" step="0.1" min="0" />
+        </div>
+      </div>
+
+      <div class="live-calc">
+        <div class="calc-item"><div class="calc-item-val val-white" id="s3-total-in">0 kg</div><div class="calc-item-label">Input</div></div>
+        <div class="calc-item"><div class="calc-item-val val-green" id="s3-total-out">0 kg</div><div class="calc-item-label">Output</div></div>
+        <div class="calc-item"><div class="calc-item-val val-red" id="s3-waste-kg">0 kg</div><div class="calc-item-label">Waste</div></div>
+        <div class="calc-item"><div class="calc-item-val val-gold" id="s3-waste-cost">0 ETB</div><div class="calc-item-label">Waste Cost</div></div>
+      </div>
+
+      <div class="form-group">
+        <label class="dark-label">Notes / Issues</label>
+        <textarea class="notes-area" id="s3-notes" placeholder="Cutting misalignments, sewing issues..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStage(3)">Save Stage 4</button>
+        <button class="btn-next" onclick="goToStage(4)">Next: Quality Check →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 5: Quality Check -->
+  <div class="entry-card stage-panel" id="stage-4">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">✅</div>
+      <div>
+        <h2>Stage 5 — Quality Check</h2>
+        <p>Bags inspected and defective ones removed</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="section-divider">Inspection Results</div>
+      <div class="form-row-3">
+        <div class="form-group">
+          <label class="dark-label">Total Bags Inspected</label>
+          <input type="number" class="dark-input" id="s4-total" placeholder="e.g. 5000" min="0" oninput="calcQC()" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Bags Passed ✅</label>
+          <input type="number" class="dark-input" id="s4-passed" placeholder="e.g. 4850" min="0" oninput="calcQC()" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Bags Rejected ❌</label>
+          <input type="number" class="dark-input" id="s4-rejected" placeholder="e.g. 150" min="0" oninput="calcQC()" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="dark-label">Weight of Rejected Bags (kg)</label>
+          <input type="number" class="dark-input" id="s4-reject-kg" placeholder="e.g. 3.2" step="0.1" min="0" oninput="calcQC()" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Rejection Reason</label>
+          <select class="dark-input" id="s4-reason">
+            <option>Print defect</option>
+            <option>Wrong size</option>
+            <option>Weak stitching</option>
+            <option>Torn fabric</option>
+            <option>Color mismatch</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="live-calc">
+        <div class="calc-item"><div class="calc-item-val val-white" id="s4-total-bags">0</div><div class="calc-item-label">Total Bags</div></div>
+        <div class="calc-item"><div class="calc-item-val val-green" id="s4-pass-rate">0%</div><div class="calc-item-label">Pass Rate</div></div>
+        <div class="calc-item"><div class="calc-item-val val-red" id="s4-reject-count">0</div><div class="calc-item-label">Rejected</div></div>
+        <div class="calc-item"><div class="calc-item-val val-gold" id="s4-reject-cost">0 ETB</div><div class="calc-item-label">Rejection Cost</div></div>
+      </div>
+
+      <div class="form-group">
+        <label class="dark-label">Notes</label>
+        <textarea class="notes-area" id="s4-notes" placeholder="Quality observations..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStage(4)">Save Stage 5</button>
+        <button class="btn-next" onclick="goToStage(5)">Next: Packaging →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 6: Packaging -->
+  <div class="entry-card stage-panel" id="stage-5">
+    <div class="entry-card-header">
+      <div class="stage-icon-big">📦</div>
+      <div>
+        <h2>Stage 6 — Packaging</h2>
+        <p>Finished bags bundled and prepared for shipping</p>
+      </div>
+    </div>
+    <div class="entry-card-body">
+      <div class="section-divider">Final Output</div>
+      <div class="form-row-3">
+        <div class="form-group">
+          <label class="dark-label">Bags Packaged</label>
+          <input type="number" class="dark-input" id="s5-bags" placeholder="e.g. 4850" min="0" oninput="calcFinal()" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Bags per Bundle</label>
+          <input type="number" class="dark-input" id="s5-per-bundle" placeholder="e.g. 50" min="0" oninput="calcFinal()" />
+        </div>
+        <div class="form-group">
+          <label class="dark-label">Total Weight (kg)</label>
+          <input type="number" class="dark-input" id="s5-weight" placeholder="e.g. 87" min="0" oninput="calcFinal()" />
+        </div>
+      </div>
+
+      <div class="live-calc">
+        <div class="calc-item"><div class="calc-item-val val-green" id="s5-total-bags">0</div><div class="calc-item-label">Total Bags</div></div>
+        <div class="calc-item"><div class="calc-item-val val-white" id="s5-bundles">0</div><div class="calc-item-label">Bundles</div></div>
+        <div class="calc-item"><div class="calc-item-val val-gold" id="s5-final-weight">0 kg</div><div class="calc-item-label">Final Weight</div></div>
+        <div class="calc-item"><div class="calc-item-val val-red" id="s5-total-waste">0%</div><div class="calc-item-label">Overall Yield Loss</div></div>
+      </div>
+
+      <div class="form-group">
+        <label class="dark-label">Notes</label>
+        <textarea class="notes-area" id="s5-notes" placeholder="Packaging notes, storage location..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStage(5)">Save Stage 6</button>
+        <button class="btn-next" style="background:linear-gradient(135deg,var(--earth-500),var(--earth-700));border:none;" onclick="submitBatch()">✅ Submit Full Batch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>Batch Submitted!</h2>
+    <p>All production stages have been saved successfully.<br/>Management can now view this batch in the dashboard.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-save" onclick="resetForm()">Enter New Batch</button>
+      <a href="production-report.html" class="btn-next" style="display:inline-flex;align-items:center;padding:13px 32px;">View Production Report →</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"><span>✅</span><span class="toast-msg">Saved!</span></div>
+
+<script src="../js/main.js"></script>
+<script>
+  const stageData = {};
+  let rawCostPerKg = 85;
+
+  // Update cost from input
+  document.getElementById('rawCostEtb').addEventListener('input', function() {
+    rawCostPerKg = parseFloat(this.value) || 85;
+    // Recalculate all stages
+    updateMix(0);
+    [1,2,3].forEach(i => calcStageSimple(i));
+    calcQC(); calcFinal();
+  });
+
+  // Stage tab switching
+  document.querySelectorAll('.stage-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      goToStage(parseInt(tab.dataset.stage));
+    });
+  });
+
+  function goToStage(idx) {
+    document.querySelectorAll('.stage-tab').forEach((t,i) => {
+      t.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.stage-panel').forEach((p,i) => {
+      p.classList.toggle('active', i === idx);
+    });
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  }
+
+  // Stage 0 — mix calc
+  function updateMix(stage) {
+    const pp = parseFloat(document.getElementById('s0-pp').value) || 0;
+    const filler = parseFloat(document.getElementById('s0-filler').value) || 0;
+    const recycle = parseFloat(document.getElementById('s0-recycle').value) || 0;
+    const total = pp + filler + recycle;
+    const el = document.getElementById('s0-mix-total');
+    el.innerHTML = `Total Input: <span>${total.toFixed(1)} kg</span>`;
+    el.className = 'mix-total' + (total > 0 ? ' ok' : '');
+    document.getElementById('s0-total-in').textContent = total.toFixed(1) + ' kg';
+    stageData[0] = stageData[0] || {};
+    stageData[0].input = total;
+    calcStage(0);
+  }
+
+  function calcStage(stage) {
+    const input = stageData[0]?.input || 0;
+    const output = parseFloat(document.getElementById('s0-output').value) || 0;
+    const waste = Math.max(0, input - output);
+    const wasteCost = waste * rawCostPerKg;
+    document.getElementById('s0-total-in').textContent = input.toFixed(1) + ' kg';
+    document.getElementById('s0-total-out').textContent = output.toFixed(1) + ' kg';
+    document.getElementById('s0-waste-kg').textContent = waste.toFixed(1) + ' kg';
+    document.getElementById('s0-waste-cost').textContent = wasteCost.toLocaleString() + ' ETB';
+  }
+
+  function calcStageSimple(s) {
+    const input = parseFloat(document.getElementById(`s${s}-input`).value) || 0;
+    const output = parseFloat(document.getElementById(`s${s}-output`).value) || 0;
+    const waste = Math.max(0, input - output);
+    const wasteCost = waste * rawCostPerKg;
+    document.getElementById(`s${s}-total-in`).textContent = input.toFixed(1) + ' kg';
+    document.getElementById(`s${s}-total-out`).textContent = output.toFixed(1) + ' kg';
+    document.getElementById(`s${s}-waste-kg`).textContent = waste.toFixed(1) + ' kg';
+    document.getElementById(`s${s}-waste-cost`).textContent = wasteCost.toLocaleString() + ' ETB';
+  }
+
+  function calcQC() {
+    const total = parseFloat(document.getElementById('s4-total').value) || 0;
+    const passed = parseFloat(document.getElementById('s4-passed').value) || 0;
+    const rejected = parseFloat(document.getElementById('s4-rejected').value) || 0;
+    const rejectKg = parseFloat(document.getElementById('s4-reject-kg').value) || 0;
+    const passRate = total > 0 ? ((passed / total) * 100).toFixed(1) : 0;
+    const rejectCost = rejectKg * rawCostPerKg;
+    document.getElementById('s4-total-bags').textContent = total.toLocaleString();
+    document.getElementById('s4-pass-rate').textContent = passRate + '%';
+    document.getElementById('s4-reject-count').textContent = rejected.toLocaleString();
+    document.getElementById('s4-reject-cost').textContent = rejectCost.toLocaleString() + ' ETB';
+  }
+
+  function calcFinal() {
+    const bags = parseFloat(document.getElementById('s5-bags').value) || 0;
+    const perBundle = parseFloat(document.getElementById('s5-per-bundle').value) || 1;
+    const weight = parseFloat(document.getElementById('s5-weight').value) || 0;
+    const bundles = perBundle > 0 ? Math.floor(bags / perBundle) : 0;
+    // Overall yield loss vs stage 0 input
+    const initialInput = stageData[0]?.input || 0;
+    const yieldLoss = initialInput > 0 ? (((initialInput - weight) / initialInput) * 100).toFixed(1) : 0;
+    document.getElementById('s5-total-bags').textContent = bags.toLocaleString();
+    document.getElementById('s5-bundles').textContent = bundles.toLocaleString();
+    document.getElementById('s5-final-weight').textContent = weight.toFixed(1) + ' kg';
+    document.getElementById('s5-total-waste').textContent = yieldLoss + '%';
+  }
+
+  function saveStage(idx) {
+    stageData[idx] = stageData[idx] || {};
+    stageData[idx].saved = true;
+    const tab = document.querySelectorAll('.stage-tab')[idx];
+    tab.classList.add('completed');
+    tab.querySelector('.tab-num').textContent = '✓';
+    showToast(`Stage ${idx + 1} saved successfully!`);
+  }
+
+  function submitBatch() {
+    const batchId = document.getElementById('batchId').value || 'BATCH-DRAFT';
+    const product = document.getElementById('productType').value || 'Unknown';
+    // Save to localStorage as demo
+    const batch = {
+      id: batchId, product,
+      worker: document.getElementById('workerNameInput').value,
+      shift: document.getElementById('shift').value,
+      date: new Date().toLocaleDateString(),
+      stages: stageData,
+      submitted: new Date().toISOString()
+    };
+    try {
+      const existing = JSON.parse(localStorage.getItem('tita_batches') || '[]');
+      existing.unshift(batch);
+      localStorage.setItem('tita_batches', JSON.stringify(existing));
+    } catch(e) {}
+
+    document.querySelectorAll('.entry-card, .stage-tabs').forEach(el => el.style.display = 'none');
+    document.getElementById('successScreen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    location.reload();
+  }
+</script>
+</body>
+</html>
