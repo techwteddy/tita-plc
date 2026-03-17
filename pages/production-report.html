@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Production Report — Tita PLC</title>
   <link rel="stylesheet" href="../css/style.css" />
+  <script src="../js/auth.js"></script>
   <style>
     body { background: #0d1a0d; }
 
@@ -194,6 +195,8 @@
   </div>
   <div style="display:flex;align-items:center;gap:16px;">
     <a href="production-entry.html" style="color:var(--green-300);font-size:13px;border:1px solid rgba(74,154,74,0.3);padding:7px 14px;border-radius:6px;">+ New Entry</a>
+    <span id="loggedInUser" style="color:rgba(255,255,255,0.4);font-size:13px;"></span>
+    <button id="logoutBtn" style="display:none;background:rgba(224,96,96,0.12);color:#e89090;padding:7px 14px;border-radius:6px;font-size:13px;border:1px solid rgba(224,96,96,0.2);cursor:pointer;">Logout</button>
     <a href="admin.html" style="color:rgba(255,255,255,0.5);font-size:13px;">← Dashboard</a>
   </div>
 </nav>
