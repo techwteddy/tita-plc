@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Tita PLC</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #0d1a0d;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+
+    .login-page {
+      width: 100%; max-width: 420px;
+    }
+
+    .login-logo-wrap {
+      text-align: center; margin-bottom: 36px;
+    }
+
+    .login-logo-mark {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--green-400), var(--earth-500));
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 900; color: white;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 32px rgba(74,154,74,0.3);
+    }
+
+    .login-logo-name {
+      font-family: 'Playfair Display', serif;
+      color: white; font-size: 24px; font-weight: 700;
+    }
+
+    .login-logo-sub {
+      color: rgba(255,255,255,0.35); font-size: 13px;
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .login-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px; padding: 36px;
+    }
+
+    .login-card h2 {
+      color: white; font-size: 22px; margin-bottom: 6px;
+    }
+
+    .login-card p {
+      color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 28px;
+    }
+
+    .dark-label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: rgba(255,255,255,0.5); margin-bottom: 6px;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+
+    .dark-input {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 15px; outline: none;
+      transition: var(--transition);
+    }
+
+    .dark-input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .dark-input:focus {
+      border-color: var(--green-500);
+      box-shadow: 0 0 0 3px rgba(74,154,74,0.15);
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .btn-login {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      color: white; border: none; border-radius: var(--radius);
+      font-size: 15px; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(74,154,74,0.3);
+      transition: var(--transition); cursor: pointer;
+      margin-top: 8px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(74,154,74,0.4);
+    }
+
+    .btn-login:disabled {
+      opacity: 0.6; transform: none; cursor: not-allowed;
+    }
+
+    .error-msg {
+      background: rgba(224,96,96,0.12);
+      border: 1px solid rgba(224,96,96,0.25);
+      color: #e89090; font-size: 13px;
+      padding: 10px 14px; border-radius: 8px;
+      margin-bottom: 18px; display: none;
+      align-items: center; gap: 8px;
+    }
+
+    .error-msg.show { display: flex; }
+
+    .role-hint {
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .role-hint-label {
+      font-size: 11px; color: rgba(255,255,255,0.25);
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+
+    .role-hint-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,0.4);
+    }
+
+    .role-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    .back-link {
+      text-align: center; margin-top: 20px;
+    }
+
+    .back-link a {
+      color: rgba(255,255,255,0.3); font-size: 13px;
+      transition: var(--transition);
+    }
+
+    .back-link a:hover { color: var(--green-300); }
+  </style>
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-logo-wrap">
+    <div class="login-logo-mark">T</div>
+    <div class="login-logo-name">Tita PLC</div>
+    <div class="login-logo-sub">Staff Portal</div>
+  </div>
+
+  <div class="login-card">
+    <h2>Welcome back</h2>
+    <p>Sign in to access your workspace</p>
+
+    <div class="error-msg" id="errorMsg">
+      <span>⚠️</span>
+      <span id="errorText">Invalid username or password</span>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label class="dark-label">Username</label>
+        <input type="text" class="dark-input" id="username" placeholder="Enter your username" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label class="dark-label">Password</label>
+        <input type="password" class="dark-input" id="password" placeholder="Enter your password" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn">Sign In</button>
+    </form>
+
+    <div class="role-hint">
+      <div class="role-hint-label">Access levels</div>
+      <div class="role-hint-item">
+        <div class="role-dot" style="background:var(--earth-400);"></div>
+        Management — Full access to all pages & dashboard
+      </div>
+      <div class="role-hint-item">
+        <div class="role-dot" style="background:var(--green-400);"></div>
+        Worker — Production entry form only
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to website</a>
+  </div>
+</div>
+
+<script>
+  // =============================================
+  // USERS — Edit these to change credentials
+  // =============================================
+  const USERS = [
+    {
+      username: 'admin',
+      password: 'tita2025',
+      role: 'management',
+      name: 'Management',
+      redirect: 'pages/admin.html'
+    },
+    {
+      username: 'worker1',
+      password: 'worker123',
+      role: 'worker',
+      name: 'Worker',
+      redirect: 'pages/production-entry.html'
+    },
+    {
+      username: 'worker2',
+      password: 'worker123',
+      role: 'worker',
+      name: 'Worker 2',
+      redirect: 'pages/production-entry.html'
+    }
+  ];
+  // =============================================
+
+  // If already logged in, redirect
+  const session = JSON.parse(sessionStorage.getItem('tita_user') || 'null');
+  if (session) {
+    window.location.href = session.redirect;
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+    const btn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const errorText = document.getElementById('errorText');
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+    errorMsg.classList.remove('show');
+
+    setTimeout(() => {
+      const user = USERS.find(u => u.username === username && u.password === password);
+
+      if (user) {
+        // Save session
+        sessionStorage.setItem('tita_user', JSON.stringify(user));
+        btn.textContent = '✓ Redirecting...';
+        setTimeout(() => {
+          window.location.href = user.redirect;
+        }, 600);
+      } else {
+        errorText.textContent = 'Invalid username or password. Please try again.';
+        errorMsg.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    }, 800);
+  });
+</script>
+</body>
+</html>
