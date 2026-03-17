@@ -116,6 +116,7 @@ function showToast(msg, duration = 3000) {
 // ===== FORM SUBMIT =====
 function initForms() {
   document.querySelectorAll('form').forEach(form => {
+    if (form.id === 'loginForm') return;
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type=submit]');
