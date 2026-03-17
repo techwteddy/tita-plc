@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard — Tita PLC</title>
   <link rel="stylesheet" href="../css/style.css" />
+  <script src="../js/auth.js"></script>
   <style>
     body { background: #0d1a0d; }
 
@@ -181,6 +182,7 @@
     <li><a href="admin.html" class="active">Dashboard</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:12px;" id="adminUserBar">
+    <button id="logoutBtn" style="display:none;background:rgba(224,96,96,0.12);color:#e89090;padding:7px 14px;border-radius:6px;font-size:13px;border:1px solid rgba(224,96,96,0.2);cursor:pointer;">Logout</button>
     <span style="color:rgba(255,255,255,0.45);font-size:13px;" id="adminUserName">Not logged in</span>
     <button onclick="logout()" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);padding:7px 14px;border-radius:6px;font-size:13px;border:1px solid rgba(255,255,255,0.1);">Logout</button>
   </div>
