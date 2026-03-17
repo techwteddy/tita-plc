@@ -34,7 +34,10 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.classList.add('animate');
+  observer.observe(el);
+});
 
 // ===== PRODUCT FILTER =====
 function initProductFilter() {
