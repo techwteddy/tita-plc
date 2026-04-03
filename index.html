@@ -402,7 +402,7 @@
   </div>
 </section>
 
-<!-- QUOTE FORM -->
+<!-- QUOTE FORM — paste this to replace the entire quote-section in index.html -->
 <section class="quote-section" id="quote">
   <div class="quote-inner">
     <div>
@@ -434,13 +434,25 @@
             <div style="font-size:15px;font-weight:500;">Desē, Ethiopia</div>
           </div>
         </div>
+        <!-- Track existing order -->
+        <div style="margin-top:16px;padding:16px;background:rgba(74,154,74,0.08);border:1px solid rgba(74,154,74,0.2);border-radius:10px;">
+          <div style="font-size:12px;color:var(--green-300);font-weight:600;margin-bottom:8px;">📦 Already ordered? Track your order</div>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="trackInput" placeholder="Enter Order ID (e.g. ETH-3576)"
+              style="flex:1;padding:9px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:white;font-size:13px;outline:none;font-family:inherit;" />
+            <button onclick="window.open('https://app.dinqdigital.com/track?id='+document.getElementById('trackInput').value,'_blank')"
+              style="padding:9px 16px;background:var(--green-700);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Track →</button>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="quote-form-wrap fade-up" id="quoteFormWrap">
       <div class="form-title">Request a Quote</div>
-      <div class="form-subtitle">Get pricing within 24 hours for any product or quantity.</div>
+      <div class="form-subtitle">Get pricing within 24 hours. Fill in as much detail as possible.</div>
       <form id="quoteForm">
+
+        <!-- Company info -->
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Company Name *</label>
@@ -461,6 +473,8 @@
             <input type="tel" class="form-input" id="q-phone" placeholder="+1 234 567 890" />
           </div>
         </div>
+
+        <!-- Product -->
         <div class="form-group">
           <label class="form-label">Product Type *</label>
           <select class="form-select" id="q-product" required>
@@ -474,29 +488,82 @@
             <option>Custom / Multiple Products</option>
           </select>
         </div>
+
+        <!-- Quantity + unit -->
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Quantity *</label>
-            <input type="number" class="form-input" id="calcQty" placeholder="e.g. 10000" min="0" />
+            <input type="number" class="form-input" id="calcQty" placeholder="e.g. 10000" min="0" oninput="updateCalc()" />
           </div>
           <div class="form-group">
-            <label class="form-label">Weight per Unit (kg)</label>
-            <input type="number" class="form-input" id="calcWeight" placeholder="e.g. 0.12" step="0.01" min="0" />
+            <label class="form-label">Unit</label>
+            <select class="form-select" id="q-unit">
+              <option>units</option>
+              <option>kg</option>
+              <option>tons (MT)</option>
+              <option>rolls</option>
+            </select>
           </div>
         </div>
-        <div class="form-group" style="display:none;">
-          <input type="number" id="calcPrice" value="2.5" />
-        </div>
+
+        <!-- Live price calc -->
         <div class="form-calc">
           <div>
             <div class="calc-label">Estimated Total Weight</div>
-            <div class="calc-value" id="calcTotalWeight">0.0 kg</div>
+            <div class="calc-value" id="calcTotalWeight">—</div>
           </div>
           <div style="text-align:right">
             <div class="calc-label">Estimated Order Value</div>
-            <div class="calc-value" id="calcTotal">$0.00</div>
+            <div class="calc-value" id="calcTotal">—</div>
           </div>
         </div>
+
+        <!-- CUSTOMIZATION SECTION -->
+        <div style="margin:20px 0 12px;font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:10px;">
+          Product Customization
+          <div style="flex:1;height:1px;background:rgba(255,255,255,0.07);"></div>
+        </div>
+
+        <!-- Bag size -->
+        <div class="form-group">
+          <label class="form-label">Bag Size (cm) — Width × Height × Length</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <input type="number" class="form-input" id="q-width"  placeholder="Width"  min="0" />
+            <input type="number" class="form-input" id="q-height" placeholder="Height" min="0" />
+            <input type="number" class="form-input" id="q-length" placeholder="Length" min="0" />
+          </div>
+        </div>
+
+        <!-- Print colors + lamination -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Number of Print Colors</label>
+            <select class="form-select" id="q-colors">
+              <option value="">No print</option>
+              <option>1 color</option>
+              <option>2 colors</option>
+              <option>3 colors</option>
+              <option>4 colors</option>
+              <option>5 colors</option>
+              <option>6 colors (max)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">BOPP Lamination</label>
+            <select class="form-select" id="q-lamination">
+              <option value="no">No lamination</option>
+              <option value="yes">Yes — BOPP laminated</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Print text -->
+        <div class="form-group">
+          <label class="form-label">Print Text / Logo Instructions</label>
+          <input type="text" class="form-input" id="q-print" placeholder="e.g. Company name, logo color, tagline..." />
+        </div>
+
+        <!-- Shipping + notes -->
         <div class="form-group">
           <label class="form-label">Shipping Destination</label>
           <select class="form-select" id="q-shipping">
@@ -505,16 +572,107 @@
             <option>International — Air Freight</option>
           </select>
         </div>
+
         <div class="form-group">
-          <label class="form-label">Customization / Notes</label>
-          <textarea class="form-textarea" id="q-notes" placeholder="Printing requirements, bag size, color, delivery timeline..."></textarea>
+          <label class="form-label">Additional Notes</label>
+          <textarea class="form-textarea" id="q-notes" placeholder="Delivery timeline, special requirements..."></textarea>
         </div>
+
         <button type="submit" class="btn-submit" id="quoteSubmitBtn">Submit Quote Request</button>
       </form>
     </div>
   </div>
 </section>
 
+<script>
+// ============================================================
+// Quote Form — connected to DinqFactory
+// ============================================================
+document.getElementById('quoteForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const btn = document.getElementById('quoteSubmitBtn');
+  const originalText = btn.textContent;
+
+  const company_name = document.getElementById('q-company').value.trim();
+  const contact_name = document.getElementById('q-contact').value.trim();
+  const email        = document.getElementById('q-email').value.trim();
+  const phone        = document.getElementById('q-phone').value.trim();
+  const product_type = document.getElementById('q-product').value;
+  const quantity     = document.getElementById('calcQty').value;
+  const unit         = document.getElementById('q-unit').value;
+  const width        = document.getElementById('q-width').value;
+  const height       = document.getElementById('q-height').value;
+  const length       = document.getElementById('q-length').value;
+  const colors       = document.getElementById('q-colors').value;
+  const lamination   = document.getElementById('q-lamination').value;
+  const print_text   = document.getElementById('q-print').value.trim();
+  const shipping     = document.getElementById('q-shipping').value;
+  const notes        = document.getElementById('q-notes').value.trim();
+
+  if (!company_name || !email || !product_type) {
+    if (typeof showToast === 'function') showToast('Please fill in Company Name, Email, and Product Type');
+    return;
+  }
+
+  // Build customization string
+  const customParts = [];
+  if (quantity)   customParts.push(`Qty: ${quantity} ${unit}`);
+  if (width || height || length) customParts.push(`Size: ${[width,height,length].filter(Boolean).join('×')} cm`);
+  if (colors)     customParts.push(`Colors: ${colors}`);
+  if (lamination === 'yes') customParts.push('Lamination: Yes (BOPP)');
+  if (print_text) customParts.push(`Print: ${print_text}`);
+  if (notes)      customParts.push(notes);
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    const response = await fetch('https://app.dinqdigital.com/api/quote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company_name, contact_name, email, phone,
+        product_type,
+        quantity: `${quantity} ${unit}`,
+        shipping_destination: shipping,
+        customization_notes: customParts.join(' | '),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      document.getElementById('quoteFormWrap').innerHTML = `
+        <div style="text-align:center;padding:48px 24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;">
+          <div style="width:80px;height:80px;background:linear-gradient(135deg,#2d6a4f,#1B4332);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;box-shadow:0 8px 32px rgba(74,154,74,0.35);">✅</div>
+          <h3 style="color:white;font-size:24px;font-weight:700;margin-bottom:10px;">Quote Request Received!</h3>
+          <p style="color:rgba(255,255,255,0.6);font-size:15px;margin-bottom:28px;line-height:1.6;">Our sales team will respond within 24 hours<br/>with detailed pricing and availability.</p>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:20px 28px;margin-bottom:28px;display:inline-block;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Your Order ID</div>
+            <div style="font-size:36px;font-weight:800;color:#C9A84C;font-family:'Playfair Display',serif;letter-spacing:.05em;">${data.order_id}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px;">Save this ID to track your order status</div>
+          </div>
+          <br/>
+          <a href="https://app.dinqdigital.com/track" target="_blank"
+            style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-top:4px;transition:background .2s;">
+            🔍 Track Order Status →
+          </a>
+        </div>
+      `;
+    } else {
+      throw new Error(data.error || 'Submission failed');
+    }
+
+  } catch (err) {
+    console.error('Quote form error:', err);
+    btn.disabled = false;
+    btn.textContent = originalText;
+    if (typeof showToast === 'function') showToast('Something went wrong. Please try again or contact us directly.');
+  }
+});
+</script>
+  
 <!-- ADMIN PREVIEW -->
 <section class="admin-section" id="dashboard">
   <div class="admin-inner">
