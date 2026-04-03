@@ -6,6 +6,7 @@
   <title>Tita PLC — B2B Packaging & Logistics Platform</title>
   <meta name="description" content="Leading manufacturer of PP woven bags, shopping bags, and polypropylene packaging materials. Local & international export from Ethiopia." />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/quickcards.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
 </head>
 <body>
@@ -98,91 +99,46 @@
   </div>
 </section>
 
-<!-- ABOUT STRIP -->
-<section style="background:var(--earth-100);padding:28px 5%;">
-  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:48px;flex-wrap:wrap;">
-    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text-dark);font-weight:700;">Trusted by leading companies across Africa & the Middle East</div>
-    <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:center;flex:1;">
-      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🌍 Ethiopia</div>
-      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇦🇪 UAE</div>
-      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇸🇦 Saudi Arabia</div>
-      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇰🇪 Kenya</div>
-      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">🇩🇪 Germany</div>
-      <div style="font-size:14px;color:var(--text-light);font-weight:500;padding:8px 16px;background:white;border-radius:6px;border:1px solid rgba(0,0,0,0.07);">+ 13 more</div>
+<!-- QUICK NAV CARDS — show customers what to explore -->
+<section class="quick-cards-section">
+  <div class="quick-cards-inner">
+    <div class="quick-cards-heading">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text-dark);font-weight:700;">What would you like to do?</div>
+      <div style="color:var(--text-light);font-size:14px;margin-top:6px;">Choose an option below to get started</div>
     </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<div class="section">
-  <div class="section-label fade-up"><div class="section-label-line"></div><span>Why Tita PLC</span></div>
-  <h2 class="section-title fade-up">End-to-End Manufacturing<br/>& Logistics Excellence</h2>
-  <p class="section-desc fade-up">From raw polypropylene granules to finished bags at your door — we manage the full chain.</p>
-  <div class="features-grid">
-    <div class="feature-card fade-up"><div class="feature-icon">🏭</div><h3>In-House Manufacturing</h3><p>State-of-the-art extrusion, weaving, and printing lines producing 2,400+ tons monthly with full quality control.</p></div>
-    <div class="feature-card fade-up"><div class="feature-icon">🎨</div><h3>Custom Printing & Branding</h3><p>Up to 6-color BOPP lamination and gravure printing. Your brand on every bag, exactly as designed.</p></div>
-    <div class="feature-card fade-up"><div class="feature-icon">📦</div><h3>Flexible Order Sizes</h3><p>Minimum order quantities start at 1,000 units for finished bags, or 500kg for raw woven fabric rolls.</p></div>
-    <div class="feature-card fade-up"><div class="feature-icon">🚢</div><h3>International Export</h3><p>Full container load (FCL) and less-than-container load (LCL) options with sea, air, and road freight.</p></div>
-    <div class="feature-card fade-up"><div class="feature-icon">📊</div><h3>Real-Time Order Tracking</h3><p>Follow your order from production floor to delivery with live status updates and shipment tracking.</p></div>
-    <div class="feature-card fade-up"><div class="feature-icon">✅</div><h3>Certified Quality</h3><p>ISO 9001:2015 certified. All products undergo tensile strength, UV resistance, and print durability testing.</p></div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- PRODUCTS PREVIEW -->
-<section class="products-section" id="products">
-  <div class="products-inner">
-    <div class="section-label fade-up"><div class="section-label-line"></div><span>Our Products</span></div>
-    <h2 class="section-title fade-up">Finished Goods & Raw Materials</h2>
-    <p class="section-desc fade-up">Browse our catalog of PP packaging products available for local delivery or international export.</p>
-    <div class="fade-up" style="margin-bottom:8px;"><span class="rate-badge">1 USD = 57.0 ETB (live)</span></div>
-    <div class="products-filter fade-up">
-      <button class="filter-btn active" data-filter="all">All Products</button>
-      <button class="filter-btn" data-filter="finished">Finished Bags</button>
-      <button class="filter-btn" data-filter="shopping">Shopping Bags</button>
-    </div>
-    <!-- Dynamic product grid — loaded from DinqFactory -->
-    <div class="products-grid" id="productsGrid">
-      <!-- Loading state -->
-      <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4);">
-        <div style="font-size:32px;margin-bottom:12px;">📦</div>
-        <div style="font-size:14px;">Loading products...</div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:40px;">
-      <a href="pages/products.html" class="btn-primary" style="display:inline-flex;">View Full Catalog →</a>
-    </div>
-  </div>
-</section>
-
-<!-- SHIPPING & TRACKING -->
-<section class="shipping-section">
-  <div class="shipping-inner">
-    <div class="section-label fade-up"><div class="section-label-line"></div><span>Logistics</span></div>
-    <h2 class="section-title fade-up">Local Delivery & International Export</h2>
-    <p class="section-desc fade-up">From Addis Ababa to anywhere in the world — we handle the logistics so you don't have to.</p>
-    <div class="shipping-grid">
-      <div>
-        <h3 class="fade-up">Shipping Options</h3>
-        <p class="fade-up" style="color:var(--text-light);line-height:1.75;margin-bottom:24px;">Whether you're a local business in Ethiopia or an international buyer, we offer flexible, reliable shipping tailored to your needs and timeline.</p>
-        <div class="shipping-types">
-          <div class="shipping-type fade-up"><div class="shipping-type-icon">🚛</div><div><div class="shipping-type-name">Local Road Freight</div><div class="shipping-type-desc">Delivery across Ethiopia within 2–5 business days</div></div></div>
-          <div class="shipping-type fade-up"><div class="shipping-type-icon">🚢</div><div><div class="shipping-type-name">Sea Freight (FCL / LCL)</div><div class="shipping-type-desc">Container shipping via Djibouti port — 14–28 days</div></div></div>
-          <div class="shipping-type fade-up"><div class="shipping-type-icon">✈️</div><div><div class="shipping-type-name">Air Freight</div><div class="shipping-type-desc">Express delivery worldwide in 3–7 days</div></div></div>
+    <div class="quick-cards-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <a href="pages/products.html" style="text-decoration:none;" class="quick-card">
+        <div class="quick-card-inner">
+          <div class="quick-card-icon">📦</div>
+          <div class="quick-card-title">Browse Products</div>
+          <div class="quick-card-desc">See our full catalog of PP woven bags and packaging</div>
+          <div class="quick-card-link">View Products →</div>
         </div>
-      </div>
-      <div>
-        <h3 class="fade-up" style="margin-bottom:24px;">Order Journey</h3>
-        <div class="order-stages">
-          <div class="stage fade-up"><div class="stage-dot active">1</div><div class="stage-content"><div class="stage-name">New Order</div><div class="stage-desc">Order confirmed, production scheduled</div></div></div>
-          <div class="stage fade-up"><div class="stage-dot pending">2</div><div class="stage-content"><div class="stage-name">In Production</div><div class="stage-desc">Weaving, cutting, printing in progress</div></div></div>
-          <div class="stage fade-up"><div class="stage-dot pending">3</div><div class="stage-content"><div class="stage-name">Packaging & QC</div><div class="stage-desc">Quality check and bulk packaging</div></div></div>
-          <div class="stage fade-up"><div class="stage-dot pending">4</div><div class="stage-content"><div class="stage-name">Ready for Shipping</div><div class="stage-desc">Loaded at warehouse, awaiting freight</div></div></div>
-          <div class="stage fade-up"><div class="stage-dot pending">5</div><div class="stage-content"><div class="stage-name">In Transit</div><div class="stage-desc">Shipment dispatched, live tracking active</div></div></div>
-          <div class="stage fade-up"><div class="stage-dot pending">6</div><div class="stage-content"><div class="stage-name">Delivered ✓</div><div class="stage-desc">Order received and confirmed by customer</div></div></div>
+      </a>
+      <a href="pages/about.html" style="text-decoration:none;" class="quick-card">
+        <div class="quick-card-inner">
+          <div class="quick-card-icon">🏭</div>
+          <div class="quick-card-title">Our Factory</div>
+          <div class="quick-card-desc">Learn about our manufacturing capabilities in Desē</div>
+          <div class="quick-card-link">About Us →</div>
         </div>
-      </div>
+      </a>
+      <a href="pages/export.html" style="text-decoration:none;" class="quick-card">
+        <div class="quick-card-inner">
+          <div class="quick-card-icon">🌍</div>
+          <div class="quick-card-title">Export Services</div>
+          <div class="quick-card-desc">Sea, air & road freight to 18+ countries worldwide</div>
+          <div class="quick-card-link">Learn More →</div>
+        </div>
+      </a>
+      <a href="https://app.dinqdigital.com/track" target="_blank" style="text-decoration:none;" class="quick-card">
+        <div class="quick-card-inner">
+          <div class="quick-card-icon">🔍</div>
+          <div class="quick-card-title">Track Your Order</div>
+          <div class="quick-card-desc">Enter your order ID to see live status updates</div>
+          <div class="quick-card-link">Track Now →</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -197,7 +153,7 @@
       <div style="display:flex;flex-direction:column;gap:16px;" class="fade-up">
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📧</div>
-          <div><div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Email</div><div style="font-size:15px;font-weight:500;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d5e4c41485e6d5944594c5d414e034e4240">[email&#160;protected]</a></div></div>
+          <div><div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Email</div><div style="font-size:15px;font-weight:500;">sales@titaplc.com</div></div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📞</div>
@@ -205,15 +161,15 @@
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📍</div>
-          <div><div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Factory</div><div style="font-size:15px;font-weight:500;">Desē, Ethiopia</div></div>
+          <div><div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Factory</div><div style="font-size:15px;font-weight:500;">Desē, Amhara Region, Ethiopia</div></div>
         </div>
         <!-- Track existing order -->
         <div style="margin-top:16px;padding:16px;background:rgba(74,154,74,0.08);border:1px solid rgba(74,154,74,0.2);border-radius:10px;">
-          <div style="font-size:12px;color:var(--green-300);font-weight:600;margin-bottom:8px;">📦 Already ordered? Track your order</div>
+          <div style="font-size:12px;color:var(--green-600);font-weight:600;margin-bottom:8px;">📦 Already ordered? Track your order</div>
           <div style="display:flex;gap:8px;">
             <input type="text" id="trackInput" placeholder="Enter Order ID (e.g. ETH-3576)"
-              style="flex:1;padding:9px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:white;font-size:13px;outline:none;font-family:inherit;" />
-            <button onclick="var tid = document.getElementById('trackInput').value.trim(); if(tid) window.open('https://app.dinqdigital.com/track','_blank'); else alert('Please enter your Order ID first');"
+              style="flex:1;padding:9px 12px;background:white;border:1px solid rgba(0,0,0,0.12);border-radius:6px;color:var(--text-dark);font-size:13px;outline:none;font-family:inherit;" />
+            <button onclick="var tid=document.getElementById('trackInput').value.trim();if(tid)window.open('https://app.dinqdigital.com/track','_blank');else alert('Please enter your Order ID first');"
               style="padding:9px 16px;background:var(--green-700);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Track →</button>
           </div>
         </div>
@@ -273,10 +229,12 @@
             </select>
           </div>
         </div>
+
         <!-- Customization -->
-        <div style="margin:20px 0 12px;font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:10px;">
-          Product Customization <div style="flex:1;height:1px;background:rgba(255,255,255,0.07);"></div>
+        <div style="margin:20px 0 12px;font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:10px;">
+          Product Customization <div style="flex:1;height:1px;background:rgba(0,0,0,0.08);"></div>
         </div>
+
         <div class="form-group">
           <label class="form-label">Bag Size (cm) — Width × Height × Length</label>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
@@ -338,155 +296,74 @@
   </div>
 </section>
 
-<!-- ADMIN PREVIEW -->
-<section class="admin-section" id="dashboard">
-  <div class="admin-inner">
-    <div class="section-label fade-up"><div class="section-label-line"></div><span>Admin Dashboard</span></div>
-    <h2 class="section-title fade-up">Powerful Management<br/>for Your Operations</h2>
-    <p class="section-desc fade-up">Full control over orders, inventory, staff, and shipments — all in one place.</p>
-    <div class="admin-demo fade-up">
-      <div class="admin-topbar">
-        <div class="admin-topbar-title">Tita PLC — Admin Panel</div>
-        <div class="admin-topbar-right"><span class="admin-badge">● Live</span><span style="color:rgba(255,255,255,0.5);font-size:13px;">Admin User</span></div>
-      </div>
-      <div class="admin-layout">
-        <div class="admin-sidebar">
-          <div class="admin-nav-item active" data-tab="tab-orders"><span class="nav-icon">📋</span> Orders</div>
-          <div class="admin-nav-item" data-tab="tab-inventory"><span class="nav-icon">📦</span> Inventory</div>
-          <div class="admin-nav-item" data-tab="tab-shipments"><span class="nav-icon">🚢</span> Shipments</div>
-          <div class="admin-nav-item" data-tab="tab-customers"><span class="nav-icon">👥</span> Customers</div>
-          <div class="admin-nav-item" data-tab="tab-products"><span class="nav-icon">🏷️</span> Products</div>
-          <div class="admin-nav-item" data-tab="tab-staff"><span class="nav-icon">👤</span> Staff</div>
-        </div>
-        <div class="admin-main">
-          <div class="admin-stats">
-            <div class="admin-stat"><div class="admin-stat-val">147</div><div class="admin-stat-label">Active Orders</div><div class="admin-stat-change">↑ 12 this week</div></div>
-            <div class="admin-stat"><div class="admin-stat-val">38.4t</div><div class="admin-stat-label">In Warehouse</div><div class="admin-stat-change">↓ 4.2t shipped</div></div>
-            <div class="admin-stat"><div class="admin-stat-val">$142k</div><div class="admin-stat-label">Revenue (MTD)</div><div class="admin-stat-change">↑ 18% vs last month</div></div>
-            <div class="admin-stat"><div class="admin-stat-val">94%</div><div class="admin-stat-label">On-Time Delivery</div><div class="admin-stat-change">↑ 3% vs target</div></div>
-          </div>
-          <div class="admin-tab" id="tab-orders">
-            <div class="admin-table-wrap">
-              <div class="admin-table-header"><div class="admin-table-title">Recent Orders</div><div class="admin-table-actions"><button class="btn-sm">+ New Order</button><button class="btn-sm">Export CSV</button></div></div>
-              <table><thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Qty</th><th>Value</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>#ETH-2941</td><td>Selam Trading PLC</td><td>PP Woven Bags</td><td>42,000 units</td><td>$28,560</td><td><span class="status-pill status-ship">In Transit</span></td></tr>
-                <tr><td>#ETH-2940</td><td>Al Noor Imports</td><td>Shopping Bags</td><td>80,000 units</td><td>$36,000</td><td><span class="status-pill status-prod">In Production</span></td></tr>
-                <tr><td>#ETH-2939</td><td>Ethio Grain PLC</td><td>Heavy Duty Bags</td><td>15,000 units</td><td>$16,500</td><td><span class="status-pill status-new">New Order</span></td></tr>
-                <tr><td>#ETH-2938</td><td>Nairobi Pack Ltd</td><td>PP Granules</td><td>5,000 kg</td><td>$9,250</td><td><span class="status-pill status-done">Delivered</span></td></tr>
-                <tr><td>#ETH-2937</td><td>Gulf Star Trading</td><td>BOPP Lam. Bags</td><td>25,000 units</td><td>$35,000</td><td><span class="status-pill status-done">Delivered</span></td></tr>
-              </tbody></table>
-            </div>
-          </div>
-          <div class="admin-tab" id="tab-inventory" style="display:none;">
-            <div class="admin-table-wrap">
-              <div class="admin-table-header"><div class="admin-table-title">Warehouse Inventory</div><div class="admin-table-actions"><button class="btn-sm">Update Stock</button></div></div>
-              <table><thead><tr><th>Item</th><th>Category</th><th>Stock (Units)</th><th>Stock (kg)</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>PP Woven Bags — Std</td><td>Finished Goods</td><td>120,000</td><td>14,400 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
-                <tr><td>PP Granules — Virgin</td><td>Raw Material</td><td>—</td><td>48,000 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
-                <tr><td>Woven Fabric Rolls</td><td>Raw Material</td><td>240 rolls</td><td>18,600 kg</td><td><span class="status-pill status-prod">Reorder Soon</span></td></tr>
-                <tr><td>Shopping Bags</td><td>Finished Goods</td><td>56,000</td><td>3,080 kg</td><td><span class="status-pill status-new">In Stock</span></td></tr>
-                <tr><td>BOPP Film Roll</td><td>Raw Material</td><td>—</td><td>2,100 kg</td><td><span class="status-pill status-ship">Low Stock</span></td></tr>
-              </tbody></table>
-            </div>
-          </div>
-          <div class="admin-tab" id="tab-shipments" style="display:none;">
-            <div class="admin-table-wrap">
-              <div class="admin-table-header"><div class="admin-table-title">Active Shipments</div><div class="admin-table-actions"><button class="btn-sm">+ New Shipment</button></div></div>
-              <table><thead><tr><th>Shipment ID</th><th>Destination</th><th>Type</th><th>Container</th><th>Weight</th><th>ETA</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>SHP-0841</td><td>Dubai, UAE</td><td>🚢 Sea</td><td>TCKU3456789</td><td>18.4t</td><td>Mar 24</td><td><span class="status-pill status-ship">In Transit</span></td></tr>
-                <tr><td>SHP-0840</td><td>Riyadh, SA</td><td>✈️ Air</td><td>—</td><td>2.1t</td><td>Mar 18</td><td><span class="status-pill status-prod">Booked</span></td></tr>
-                <tr><td>SHP-0839</td><td>Nairobi, KE</td><td>🚛 Road</td><td>—</td><td>8.7t</td><td>Mar 20</td><td><span class="status-pill status-new">Loading</span></td></tr>
-              </tbody></table>
-            </div>
-          </div>
-          <div class="admin-tab" id="tab-customers" style="display:none;">
-            <div class="admin-table-wrap">
-              <div class="admin-table-header"><div class="admin-table-title">Customer Accounts</div><div class="admin-table-actions"><button class="btn-sm">+ Add Customer</button></div></div>
-              <table><thead><tr><th>Company</th><th>Country</th><th>Orders</th><th>Total Value</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr><td>Selam Trading PLC</td><td>🇦🇪 UAE</td><td>18</td><td>$214,000</td><td><span class="status-pill status-prod">International</span></td></tr>
-                <tr><td>Ethio Grain PLC</td><td>🇪🇹 Ethiopia</td><td>42</td><td>$98,400</td><td><span class="status-pill status-new">Local</span></td></tr>
-                <tr><td>Nairobi Pack Ltd</td><td>🇰🇪 Kenya</td><td>7</td><td>$54,200</td><td><span class="status-pill status-prod">International</span></td></tr>
-                <tr><td>Al Noor Imports</td><td>🇸🇦 Saudi</td><td>12</td><td>$178,600</td><td><span class="status-pill status-prod">International</span></td></tr>
-              </tbody></table>
-            </div>
-          </div>
-          <div class="admin-tab" id="tab-products" style="display:none;">
-            <div class="admin-table-wrap">
-              <div class="admin-table-header"><div class="admin-table-title">Product Catalog</div><div class="admin-table-actions"><button class="btn-sm">+ Add Product</button></div></div>
-              <table><thead><tr><th>Product</th><th>Category</th><th>Unit Price</th><th>Pricing By</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>PP Woven Bag — Standard</td><td>Finished Bags</td><td>$0.68</td><td>Per Unit</td><td><span class="status-pill status-new">Active</span></td></tr>
-                <tr><td>PP Woven Bag — Heavy Duty</td><td>Finished Bags</td><td>$1.10</td><td>Per Unit</td><td><span class="status-pill status-new">Active</span></td></tr>
-                <tr><td>PP Granules — Virgin</td><td>Raw Material</td><td>$1.85</td><td>Per kg</td><td><span class="status-pill status-new">Active</span></td></tr>
-                <tr><td>Woven Fabric Roll</td><td>Raw Material</td><td>$2.20</td><td>Per kg</td><td><span class="status-pill status-new">Active</span></td></tr>
-              </tbody></table>
-            </div>
-          </div>
-          <div class="admin-tab" id="tab-staff" style="display:none;">
-            <div class="admin-table-wrap">
-              <div class="admin-table-header"><div class="admin-table-title">Staff & Roles</div><div class="admin-table-actions"><button class="btn-sm">+ Add Staff</button></div></div>
-              <table><thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Access Level</th></tr></thead>
-              <tbody>
-                <tr><td>Abebe Kebede</td><td>Admin</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfbebdbabdba9fabb6abbeafb3bcf1bcb0b2">[email&#160;protected]</a></td><td><span class="status-pill status-prod">Full Access</span></td></tr>
-                <tr><td>Tigist Haile</td><td>Sales Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f4b5658564c4b7f4b564b5e4f535c115c5052">[email&#160;protected]</a></td><td><span class="status-pill status-new">Orders + CRM</span></td></tr>
-                <tr><td>Dawit Tesfaye</td><td>Warehouse Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c787d6b75685c6875687d6c707f327f7371">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Inventory</span></td></tr>
-                <tr><td>Meron Alemu</td><td>Logistics Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c21293e23220c3825382d3c202f622f2321">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Shipments</span></td></tr>
-              </tbody></table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:28px;">
-      <a href="https://app.dinqdigital.com" target="_blank" class="btn-primary" style="display:inline-flex;">Open Full Dashboard →</a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="contact-inner">
-    <div class="section-label fade-up"><div class="section-label-line"></div><span>Contact Us</span></div>
-    <h2 class="section-title fade-up">Let's Talk Business</h2>
-    <div class="contact-grid">
-      <div class="contact-info-block fade-up">
-        <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-item-label">Factory Address</div><div class="contact-item-value">Desē, Amhara Region<br/>Ethiopia</div></div></div>
-        <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-item-label">Phone / WhatsApp</div><div class="contact-item-value">+251 911 234 567<br/>+251 116 789 012</div></div></div>
-        <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0b786a676e784b7f627f6a7b676825686466">[email&#160;protected]</a><br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214459514e53556155485540514d420f424e4c">[email&#160;protected]</a></div></div></div>
-        <div class="contact-item"><div class="contact-icon">🕐</div><div><div class="contact-item-label">Working Hours</div><div class="contact-item-value">Mon–Fri: 8:00 AM – 6:00 PM EAT<br/>Sat: 9:00 AM – 2:00 PM EAT</div></div></div>
-      </div>
-      <div class="contact-form-card fade-up">
-        <form>
-          <div class="form-title" style="font-size:20px;margin-bottom:20px;">Send us a Message</div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-input" placeholder="Full name" required /></div>
-            <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="you@company.com" required /></div>
-          </div>
-          <div class="form-group"><label class="form-label">Subject</label><input type="text" class="form-input" placeholder="How can we help?" required /></div>
-          <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell us about your requirements..." required></textarea></div>
-          <button type="submit" class="btn-submit">Send Message</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-about">
-        <div class="nav-logo"><div class="nav-logo-mark">T</div><div class="nav-logo-text"><span class="nav-logo-name">Tita PLC</span><span class="nav-logo-sub">Industries</span></div></div>
-        <p>Ethiopia's leading manufacturer of PP woven bags and polypropylene packaging, supplying local and international markets since 2008.</p>
+        <div class="nav-logo">
+          <div class="nav-logo-mark">T</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Tita PLC</span>
+            <span class="nav-logo-sub">Industries</span>
+          </div>
+        </div>
+        <p>Ethiopia's leading manufacturer of PP woven bags and polypropylene packaging, supplying local and international markets.</p>
+        <!-- Contact info in footer -->
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;">📍</span>
+            <span style="color:rgba(255,255,255,0.5);font-size:13px;">Desē, Amhara Region, Ethiopia</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;">📞</span>
+            <span style="color:rgba(255,255,255,0.5);font-size:13px;">+251 911 234 567</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;">📧</span>
+            <span style="color:rgba(255,255,255,0.5);font-size:13px;">sales@titaplc.com</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:15px;">🕐</span>
+            <span style="color:rgba(255,255,255,0.5);font-size:13px;">Mon–Fri 8AM–6PM · Sat 9AM–2PM EAT</span>
+          </div>
+        </div>
       </div>
-      <div class="footer-col"><h4>Company</h4><ul class="footer-links"><li><a href="pages/about.html">About Us</a></li><li><a href="#">Manufacturing</a></li><li><a href="#">Certifications</a></li><li><a href="#contact">Contact</a></li></ul></div>
-      <div class="footer-col"><h4>Products</h4><ul class="footer-links"><li><a href="pages/products.html">PP Woven Bags</a></li><li><a href="pages/products.html">Shopping Bags</a></li><li><a href="pages/products.html">Raw Materials</a></li><li><a href="pages/products.html">Custom Orders</a></li></ul></div>
-      <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="pages/export.html">Export Services</a></li><li><a href="https://app.dinqdigital.com/track" target="_blank">Order Tracking</a></li><li><a href="#quote">Request Quote</a></li><li><a href="https://app.dinqdigital.com" target="_blank">Admin Login</a></li></ul></div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="pages/about.html">About Us</a></li>
+          <li><a href="pages/about.html">Manufacturing</a></li>
+          <li><a href="pages/about.html">Certifications</a></li>
+          <li><a href="#quote">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul class="footer-links">
+          <li><a href="pages/products.html">Shopping Bags</a></li>
+          <li><a href="pages/products.html">Salt Bags</a></li>
+          <li><a href="pages/products.html">Flour Bags</a></li>
+          <li><a href="pages/products.html">Cereal Bags</a></li>
+          <li><a href="pages/products.html">Charcoal Bags</a></li>
+          <li><a href="pages/products.html">Custom Orders</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="pages/export.html">Export Services</a></li>
+          <li><a href="https://app.dinqdigital.com/track" target="_blank">Track Order</a></li>
+          <li><a href="#quote">Request Quote</a></li>
+          <li><a href="login.html">Staff Login</a></li>
+          <li><a href="https://app.dinqdigital.com" target="_blank">Admin Dashboard</a></li>
+        </ul>
+      </div>
     </div>
+
     <div class="footer-bottom">
       <div class="footer-copy">© 2025 Tita PLC. All rights reserved.</div>
       <div class="footer-copy">Made in Ethiopia 🇪🇹 · Shipped Worldwide 🌍</div>
@@ -507,7 +384,13 @@
         <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="modal-phone" placeholder="+251 9..." /></div>
       </div>
       <div class="form-group"><label class="form-label">Quantity *</label><input type="number" class="form-input" id="modal-qty" placeholder="e.g. 5000" required /></div>
-      <div class="form-group"><label class="form-label">Shipping Type</label><select class="form-select" id="modal-shipping"><option>Local — Ethiopia</option><option>International — Sea Freight</option><option>International — Air Freight</option></select></div>
+      <div class="form-group"><label class="form-label">Shipping Type</label>
+        <select class="form-select" id="modal-shipping">
+          <option>Local — Ethiopia</option>
+          <option>International — Sea Freight</option>
+          <option>International — Air Freight</option>
+        </select>
+      </div>
       <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="modal-notes" placeholder="Size, print requirements, delivery timeline..."></textarea></div>
       <button type="submit" class="btn-submit" id="modalSubmitBtn">Submit Order Request</button>
     </form>
@@ -516,312 +399,221 @@
 
 <div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
+<script src="js/main.js"></script>
 <script>
-// ============================================================
-// Product card icons + categories mapping
-// ============================================================
-var PRODUCT_ICONS = {
-  'PP Woven Bag — Standard':    { icon: '🛍️', bg: 'linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95))', badge: 'Bestseller', category: 'finished' },
-  'PP Woven Bag — Heavy Duty':  { icon: '📦', bg: 'linear-gradient(135deg,rgba(30,58,30,0.9),rgba(45,90,45,0.6))', badge: 'Export Ready', category: 'finished' },
-  'Reusable Shopping Bag':      { icon: '🛒', bg: 'linear-gradient(135deg,rgba(107,76,30,0.8),rgba(196,154,60,0.4))', badge: '', category: 'shopping' },
-  'BOPP Laminated Bag':         { icon: '🖨️', bg: 'linear-gradient(135deg,rgba(107,76,30,0.6),rgba(26,46,26,0.9))', badge: 'Custom Print', category: 'shopping' },
-  'PP Granules — Virgin Grade': { icon: '🧵', bg: 'linear-gradient(135deg,rgba(26,46,26,0.95),rgba(74,154,74,0.2))', badge: 'Raw', category: 'raw' },
-  'Woven Fabric Roll — 90 cm':  { icon: '🧶', bg: 'linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95))', badge: 'Raw', category: 'raw' },
-};
+document.addEventListener('DOMContentLoaded', function() {
 
-function renderProductGrid(products) {
-  var grid = document.getElementById('productsGrid');
-  if (!grid) return;
+  // ============================================================
+  // Product catalog prices from DinqFactory
+  // ============================================================
+  var PRODUCT_CATALOG = {};
 
-  if (!products || products.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4);"><div style="font-size:32px;margin-bottom:12px;">📦</div><div>No products available</div></div>';
-    return;
-  }
-
-  grid.innerHTML = products.map(function(p) {
-    var meta    = PRODUCT_ICONS[p.name] || { icon: '📦', bg: 'linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95))', badge: '', category: 'finished' };
-    var usdPrice = parseFloat(p.price) || 0;
-    var etbPrice = parseFloat(p.etb_price) || 0;
-    var desc     = p.description || '';
-
-    // Extract specs from description
-    var specs = desc.split('|').map(function(s) { return s.trim(); }).filter(Boolean);
-    var specsHtml = specs.slice(0, 2).map(function(s) {
-      return '<span class="product-spec">' + s + '</span>';
-    }).join('');
-
-    // Price display
-    var priceHtml = '';
-    if (usdPrice > 0 && etbPrice > 0) {
-      priceHtml = '<div class="product-price"><span class="product-price-val">$' + usdPrice.toFixed(2) + '</span></div>' +
-        '<div style="font-size:13px;color:var(--earth-400);margin-top:-8px;margin-bottom:12px;">' + etbPrice.toLocaleString() + ' ETB</div>';
-    } else if (usdPrice > 0) {
-      priceHtml = '<div class="product-price"><span class="product-price-val">$' + usdPrice.toFixed(2) + '</span></div>';
-    } else if (etbPrice > 0) {
-      priceHtml = '<div class="product-price"><span class="product-price-val" style="font-size:18px;">' + etbPrice.toLocaleString() + ' ETB</span></div>';
-    } else {
-      priceHtml = '<div class="product-price"><span style="font-size:13px;color:rgba(255,255,255,0.4);">Price on request</span></div>';
+  async function loadProductPrices() {
+    try {
+      var res  = await fetch('https://app.dinqdigital.com/api/products');
+      var data = await res.json();
+      if (data.success && data.products) {
+        data.products.forEach(function(p) {
+          PRODUCT_CATALOG[p.name] = { price: p.price, etb_price: p.etb_price || 0 };
+        });
+      }
+    } catch(e) {
+      console.log('Could not load product prices:', e);
     }
-
-    return '<div class="product-card fade-up animate" data-category="' + meta.category + '">' +
-      '<div class="product-img" style="background:' + meta.bg + ';">' +
-        meta.icon +
-        (meta.badge ? '<div class="product-badge">' + meta.badge + '</div>' : '') +
-      '</div>' +
-      '<div class="product-body">' +
-        '<div class="product-name">' + p.name + '</div>' +
-        (specsHtml ? '<div class="product-specs">' + specsHtml + '</div>' : '') +
-        priceHtml +
-        '<button class="btn-product" onclick="openModal('orderModal')">Order Now</button>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-
-  // Re-init product filter for dynamic cards
-  initProductFilter();
-
-  // Animate new cards
-  setTimeout(function() {
-    grid.querySelectorAll('.fade-up.animate').forEach(function(el) {
-      el.classList.add('visible');
-    });
-  }, 100);
-}
-
-// ============================================================
-// Fetch live prices from DinqFactory product catalog
-// ============================================================
-var PRODUCT_CATALOG = {}; // name → { price, etb_price, description }
-
-async function loadProductPrices() {
-  try {
-    var res = await fetch('https://app.dinqdigital.com/api/products');
-    var data = await res.json();
-    if (data.success && data.products) {
-      data.products.forEach(function(p) {
-        PRODUCT_CATALOG[p.name] = { price: p.price, etb_price: p.etb_price || 0, description: p.description };
-      });
-      renderProductGrid(data.products);
-    }
-  } catch(e) {
-    console.log('Could not load product prices:', e);
-    var grid = document.getElementById('productsGrid');
-    if (grid) grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4);"><div style="font-size:32px;margin-bottom:12px;">📦</div><div>Contact us for our full product catalog</div></div>';
-  }
-}
-
-// Call on page load
-loadProductPrices();
-
-// ============================================================
-// Live Calc — uses prices from DinqFactory catalog
-// ============================================================
-function updateCalc() {
-  var qty     = parseFloat(document.getElementById('calcQty').value) || 0;
-  var unit    = document.getElementById('q-unit') ? document.getElementById('q-unit').value : 'units';
-  var product = document.getElementById('q-product').value;
-
-  var weightDisplay = document.getElementById('calcTotalWeight');
-  var valueDisplay  = document.getElementById('calcTotal');
-  if (!weightDisplay || !valueDisplay) return;
-
-  if (!qty || !product) {
-    weightDisplay.textContent = '—';
-    valueDisplay.innerHTML    = '—';
-    return;
   }
 
-  var catalogItem = PRODUCT_CATALOG[product];
-  var unitPrice    = catalogItem ? parseFloat(catalogItem.price) : 0;
-  var unitPriceEtb = catalogItem ? parseFloat(catalogItem.etb_price || 0) : 0;
+  loadProductPrices();
 
-  // Weight per unit estimates (kg)
+  // ============================================================
+  // Live Calculator
+  // ============================================================
   var WEIGHTS = {
-    'PP Woven Bag — Standard':   0.10,
-    'PP Woven Bag — Heavy Duty': 0.175,
-    'Reusable Shopping Bag':     0.063,
-    'BOPP Laminated Bag':        0.12,
+    'PP Woven Bag — Standard':    0.10,
+    'PP Woven Bag — Heavy Duty':  0.175,
+    'Reusable Shopping Bag':      0.063,
+    'BOPP Laminated Bag':         0.12,
     'PP Granules — Virgin Grade': 1,
-    'Woven Fabric Roll':         1,
+    'Woven Fabric Roll':          1,
   };
-  var weightPerUnit = WEIGHTS[product] || 0;
 
-  // Convert to kg total
-  var totalWeightKg = 0;
-  var weightLabel   = '—';
+  function updateCalc() {
+    var qty     = parseFloat(document.getElementById('calcQty').value) || 0;
+    var unit    = document.getElementById('q-unit').value;
+    var product = document.getElementById('q-product').value;
+    var wEl     = document.getElementById('calcTotalWeight');
+    var vEl     = document.getElementById('calcTotal');
+    if (!wEl || !vEl) return;
 
-  if (unit === 'g (grams)') {
-    totalWeightKg = qty / 1000;
-    weightLabel   = totalWeightKg.toFixed(3) + ' kg';
-  } else if (unit === 'kg') {
-    totalWeightKg = qty;
-    weightLabel   = qty.toFixed(1) + ' kg';
-  } else if (unit === 'tons (MT)') {
-    totalWeightKg = qty * 1000;
-    weightLabel   = qty + ' tons (' + totalWeightKg.toLocaleString() + ' kg)';
-  } else {
-    // units / rolls / meters
-    totalWeightKg = qty * weightPerUnit;
-    weightLabel   = weightPerUnit > 0 ? totalWeightKg.toFixed(1) + ' kg' : '—';
-  }
+    if (!qty || !product) { wEl.textContent = '—'; vEl.innerHTML = '—'; return; }
 
-  weightDisplay.textContent = weightLabel;
+    var cat          = PRODUCT_CATALOG[product] || {};
+    var unitPrice    = parseFloat(cat.price)     || 0;
+    var unitPriceEtb = parseFloat(cat.etb_price) || 0;
+    var wpUnit       = WEIGHTS[product]           || 0;
 
-  // Value calc
-  if (unitPrice > 0 || unitPriceEtb > 0) {
-    var totalUsd = 0;
-    var totalEtb = 0;
-    var multiplier = 1;
+    var totalWeightKg = 0;
+    var weightLabel   = '—';
+    var totalUsd = 0, totalEtb = 0;
 
     if (unit === 'g (grams)') {
-      multiplier = 1 / 1000;
+      totalWeightKg = qty / 1000;
+      weightLabel   = totalWeightKg.toFixed(3) + ' kg';
+      totalUsd = wpUnit > 0 ? (qty / 1000 / wpUnit) * unitPrice    : 0;
+      totalEtb = wpUnit > 0 ? (qty / 1000 / wpUnit) * unitPriceEtb : 0;
     } else if (unit === 'kg') {
-      multiplier = 1 / (weightPerUnit || 1);
+      totalWeightKg = qty;
+      weightLabel   = qty.toFixed(1) + ' kg';
+      totalUsd = wpUnit > 0 ? (qty / wpUnit) * unitPrice    : 0;
+      totalEtb = wpUnit > 0 ? (qty / wpUnit) * unitPriceEtb : 0;
     } else if (unit === 'tons (MT)') {
-      multiplier = 1000 / (weightPerUnit || 1);
+      totalWeightKg = qty * 1000;
+      weightLabel   = qty + ' tons (' + totalWeightKg.toLocaleString() + ' kg)';
+      totalUsd = wpUnit > 0 ? (qty * 1000 / wpUnit) * unitPrice    : 0;
+      totalEtb = wpUnit > 0 ? (qty * 1000 / wpUnit) * unitPriceEtb : 0;
     } else {
-      multiplier = 1; // per unit
+      totalWeightKg = qty * wpUnit;
+      weightLabel   = wpUnit > 0 ? totalWeightKg.toFixed(1) + ' kg' : '—';
+      totalUsd      = qty * unitPrice;
+      totalEtb      = qty * unitPriceEtb;
     }
 
-    totalUsd = qty * unitPrice * (unit === 'units' || unit === 'rolls' || unit === 'meters' ? 1 : multiplier);
-    totalEtb = qty * unitPriceEtb * (unit === 'units' || unit === 'rolls' || unit === 'meters' ? 1 : multiplier);
+    wEl.textContent = weightLabel;
 
-    // Simpler: just multiply qty by unit price for all units
-    if (unit === 'g (grams)') {
-      totalUsd = (qty / 1000) * unitPrice / (weightPerUnit || 1);
-      totalEtb = (qty / 1000) * unitPriceEtb / (weightPerUnit || 1);
-    } else if (unit === 'kg') {
-      totalUsd = qty * unitPrice / (weightPerUnit || 1);
-      totalEtb = qty * unitPriceEtb / (weightPerUnit || 1);
-    } else if (unit === 'tons (MT)') {
-      totalUsd = qty * 1000 * unitPrice / (weightPerUnit || 1);
-      totalEtb = qty * 1000 * unitPriceEtb / (weightPerUnit || 1);
+    if (unitPrice > 0 || unitPriceEtb > 0) {
+      var usdStr = unitPrice    > 0 ? '$' + totalUsd.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 }) : '';
+      var etbStr = unitPriceEtb > 0 ? totalEtb.toLocaleString('en-US', { maximumFractionDigits:0 }) + ' ETB' : '';
+      if (usdStr && etbStr) {
+        vEl.innerHTML = usdStr + '<br><span style="font-size:13px;color:var(--earth-400);">' + etbStr + '</span>';
+      } else {
+        vEl.innerHTML = usdStr || ('<span style="font-size:15px;color:var(--earth-300);">' + etbStr + '</span>');
+      }
     } else {
-      totalUsd = qty * unitPrice;
-      totalEtb = qty * unitPriceEtb;
+      vEl.innerHTML = '<span style="font-size:14px;color:rgba(0,0,0,0.4);">Our team will quote within 24hrs</span>';
     }
-
-    var usdStr = unitPrice > 0 ? '$' + totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '';
-    var etbStr = unitPriceEtb > 0 ? totalEtb.toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' ETB' : '';
-
-    if (usdStr && etbStr) {
-      valueDisplay.innerHTML = usdStr + '<br><span style="font-size:13px;color:var(--earth-400);">' + etbStr + '</span>';
-    } else if (usdStr) {
-      valueDisplay.innerHTML = usdStr;
-    } else {
-      valueDisplay.innerHTML = '<span style="font-size:15px;color:var(--earth-300);">' + etbStr + '</span>';
-    }
-  } else if (product === 'Custom / Multiple Products' || !catalogItem) {
-    valueDisplay.innerHTML = '<span style="font-size:14px;color:rgba(255,255,255,0.5);">Our team will quote within 24hrs</span>';
-  } else {
-    valueDisplay.innerHTML = '<span style="font-size:14px;color:rgba(255,255,255,0.5);">Price on request</span>';
-  }
-}
-
-// ============================================================
-// Quote Form — ONE handler only, connected to DinqFactory
-// ============================================================
-document.getElementById('quoteForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('quoteSubmitBtn');
-  const originalText = btn.textContent;
-
-  const company_name = document.getElementById('q-company').value.trim();
-  const contact_name = document.getElementById('q-contact').value.trim();
-  const email        = document.getElementById('q-email').value.trim();
-  const phone        = document.getElementById('q-phone').value.trim();
-  const product_type = document.getElementById('q-product').value;
-  const quantity     = document.getElementById('calcQty').value;
-  const unit         = document.getElementById('q-unit').value;
-  const width        = document.getElementById('q-width').value;
-  const height       = document.getElementById('q-height').value;
-  const length       = document.getElementById('q-length').value;
-  const colors       = document.getElementById('q-colors').value;
-  const lamination   = document.getElementById('q-lamination').value;
-  const print_text   = document.getElementById('q-print').value.trim();
-  const shipping     = document.getElementById('q-shipping').value;
-  const notes        = document.getElementById('q-notes').value.trim();
-
-  if (!company_name || !email || !product_type) {
-    if (typeof showToast === 'function') showToast('Please fill in Company Name, Email, and Product Type');
-    return;
   }
 
-  const customParts = [];
-  if (quantity) customParts.push('Qty: ' + quantity + ' ' + unit);
-  if (width || height || length) customParts.push('Size: ' + [width,height,length].filter(Boolean).join('×') + ' cm');
-  if (colors) customParts.push('Colors: ' + colors);
-  if (lamination === 'yes') customParts.push('Lamination: Yes (BOPP)');
-  if (print_text) customParts.push('Print: ' + print_text);
-  if (notes) customParts.push(notes);
+  document.getElementById('calcQty').addEventListener('input',    updateCalc);
+  document.getElementById('q-unit').addEventListener('change',    updateCalc);
+  document.getElementById('q-product').addEventListener('change', updateCalc);
 
-  btn.disabled = true;
-  btn.textContent = 'Submitting...';
+  // ============================================================
+  // Quote Form → DinqFactory API
+  // ============================================================
+  document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn          = document.getElementById('quoteSubmitBtn');
+    var originalText = btn.textContent;
 
-  try {
-    const res = await fetch('https://app.dinqdigital.com/api/quote', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        company_name, contact_name, email, phone, product_type,
-        quantity: quantity + ' ' + unit,
-        shipping_destination: shipping,
-        customization_notes: customParts.join(' | '),
-      }),
-    });
-    const data = await res.json();
+    var company_name = document.getElementById('q-company').value.trim();
+    var contact_name = document.getElementById('q-contact').value.trim();
+    var email        = document.getElementById('q-email').value.trim();
+    var phone        = document.getElementById('q-phone').value.trim();
+    var product_type = document.getElementById('q-product').value;
+    var quantity     = document.getElementById('calcQty').value;
+    var unit         = document.getElementById('q-unit').value;
+    var width        = document.getElementById('q-width').value;
+    var height       = document.getElementById('q-height').value;
+    var length       = document.getElementById('q-length').value;
+    var colors       = document.getElementById('q-colors').value;
+    var lamination   = document.getElementById('q-lamination').value;
+    var print_text   = document.getElementById('q-print').value.trim();
+    var shipping     = document.getElementById('q-shipping').value;
+    var notes        = document.getElementById('q-notes').value.trim();
 
-    if (data.success) {
-      document.getElementById('quoteFormWrap').innerHTML =
-        '<div style="text-align:center;padding:48px 24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;">' +
-        '<div style="width:80px;height:80px;background:linear-gradient(135deg,#2d6a4f,#1B4332);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;box-shadow:0 8px 32px rgba(74,154,74,0.35);">✅</div>' +
-        '<h3 style="color:white;font-size:24px;font-weight:700;margin-bottom:10px;">Quote Request Received!</h3>' +
-        '<p style="color:rgba(255,255,255,0.6);font-size:15px;margin-bottom:28px;line-height:1.6;">Our sales team will respond within 24 hours<br/>with detailed pricing and availability.</p>' +
-        '<div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:20px 32px;margin-bottom:28px;display:inline-block;">' +
-        '<div style="font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Your Order ID</div>' +
-        '<div style="font-size:40px;font-weight:800;color:#C9A84C;font-family:Playfair Display,serif;letter-spacing:.05em;">' + data.order_id + '</div>' +
-        '<div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:8px;">Save this ID to track your order status</div>' +
-        '</div><br/>' +
-        '<a href="https://app.dinqdigital.com/track" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-top:8px;">🔍 Track Order Status →</a>' +
-        '</div>';
-    } else {
-      throw new Error(data.error || 'Failed');
+    if (!company_name || !email || !product_type) {
+      showToast('Please fill in Company Name, Email, and Product Type');
+      return;
     }
-  } catch(err) {
-    console.error(err);
-    btn.disabled = false;
-    btn.textContent = originalText;
-    if (typeof showToast === 'function') showToast('Something went wrong. Please try again or contact us directly.');
-  }
-});
 
-// ============================================================
-// Modal Order Form
-// ============================================================
-document.getElementById('modalOrderForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('modalSubmitBtn');
-  btn.disabled = true;
-  btn.textContent = 'Submitting...';
-  try {
-    const res = await fetch('https://app.dinqdigital.com/api/quote', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        company_name: document.getElementById('modal-company').value.trim(),
-        email:        document.getElementById('modal-email').value.trim(),
-        phone:        document.getElementById('modal-phone').value.trim(),
-        quantity:     document.getElementById('modal-qty').value,
-        shipping_destination: document.getElementById('modal-shipping').value,
-        customization_notes:  document.getElementById('modal-notes').value.trim(),
-        product_type: 'Order from product page',
-      }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      document.querySelector('#orderModal .modal').innerHTML =
-        '<div style="text-align:center;padding:40px 20px;">' +
-        '<div style="font-size:48px;margin-bottom:16px;">✅</div>' +
-        '<h3 style="color:white;margin-bottom:8px;">Order Submitted!</h3>' +
-        '<p style="color:rgba(255,255,255,0.5);font-size:14p
+    var customParts = [];
+    if (quantity)              customParts.push('Qty: ' + quantity + ' ' + unit);
+    if (width||height||length) customParts.push('Size: ' + [width,height,length].filter(Boolean).join('×') + ' cm');
+    if (colors)                customParts.push('Colors: ' + colors);
+    if (lamination === 'yes')  customParts.push('Lamination: Yes (BOPP)');
+    if (print_text)            customParts.push('Print: ' + print_text);
+    if (notes)                 customParts.push(notes);
+
+    btn.disabled    = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      var res  = await fetch('https://app.dinqdigital.com/api/quote', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name, contact_name, email, phone, product_type,
+          quantity: quantity + ' ' + unit,
+          shipping_destination: shipping,
+          customization_notes: customParts.join(' | '),
+        }),
+      });
+      var data = await res.json();
+
+      if (data.success) {
+        document.getElementById('quoteFormWrap').innerHTML =
+          '<div style="text-align:center;padding:48px 24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;">' +
+          '<div style="width:80px;height:80px;background:linear-gradient(135deg,#2d6a4f,#1B4332);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;box-shadow:0 8px 32px rgba(74,154,74,0.35);">✅</div>' +
+          '<h3 style="color:white;font-size:24px;font-weight:700;margin-bottom:10px;">Quote Request Received!</h3>' +
+          '<p style="color:rgba(255,255,255,0.6);font-size:15px;margin-bottom:28px;line-height:1.6;">Our sales team will respond within 24 hours<br/>with detailed pricing and availability.</p>' +
+          '<div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:20px 32px;margin-bottom:28px;display:inline-block;">' +
+          '<div style="font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Your Order ID</div>' +
+          '<div style="font-size:40px;font-weight:800;color:#C9A84C;font-family:\'Playfair Display\',serif;letter-spacing:.05em;">' + data.order_id + '</div>' +
+          '<div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:8px;">Save this ID to track your order status</div>' +
+          '</div><br/>' +
+          '<a href="https://app.dinqdigital.com/track" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-top:8px;">🔍 Track Order Status →</a>' +
+          '</div>';
+      } else {
+        throw new Error(data.error || 'Failed');
+      }
+    } catch(err) {
+      console.error(err);
+      btn.disabled    = false;
+      btn.textContent = originalText;
+      showToast('Something went wrong. Please try again or contact us directly.');
+    }
+  });
+
+  // ============================================================
+  // Modal Order Form → DinqFactory API
+  // ============================================================
+  document.getElementById('modalOrderForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('modalSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Submitting...';
+    try {
+      var res  = await fetch('https://app.dinqdigital.com/api/quote', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name:        document.getElementById('modal-company').value.trim(),
+          email:               document.getElementById('modal-email').value.trim(),
+          phone:               document.getElementById('modal-phone').value.trim(),
+          quantity:            document.getElementById('modal-qty').value,
+          shipping_destination:document.getElementById('modal-shipping').value,
+          customization_notes: document.getElementById('modal-notes').value.trim(),
+          product_type:        'Order from product page',
+        }),
+      });
+      var data = await res.json();
+      if (data.success) {
+        document.querySelector('#orderModal .modal').innerHTML =
+          '<div style="text-align:center;padding:40px 20px;">' +
+          '<div style="font-size:48px;margin-bottom:16px;">✅</div>' +
+          '<h3 style="font-family:\'Playfair Display\',serif;margin-bottom:8px;">Order Submitted!</h3>' +
+          '<p style="color:var(--text-light);font-size:14px;margin-bottom:20px;">Your order ID is:</p>' +
+          '<div style="font-size:32px;font-weight:800;color:var(--green-600);font-family:\'Playfair Display\',serif;">' + data.order_id + '</div>' +
+          '<p style="color:var(--text-light);font-size:13px;margin:12px 0 24px;">Save this to track your order</p>' +
+          '<a href="https://app.dinqdigital.com/track" target="_blank" style="display:inline-flex;padding:11px 24px;background:var(--green-700);color:white;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">Track Order →</a>' +
+          '</div>';
+      } else { throw new Error(data.error || 'Failed'); }
+    } catch(err) {
+      btn.disabled = false; btn.textContent = 'Submit Order Request';
+      showToast('Something went wrong. Please try again.');
+    }
+  });
+
+}); // end DOMContentLoaded
+</script>
+
+</body>
+</html>
