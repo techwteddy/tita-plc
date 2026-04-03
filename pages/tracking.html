@@ -6,16 +6,9 @@
   <title>Track Order — Tita PLC</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .tracker-wrap {
-      max-width: 800px; margin: 0 auto;
-      padding: 60px 5% 100px;
-    }
-    .track-input-row {
-      display: flex; gap: 12px; margin-bottom: 48px;
-    }
-    .track-input-row .form-input {
-      flex: 1; padding: 14px 18px; font-size: 15px;
-    }
+    .tracker-wrap { max-width: 800px; margin: 0 auto; padding: 60px 5% 100px; }
+    .track-input-row { display: flex; gap: 12px; margin-bottom: 48px; }
+    .track-input-row .form-input { flex: 1; padding: 14px 18px; font-size: 15px; }
     .btn-track {
       padding: 14px 28px;
       background: linear-gradient(135deg, var(--green-500), var(--green-700));
@@ -24,6 +17,27 @@
       white-space: nowrap; transition: var(--transition);
     }
     .btn-track:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,154,74,0.3); }
+    .btn-track:disabled { opacity: 0.6; transform: none; cursor: not-allowed; }
+
+    .loading-state { text-align: center; padding: 60px 20px; display: none; }
+    .loading-spinner {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 3px solid rgba(74,154,74,0.15);
+      border-top-color: var(--green-500);
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-state p { color: var(--text-light); font-size: 14px; }
+
+    .error-state {
+      background: white; border-radius: 16px;
+      border: 1px solid rgba(224,96,96,0.2);
+      padding: 48px 32px; text-align: center; display: none;
+    }
+    .error-icon { font-size: 48px; margin-bottom: 16px; }
+    .error-state h3 { font-family:'Playfair Display',serif; font-size:22px; color:var(--text-dark); margin-bottom:10px; }
+    .error-state p { color:var(--text-light); font-size:14px; line-height:1.6; margin-bottom:24px; }
 
     .order-result {
       background: white; border-radius: 16px;
@@ -32,74 +46,67 @@
       overflow: hidden; display: none;
     }
     .order-result.visible { display: block; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
     .order-result-header {
       background: var(--green-900); padding: 24px 28px;
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 16px;
     }
-    .order-id { font-family: 'Playfair Display', serif; color: white; font-size: 22px; }
-    .order-status-big {
-      background: rgba(74,154,74,0.2); color: var(--green-300);
-      border: 1px solid rgba(74,154,74,0.3);
-      padding: 8px 18px; border-radius: 100px;
-      font-size: 14px; font-weight: 600;
+    .order-id { font-family:'Playfair Display',serif; color:white; font-size:22px; }
+    .order-status-big { padding: 8px 18px; border-radius: 100px; font-size: 14px; font-weight: 600; }
+    .status-pending     { background:rgba(255,200,60,0.2);  color:#f0c040;           border:1px solid rgba(255,200,60,0.3); }
+    .status-confirmed   { background:rgba(74,154,74,0.2);   color:var(--green-300);  border:1px solid rgba(74,154,74,0.3); }
+    .status-in_progress { background:rgba(74,144,226,0.2);  color:#90c0f0;           border:1px solid rgba(74,144,226,0.3); }
+    .status-completed   { background:rgba(255,255,255,0.15);color:white;             border:1px solid rgba(255,255,255,0.2); }
+    .status-cancelled   { background:rgba(224,96,96,0.2);   color:#e89090;           border:1px solid rgba(224,96,96,0.3); }
+
+    .order-meta { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(0,0,0,0.07); }
+    .order-meta-item { background:white; padding:18px 22px; }
+    .order-meta-label { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+    .order-meta-val { font-weight:600; font-size:15px; color:var(--text-dark); }
+
+    .order-specs {
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: var(--cream);
     }
-    .order-meta {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 1px; background: rgba(0,0,0,0.07);
-    }
-    .order-meta-item {
-      background: white; padding: 18px 22px;
-    }
-    .order-meta-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
-    .order-meta-val { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+    .order-specs-title { font-weight:700; font-size:14px; color:var(--text-dark); margin-bottom:14px; }
+    .order-specs-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .spec-item { display:flex; flex-direction:column; gap:3px; }
+    .spec-label { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:.06em; }
+    .spec-val { font-size:14px; color:var(--text-dark); font-weight:500; }
 
     .timeline-wrap { padding: 28px; }
-    .timeline-title { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 24px; }
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .timeline-item {
-      display: flex; gap: 16px; align-items: flex-start;
-      position: relative;
-    }
+    .timeline-title { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:24px; color:var(--text-dark); }
+    .timeline { display:flex; flex-direction:column; }
+    .timeline-item { display:flex; gap:16px; align-items:flex-start; position:relative; }
     .timeline-item:not(:last-child)::after {
-      content: ''; position: absolute;
-      left: 15px; top: 36px;
-      width: 2px; height: 48px;
-      background: linear-gradient(to bottom, var(--green-400), rgba(0,0,0,0.08));
+      content:''; position:absolute; left:15px; top:36px;
+      width:2px; height:48px;
+      background:linear-gradient(to bottom, var(--green-400), rgba(0,0,0,0.08));
     }
     .t-dot {
-      width: 32px; height: 32px; border-radius: 50%;
-      flex-shrink: 0; display: flex; align-items: center;
-      justify-content: center; font-size: 13px; font-weight: 700;
-      color: white; z-index: 1; margin-top: 4px;
+      width:32px; height:32px; border-radius:50%;
+      flex-shrink:0; display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:700; color:white; z-index:1; margin-top:4px;
     }
-    .t-done { background: var(--green-600); }
-    .t-active { background: var(--green-500); box-shadow: 0 0 0 4px rgba(74,154,74,0.2); }
-    .t-pending { background: rgba(0,0,0,0.1); color: var(--text-light); }
+    .t-done    { background:var(--green-600); }
+    .t-active  { background:var(--green-500); box-shadow:0 0 0 4px rgba(74,154,74,0.2); }
+    .t-pending { background:rgba(0,0,0,0.1); color:var(--text-light); }
+    .t-body { padding-bottom:44px; }
+    .t-name { font-weight:600; font-size:15px; margin-bottom:2px; color:var(--text-dark); }
+    .t-date { font-size:12px; color:var(--text-light); margin-bottom:4px; }
+    .t-note { font-size:13px; color:var(--text-mid); }
 
-    .t-body { padding-bottom: 44px; }
-    .t-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
-    .t-date { font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
-    .t-note { font-size: 13px; color: var(--text-mid); }
-
-    .shipment-card {
-      margin: 0 28px 28px;
-      background: var(--earth-100); border-radius: 12px;
-      padding: 20px 24px;
-      border: 1px solid rgba(107,76,30,0.15);
-    }
-    .shipment-card-title { font-weight: 700; font-size: 15px; margin-bottom: 14px; color: var(--text-dark); }
-    .ship-details { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-    .ship-item { }
-    .ship-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
-    .ship-val { font-size: 14px; font-weight: 500; }
+    .help-box { margin-top:48px; background:var(--earth-100); border-radius:12px; padding:28px; }
+    .help-box h3 { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:8px; color:var(--text-dark); }
+    .help-box p { font-size:14px; color:var(--text-light); margin-bottom:16px; }
 
     @media(max-width:600px) {
-      .order-meta { grid-template-columns: 1fr 1fr; }
-      .ship-details { grid-template-columns: 1fr 1fr; }
-      .track-input-row { flex-direction: column; }
+      .order-meta { grid-template-columns:1fr 1fr; }
+      .order-specs-grid { grid-template-columns:1fr; }
+      .track-input-row { flex-direction:column; }
     }
   </style>
 </head>
@@ -119,9 +126,7 @@
     <li><a href="products.html">Products</a></li>
     <li><a href="export.html">Export</a></li>
     <li><a href="tracking.html" class="active">Track Order</a></li>
-    <li><a href="admin.html">Dashboard</a></li>
-    <li><a href="production-entry.html">Production Entry</a></li>
-    <li><a href="production-report.html">Production Report</a></li>
+    <li><a href="../login.html">Staff Login</a></li>
     <li><a href="../index.html#quote" class="nav-cta">Request Quote</a></li>
   </ul>
   <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -130,141 +135,267 @@
 <section class="page-hero">
   <div class="page-hero-bg"></div>
   <h1>Track Your Order</h1>
-  <p>Enter your order ID or shipment tracking number to see real-time status updates.</p>
+  <p>Enter your order ID to see real-time status updates. No account needed.</p>
 </section>
 
 <div class="tracker-wrap">
+
   <div class="track-input-row fade-up">
-    <input type="text" class="form-input" id="trackInput" placeholder="Enter Order ID (e.g. ETH-2941) or Shipment ID..." />
-    <button class="btn-track" onclick="lookupOrder()">Track →</button>
+    <input type="text" class="form-input" id="trackInput"
+      placeholder="Enter your Order ID (e.g. ETH-E017)..."
+      style="text-transform:uppercase;" />
+    <button class="btn-track" id="trackBtn" onclick="lookupOrder()">Track →</button>
   </div>
 
+  <!-- Loading -->
+  <div class="loading-state" id="loadingState">
+    <div class="loading-spinner"></div>
+    <p>Looking up your order...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="error-state" id="errorState">
+    <div class="error-icon">🔍</div>
+    <h3>Order Not Found</h3>
+    <p id="errorMsg">We couldn't find an order with that ID. Please check your order ID — it was sent to your email when you submitted the quote form.</p>
+    <a href="../index.html#quote" class="btn-primary" style="display:inline-flex;">Request a New Quote →</a>
+  </div>
+
+  <!-- Result -->
   <div class="order-result" id="orderResult">
     <div class="order-result-header">
       <div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Order</div>
-        <div class="order-id">#ETH-2941</div>
+        <div class="order-id" id="resultOrderId">#ETH-0000</div>
       </div>
-      <div class="order-status-big">🚢 In Transit</div>
+      <div class="order-status-big" id="resultStatusBadge"></div>
     </div>
+
     <div class="order-meta">
       <div class="order-meta-item">
-        <div class="order-meta-label">Customer</div>
-        <div class="order-meta-val">Selam Trading PLC</div>
+        <div class="order-meta-label">Company</div>
+        <div class="order-meta-val" id="resultCompany">—</div>
       </div>
       <div class="order-meta-item">
         <div class="order-meta-label">Product</div>
-        <div class="order-meta-val">PP Woven Bags</div>
+        <div class="order-meta-val" id="resultProduct">—</div>
       </div>
       <div class="order-meta-item">
         <div class="order-meta-label">Quantity</div>
-        <div class="order-meta-val">42,000 units</div>
+        <div class="order-meta-val" id="resultQty">—</div>
       </div>
       <div class="order-meta-item">
-        <div class="order-meta-label">Total Weight</div>
-        <div class="order-meta-val">18.4 tonnes</div>
+        <div class="order-meta-label">Order Date</div>
+        <div class="order-meta-val" id="resultDate">—</div>
       </div>
     </div>
 
-    <div class="shipment-card">
-      <div class="shipment-card-title">🚢 Shipment Details</div>
-      <div class="ship-details">
-        <div class="ship-item"><div class="ship-label">Container No.</div><div class="ship-val">TCKU3456789</div></div>
-        <div class="ship-item"><div class="ship-label">Transport Type</div><div class="ship-val">Sea Freight (FCL)</div></div>
-        <div class="ship-item"><div class="ship-label">Origin Port</div><div class="ship-val">Djibouti</div></div>
-        <div class="ship-item"><div class="ship-label">Destination</div><div class="ship-val">Dubai, UAE</div></div>
-        <div class="ship-item"><div class="ship-label">Departed</div><div class="ship-val">Mar 10, 2025</div></div>
-        <div class="ship-item"><div class="ship-label">Estimated Arrival</div><div class="ship-val" style="color:var(--green-600);font-weight:700;">Mar 24, 2025</div></div>
-      </div>
+    <!-- Order specs -->
+    <div class="order-specs" id="orderSpecs" style="display:none;">
+      <div class="order-specs-title">📋 Order Specifications</div>
+      <div class="order-specs-grid" id="orderSpecsGrid"></div>
     </div>
 
+    <!-- Timeline -->
     <div class="timeline-wrap">
       <div class="timeline-title">Order Journey</div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="t-dot t-done">✓</div>
-          <div class="t-body">
-            <div class="t-name">Order Confirmed</div>
-            <div class="t-date">Feb 28, 2025 — 10:14 AM</div>
-            <div class="t-note">Order #ETH-2941 received and payment confirmed. Production scheduled.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-dot t-done">✓</div>
-          <div class="t-body">
-            <div class="t-name">In Production</div>
-            <div class="t-date">Mar 1–6, 2025</div>
-            <div class="t-note">Weaving, cutting, and 2-color printing completed at our Bole facility.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-dot t-done">✓</div>
-          <div class="t-body">
-            <div class="t-name">Quality Control & Packaging</div>
-            <div class="t-date">Mar 7–8, 2025</div>
-            <div class="t-note">All 42,000 units passed QC inspection. Packed in 840 bales of 50 units.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-dot t-done">✓</div>
-          <div class="t-body">
-            <div class="t-name">Ready for Shipping</div>
-            <div class="t-date">Mar 9, 2025</div>
-            <div class="t-note">Container TCKU3456789 loaded and sealed. Customs cleared at Addis Ababa.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-dot t-active">→</div>
-          <div class="t-body">
-            <div class="t-name">In Transit — Sea Freight</div>
-            <div class="t-date">Mar 10, 2025 — Present</div>
-            <div class="t-note">Container departed Djibouti port aboard MV Al Farabi. Currently in Red Sea — ETA Dubai Port: Mar 24.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-dot t-pending">6</div>
-          <div class="t-body">
-            <div class="t-name">Delivered</div>
-            <div class="t-date">Estimated: Mar 24–26, 2025</div>
-            <div class="t-note">Pending delivery to Selam Trading PLC warehouse, Jebel Ali, Dubai.</div>
-          </div>
-        </div>
-      </div>
+      <div class="timeline" id="orderTimeline"></div>
     </div>
   </div>
 
-  <div style="margin-top:48px;background:var(--earth-100);border-radius:12px;padding:28px;" class="fade-up">
-    <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:8px;">Try these demo order IDs:</div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
-      <button onclick="demoLookup('ETH-2941')" class="btn-sm" style="background:var(--green-700);color:white;border:none;">ETH-2941 — In Transit</button>
-      <button onclick="demoLookup('ETH-2940')" class="btn-sm" style="background:var(--earth-600);color:white;border:none;">ETH-2940 — In Production</button>
-      <button onclick="demoLookup('ETH-2938')" class="btn-sm" style="background:rgba(0,0,0,0.15);color:var(--text-mid);border:1px solid rgba(0,0,0,0.1);">ETH-2938 — Delivered</button>
+  <!-- Help -->
+  <div class="help-box fade-up">
+    <h3>Need help with your order?</h3>
+    <p>If you have questions about your order or need to make changes, our team is here to help.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="mailto:sales@titaplc.com" class="btn-primary" style="display:inline-flex;font-size:13px;padding:10px 20px;">📧 Email Us</a>
+      <a href="tel:+251911234567" class="btn-outline" style="display:inline-flex;font-size:13px;padding:10px 20px;background:white;color:var(--text-dark);border-color:rgba(0,0,0,0.15);">📞 Call Us</a>
     </div>
   </div>
+
 </div>
 
 <div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
+
 <footer style="background:var(--green-900);padding:32px 5%;text-align:center;">
-  <div style="color:rgba(255,255,255,0.4);font-size:13px;">© 2025 Tita PLC · <a href="../index.html" style="color:var(--green-300);">Back to Home</a></div>
+  <div style="color:rgba(255,255,255,0.4);font-size:13px;">
+    © 2025 Tita PLC ·
+    <a href="../index.html" style="color:var(--green-300);">Back to Home</a>
+  </div>
 </footer>
 
 <script src="../js/main.js"></script>
 <script>
-function lookupOrder() {
-  const val = document.getElementById('trackInput').value.trim();
-  if (!val) { showToast('Please enter an order ID'); return; }
-  document.getElementById('orderResult').classList.add('visible');
-  document.getElementById('orderResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+document.addEventListener('DOMContentLoaded', function() {
 
-function demoLookup(id) {
-  document.getElementById('trackInput').value = id;
-  lookupOrder();
-}
+  // ============================================================
+  // Stage config — matches your API stage numbers exactly
+  // ============================================================
+  var STAGES = [
+    { num: 0, name: 'Quote Received',            note: 'Your quote request has been received and is being reviewed by our sales team.' },
+    { num: 1, name: 'Order Confirmed',            note: 'Your order has been confirmed and production has been scheduled.' },
+    { num: 2, name: 'In Production',              note: 'Your bags are being manufactured — extrusion, weaving, printing, cutting in progress.' },
+    { num: 3, name: 'Quality Check & Packaging',  note: 'Finished bags are being inspected and packaged for shipping.' },
+    { num: 4, name: 'Ready for Shipping',         note: 'Your order has passed quality control and is ready for dispatch.' },
+    { num: 5, name: 'Delivered',                  note: 'Your order has been delivered successfully.' },
+  ];
 
-document.getElementById('trackInput').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') lookupOrder();
-});
+  var STATUS_CLASSES = {
+    pending:     'status-pending',
+    confirmed:   'status-confirmed',
+    in_progress: 'status-in_progress',
+    completed:   'status-completed',
+    cancelled:   'status-cancelled',
+  };
+
+  // ============================================================
+  // Render order from API response
+  // ============================================================
+  function renderOrder(order) {
+    // Header
+    document.getElementById('resultOrderId').textContent = '#' + order.id;
+    var badge = document.getElementById('resultStatusBadge');
+    badge.textContent = order.status_label || order.status;
+    badge.className   = 'order-status-big ' + (STATUS_CLASSES[order.status] || 'status-pending');
+
+    // Meta row
+    document.getElementById('resultCompany').textContent = order.company  || '—';
+    document.getElementById('resultProduct').textContent = order.product  || '—';
+    document.getElementById('resultQty').textContent     = order.qty      || '—';
+    document.getElementById('resultDate').textContent    = order.created_at
+      ? new Date(order.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })
+      : '—';
+
+    // Specs grid — only show fields that exist
+    var specFields = [
+      { label: 'Bag Size',    val: order.size },
+      { label: 'Print Colors',val: order.colors },
+      { label: 'Lamination',  val: order.lamination },
+      { label: 'Ship To',     val: order.ship_to },
+    ];
+    var specsHtml = specFields
+      .filter(function(f) { return f.val; })
+      .map(function(f) {
+        return '<div class="spec-item">' +
+          '<div class="spec-label">' + f.label + '</div>' +
+          '<div class="spec-val">'   + f.val   + '</div>' +
+          '</div>';
+      }).join('');
+
+    if (specsHtml) {
+      document.getElementById('orderSpecsGrid').innerHTML = specsHtml;
+      document.getElementById('orderSpecs').style.display = 'block';
+    }
+
+    // Timeline
+    var currentStage = order.stage;
+    var timelineHtml = '';
+
+    if (order.status === 'cancelled') {
+      timelineHtml =
+        '<div class="timeline-item">' +
+        '<div class="t-dot" style="background:#e06060;">✕</div>' +
+        '<div class="t-body">' +
+        '<div class="t-name">Order Cancelled</div>' +
+        '<div class="t-note">This order has been cancelled. Please contact us if you have questions.</div>' +
+        '</div></div>';
+    } else {
+      STAGES.forEach(function(stage, i) {
+        var dotClass, dotContent, dateLabel;
+
+        if (i < currentStage) {
+          dotClass = 't-done'; dotContent = '✓'; dateLabel = 'Completed';
+        } else if (i === currentStage) {
+          dotClass = 't-active'; dotContent = '→'; dateLabel = 'Current stage';
+        } else {
+          dotClass = 't-pending'; dotContent = (i + 1).toString(); dateLabel = 'Upcoming';
+        }
+
+        // Show submitted date on first stage
+        if (i === 0 && order.created_at) {
+          dateLabel = new Date(order.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+        }
+
+        timelineHtml +=
+          '<div class="timeline-item">' +
+          '<div class="t-dot ' + dotClass + '">' + dotContent + '</div>' +
+          '<div class="t-body">' +
+          '<div class="t-name">' + stage.name + '</div>' +
+          '<div class="t-date">' + dateLabel + '</div>' +
+          (i <= currentStage ? '<div class="t-note">' + stage.note + '</div>' : '') +
+          '</div></div>';
+      });
+    }
+
+    document.getElementById('orderTimeline').innerHTML = timelineHtml;
+
+    // Show card
+    document.getElementById('orderResult').classList.add('visible');
+    document.getElementById('orderResult').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  // ============================================================
+  // Lookup from API
+  // ============================================================
+  window.lookupOrder = async function() {
+    var input = document.getElementById('trackInput').value.trim().toUpperCase();
+    if (!input) { showToast('Please enter your Order ID'); return; }
+
+    // Reset UI
+    document.getElementById('orderResult').classList.remove('visible');
+    document.getElementById('errorState').style.display   = 'none';
+    document.getElementById('loadingState').style.display = 'block';
+    document.getElementById('orderSpecs').style.display   = 'none';
+
+    var btn = document.getElementById('trackBtn');
+    btn.disabled = true; btn.textContent = 'Searching...';
+
+    try {
+      var res  = await fetch('https://app.dinqdigital.com/api/track?id=' + encodeURIComponent(input));
+      var data = await res.json();
+
+      document.getElementById('loadingState').style.display = 'none';
+      btn.disabled = false; btn.textContent = 'Track →';
+
+      if (data.success && data.order) {
+        renderOrder(data.order);
+      } else {
+        document.getElementById('errorMsg').textContent =
+          data.error || "We couldn't find an order with that ID. Please check and try again.";
+        document.getElementById('errorState').style.display = 'block';
+      }
+    } catch(err) {
+      console.error(err);
+      document.getElementById('loadingState').style.display = 'none';
+      btn.disabled = false; btn.textContent = 'Track →';
+      document.getElementById('errorMsg').textContent =
+        'Something went wrong. Please try again or contact us directly.';
+      document.getElementById('errorState').style.display = 'block';
+    }
+  };
+
+  // ============================================================
+  // Auto-load from URL: tracking.html?id=ETH-E017
+  // ============================================================
+  var params = new URLSearchParams(window.location.search);
+  var urlId  = params.get('id');
+  if (urlId) {
+    document.getElementById('trackInput').value = urlId.toUpperCase();
+    window.lookupOrder();
+  }
+
+  // Enter key + auto-uppercase
+  document.getElementById('trackInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') window.lookupOrder();
+  });
+
+  document.getElementById('trackInput').addEventListener('input', function() {
+    var pos = this.selectionStart;
+    this.value = this.value.toUpperCase();
+    this.setSelectionRange(pos, pos);
+  });
+
+}); // end DOMContentLoaded
 </script>
 </body>
 </html>
