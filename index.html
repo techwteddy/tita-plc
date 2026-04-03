@@ -25,7 +25,7 @@
     <li><a href="pages/about.html">About</a></li>
     <li><a href="pages/products.html">Products</a></li>
     <li><a href="pages/export.html">Export</a></li>
-    <li><a href="https://app.dinqdigital.com/track" target="_blank">Track Order</a></li>
+    <li><a href="https://pages/tracking.html" target="_blank">Track Order</a></li>
     <li><a href="login.html">Staff Login</a></li>
     <li><a href="#quote" class="nav-cta">Request Quote</a></li>
   </ul>
@@ -131,7 +131,7 @@
           <div class="quick-card-link">Learn More →</div>
         </div>
       </a>
-      <a href="https://app.dinqdigital.com/track" target="_blank" style="text-decoration:none;" class="quick-card">
+      <a href="https://pages/tracking.html" target="_blank" style="text-decoration:none;" class="quick-card">
         <div class="quick-card-inner">
           <div class="quick-card-icon">🔍</div>
           <div class="quick-card-title">Track Your Order</div>
@@ -169,7 +169,7 @@
           <div style="display:flex;gap:8px;">
             <input type="text" id="trackInput" placeholder="Enter Order ID (e.g. ETH-3576)"
               style="flex:1;padding:9px 12px;background:white;border:1px solid rgba(0,0,0,0.12);border-radius:6px;color:var(--text-dark);font-size:13px;outline:none;font-family:inherit;" />
-            <button onclick="var tid=document.getElementById('trackInput').value.trim();if(tid)window.open('https://app.dinqdigital.com/track','_blank');else alert('Please enter your Order ID first');"
+            <button onclick="var tid=document.getElementById('trackInput').value.trim();if(tid)window.open('https://pages/tracking.html','_blank');else alert('Please enter your Order ID first');"
               style="padding:9px 16px;background:var(--green-700);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Track →</button>
           </div>
         </div>
@@ -356,7 +356,7 @@
         <h4>Services</h4>
         <ul class="footer-links">
           <li><a href="pages/export.html">Export Services</a></li>
-          <li><a href="https://app.dinqdigital.com/track" target="_blank">Track Order</a></li>
+          <li><a href="https://pages/tracking.html" target="_blank">Track Order</a></li>
           <li><a href="#quote">Request Quote</a></li>
           <li><a href="login.html">Staff Login</a></li>
           <li><a href="https://app.dinqdigital.com" target="_blank">Admin Dashboard</a></li>
@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div style="font-size:40px;font-weight:800;color:#C9A84C;font-family:\'Playfair Display\',serif;letter-spacing:.05em;">' + data.order_id + '</div>' +
           '<div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:8px;">Save this ID to track your order status</div>' +
           '</div><br/>' +
-          '<a href="https://app.dinqdigital.com/track" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-top:8px;">🔍 Track Order Status →</a>' +
+          '<a href="https://pages/tracking.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-top:8px;">🔍 Track Order Status →</a>' +
           '</div>';
       } else {
         throw new Error(data.error || 'Failed');
@@ -603,7 +603,7 @@ document.addEventListener('DOMContentLoaded', function() {
           '<p style="color:var(--text-light);font-size:14px;margin-bottom:20px;">Your order ID is:</p>' +
           '<div style="font-size:32px;font-weight:800;color:var(--green-600);font-family:\'Playfair Display\',serif;">' + data.order_id + '</div>' +
           '<p style="color:var(--text-light);font-size:13px;margin:12px 0 24px;">Save this to track your order</p>' +
-          '<a href="https://app.dinqdigital.com/track" target="_blank" style="display:inline-flex;padding:11px 24px;background:var(--green-700);color:white;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">Track Order →</a>' +
+          '<a href="https://pages/tracking.html" target="_blank" style="display:inline-flex;padding:11px 24px;background:var(--green-700);color:white;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">Track Order →</a>' +
           '</div>';
       } else { throw new Error(data.error || 'Failed'); }
     } catch(err) {
