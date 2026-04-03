@@ -24,9 +24,8 @@
     <li><a href="pages/about.html">About</a></li>
     <li><a href="pages/products.html">Products</a></li>
     <li><a href="pages/export.html">Export</a></li>
-    <li><a href="pages/tracking.html">Track Order</a></li>
+    <li><a href="https://app.dinqdigital.com/track" target="_blank">Track Order</a></li>
     <li><a href="login.html">Staff Login</a></li>
-    
     <li><a href="#quote" class="nav-cta">Request Quote</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -191,7 +190,6 @@
     <div class="products-filter fade-up">
       <button class="filter-btn active" data-filter="all">All Products</button>
       <button class="filter-btn" data-filter="finished">Finished Bags</button>
-      
       <button class="filter-btn" data-filter="shopping">Shopping Bags</button>
     </div>
 
@@ -419,7 +417,7 @@
           <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📧</div>
           <div>
             <div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Email</div>
-            <div style="font-size:15px;font-weight:500;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a594b464f596a4f5e4243455a4b494104494547">[email&#160;protected]</a></div>
+            <div style="font-size:15px;font-weight:500;">sales@titaplc.com</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
@@ -439,33 +437,33 @@
       </div>
     </div>
 
-    <div class="quote-form-wrap fade-up">
+    <div class="quote-form-wrap fade-up" id="quoteFormWrap">
       <div class="form-title">Request a Quote</div>
       <div class="form-subtitle">Get pricing within 24 hours for any product or quantity.</div>
       <form id="quoteForm">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Company Name *</label>
-            <input type="text" class="form-input" placeholder="Your company" required />
+            <input type="text" class="form-input" id="q-company" placeholder="Your company" required />
           </div>
           <div class="form-group">
             <label class="form-label">Contact Name *</label>
-            <input type="text" class="form-input" placeholder="Full name" required />
+            <input type="text" class="form-input" id="q-contact" placeholder="Full name" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Email Address *</label>
-            <input type="email" class="form-input" placeholder="you@company.com" required />
+            <input type="email" class="form-input" id="q-email" placeholder="you@company.com" required />
           </div>
           <div class="form-group">
             <label class="form-label">Phone / WhatsApp</label>
-            <input type="tel" class="form-input" placeholder="+1 234 567 890" />
+            <input type="tel" class="form-input" id="q-phone" placeholder="+1 234 567 890" />
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Product Type *</label>
-          <select class="form-select" required>
+          <select class="form-select" id="q-product" required>
             <option value="">Select a product...</option>
             <option>PP Woven Bag — Standard</option>
             <option>PP Woven Bag — Heavy Duty</option>
@@ -501,7 +499,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Shipping Destination</label>
-          <select class="form-select">
+          <select class="form-select" id="q-shipping">
             <option>Local — Ethiopia</option>
             <option>International — Sea Freight</option>
             <option>International — Air Freight</option>
@@ -509,9 +507,9 @@
         </div>
         <div class="form-group">
           <label class="form-label">Customization / Notes</label>
-          <textarea class="form-textarea" placeholder="Printing requirements, bag size, color, delivery timeline..."></textarea>
+          <textarea class="form-textarea" id="q-notes" placeholder="Printing requirements, bag size, color, delivery timeline..."></textarea>
         </div>
-        <button type="submit" class="btn-submit">Submit Quote Request</button>
+        <button type="submit" class="btn-submit" id="quoteSubmitBtn">Submit Quote Request</button>
       </form>
     </div>
   </div>
@@ -600,9 +598,7 @@
             <div class="admin-table-wrap">
               <div class="admin-table-header">
                 <div class="admin-table-title">Warehouse Inventory</div>
-                <div class="admin-table-actions">
-                  <button class="btn-sm">Update Stock</button>
-                </div>
+                <div class="admin-table-actions"><button class="btn-sm">Update Stock</button></div>
               </div>
               <table>
                 <thead><tr><th>Item</th><th>Category</th><th>Stock (Units)</th><th>Stock (kg)</th><th>Status</th></tr></thead>
@@ -683,10 +679,10 @@
               <table>
                 <thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Access Level</th></tr></thead>
                 <tbody>
-                  <tr><td>Abebe Kebede</td><td>Admin</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9d8dbdcdbdcf9dccdd1d0d6c9d8dad297dad6d4">[email&#160;protected]</a></td><td><span class="status-pill status-prod">Full Access</span></td></tr>
-                  <tr><td>Tigist Haile</td><td>Sales Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd89949a948e89bd98899594928d9c9e96d39e9290">[email&#160;protected]</a></td><td><span class="status-pill status-new">Orders + CRM</span></td></tr>
-                  <tr><td>Dawit Tesfaye</td><td>Warehouse Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3c7c2d4cad7e3c6d7cbcaccd3c2c0c88dc0ccce">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Inventory</span></td></tr>
-                  <tr><td>Meron Alemu</td><td>Logistics Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8be6eef9e4e5cbeeffe3e2e4fbeae8e0a5e8e4e6">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Shipments</span></td></tr>
+                  <tr><td>Abebe Kebede</td><td>Admin</td><td>abebe@titaplc.com</td><td><span class="status-pill status-prod">Full Access</span></td></tr>
+                  <tr><td>Tigist Haile</td><td>Sales Manager</td><td>tigist@titaplc.com</td><td><span class="status-pill status-new">Orders + CRM</span></td></tr>
+                  <tr><td>Dawit Tesfaye</td><td>Warehouse Manager</td><td>dawit@titaplc.com</td><td><span class="status-pill status-ship">Inventory</span></td></tr>
+                  <tr><td>Meron Alemu</td><td>Logistics Manager</td><td>meron@titaplc.com</td><td><span class="status-pill status-ship">Shipments</span></td></tr>
                 </tbody>
               </table>
             </div>
@@ -696,7 +692,7 @@
     </div>
 
     <div style="text-align:center;margin-top:28px;">
-      <a href="pages/admin.html" class="btn-primary" style="display:inline-flex;">Open Full Dashboard →</a>
+      <a href="https://app.dinqdigital.com" target="_blank" class="btn-primary" style="display:inline-flex;">Open Full Dashboard →</a>
     </div>
   </div>
 </section>
@@ -716,7 +712,7 @@
           <div class="contact-icon">📍</div>
           <div>
             <div class="contact-item-label">Factory Address</div>
-            <div class="contact-item-value">Desē, Amhara Region<br/>, Ethiopia</div>
+            <div class="contact-item-value">Desē, Amhara Region<br/>Ethiopia</div>
           </div>
         </div>
         <div class="contact-item">
@@ -730,7 +726,7 @@
           <div class="contact-icon">📧</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7102101d140231140519181e0110121a5f121e1c">[email&#160;protected]</a><br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caafb2baa5b8be8aafbea2a3a5baaba9a1e4a9a5a7">[email&#160;protected]</a></div>
+            <div class="contact-item-value">sales@titaplc.com<br/>export@titaplc.com</div>
           </div>
         </div>
         <div class="contact-item">
@@ -805,9 +801,9 @@
         <h4>Services</h4>
         <ul class="footer-links">
           <li><a href="pages/export.html">Export Services</a></li>
-          <li><a href="pages/tracking.html">Order Tracking</a></li>
+          <li><a href="https://app.dinqdigital.com/track" target="_blank">Order Tracking</a></li>
           <li><a href="#quote">Request Quote</a></li>
-          <li><a href="pages/admin.html">Admin Login</a></li>
+          <li><a href="https://app.dinqdigital.com" target="_blank">Admin Login</a></li>
         </ul>
       </div>
     </div>
@@ -824,17 +820,164 @@
     <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
     <h2>Place an Order</h2>
     <p>Fill in the details below. Our team will confirm within 24 hours.</p>
-    <form>
+    <form id="modalOrderForm">
       <div class="form-group">
         <label class="form-label">Company Name *</label>
-        <input type="text" class="form-input" placeholder="Your company name" required />
+        <input type="text" class="form-input" id="modal-company" placeholder="Your company name" required />
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Quantity *</label>
-          <input type="number" class="form-input" placeholder="e.g. 5000" required />
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-input" id="modal-email" placeholder="you@company.com" required />
         </div>
         <div class="form-group">
-          <label class="form-label">Shipping Type</label>
-          <select class="form-select">
-          
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" id="modal-phone" placeholder="+251 9..." />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Quantity *</label>
+        <input type="number" class="form-input" id="modal-qty" placeholder="e.g. 5000" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Shipping Type</label>
+        <select class="form-select" id="modal-shipping">
+          <option>Local — Ethiopia</option>
+          <option>International — Sea Freight</option>
+          <option>International — Air Freight</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-textarea" id="modal-notes" placeholder="Size, print requirements, delivery timeline..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="modalSubmitBtn">Submit Order Request</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
+
+<script src="js/main.js"></script>
+<script>
+// ============================================================
+// Quote Form — connected to DinqFactory via API
+// ============================================================
+document.getElementById('quoteForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const btn = document.getElementById('quoteSubmitBtn');
+  const originalText = btn.textContent;
+
+  const company_name        = document.getElementById('q-company').value.trim();
+  const contact_name        = document.getElementById('q-contact').value.trim();
+  const email               = document.getElementById('q-email').value.trim();
+  const phone               = document.getElementById('q-phone').value.trim();
+  const product_type        = document.getElementById('q-product').value;
+  const quantity            = document.getElementById('calcQty').value;
+  const weight_per_unit     = document.getElementById('calcWeight').value;
+  const shipping_destination = document.getElementById('q-shipping').value;
+  const customization_notes = document.getElementById('q-notes').value.trim();
+
+  if (!company_name || !email || !product_type) {
+    if (typeof showToast === 'function') showToast('Please fill in Company Name, Email, and Product Type');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    const response = await fetch('https://app.dinqdigital.com/api/quote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company_name, contact_name, email, phone,
+        product_type, quantity, weight_per_unit,
+        shipping_destination, customization_notes,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      document.getElementById('quoteFormWrap').innerHTML = `
+        <div style="text-align:center;padding:48px 20px;">
+          <div style="width:72px;height:72px;background:linear-gradient(135deg,var(--green-500),var(--green-700));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;box-shadow:0 8px 32px rgba(74,154,74,0.3);">✅</div>
+          <h3 style="color:white;font-size:22px;margin-bottom:8px;">Quote Request Received!</h3>
+          <p style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:24px;">Our sales team will respond within 24 hours with detailed pricing.</p>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 24px;margin-bottom:24px;display:inline-block;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Your Order ID</div>
+            <div style="font-size:32px;font-weight:800;color:var(--earth-300);font-family:'Playfair Display',serif;">${data.order_id}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px;">Save this ID to track your order</div>
+          </div>
+          <br/>
+          <a href="https://app.dinqdigital.com/track" target="_blank"
+            style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:white;font-size:14px;font-weight:500;text-decoration:none;margin-top:8px;">
+            🔍 Track Order Status →
+          </a>
+        </div>
+      `;
+    } else {
+      throw new Error(data.error || 'Submission failed');
+    }
+
+  } catch (err) {
+    console.error('Quote form error:', err);
+    btn.disabled = false;
+    btn.textContent = originalText;
+    if (typeof showToast === 'function') showToast('Something went wrong. Please try again or contact us directly.');
+  }
+});
+
+// ============================================================
+// Modal Order Form — also connected to DinqFactory
+// ============================================================
+document.getElementById('modalOrderForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('modalSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    const response = await fetch('https://app.dinqdigital.com/api/quote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company_name: document.getElementById('modal-company').value.trim(),
+        email:        document.getElementById('modal-email').value.trim(),
+        phone:        document.getElementById('modal-phone').value.trim(),
+        quantity:     document.getElementById('modal-qty').value,
+        shipping_destination: document.getElementById('modal-shipping').value,
+        customization_notes:  document.getElementById('modal-notes').value.trim(),
+        product_type: 'Order from product page',
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      document.querySelector('#orderModal .modal').innerHTML = `
+        <div style="text-align:center;padding:40px 20px;">
+          <div style="font-size:48px;margin-bottom:16px;">✅</div>
+          <h3 style="margin-bottom:8px;">Order Submitted!</h3>
+          <p style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:20px;">We'll confirm within 24 hours.</p>
+          <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:14px 20px;margin-bottom:20px;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px;">ORDER ID</div>
+            <div style="font-size:26px;font-weight:800;color:var(--earth-300);font-family:'Playfair Display',serif;">${data.order_id}</div>
+          </div>
+          <button onclick="closeModal('orderModal')" style="padding:10px 24px;background:var(--green-600);color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer;">Close</button>
+        </div>
+      `;
+    } else {
+      throw new Error(data.error);
+    }
+  } catch(err) {
+    btn.disabled = false;
+    btn.textContent = 'Submit Order Request';
+    if (typeof showToast === 'function') showToast('Something went wrong. Please try again.');
+  }
+});
+</script>
+</body>
+</html>
