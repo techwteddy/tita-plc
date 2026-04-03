@@ -245,7 +245,7 @@
       <div style="display:flex;flex-direction:column;gap:16px;" class="fade-up">
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📧</div>
-          <div><div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Email</div><div style="font-size:15px;font-weight:500;">sales@titaplc.com</div></div>
+          <div><div style="font-size:12px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;">Email</div><div style="font-size:15px;font-weight:500;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d5e4c41485e6d5944594c5d414e034e4240">[email&#160;protected]</a></div></div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="width:36px;height:36px;background:var(--green-700);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;">📞</div>
@@ -261,7 +261,7 @@
           <div style="display:flex;gap:8px;">
             <input type="text" id="trackInput" placeholder="Enter Order ID (e.g. ETH-3576)"
               style="flex:1;padding:9px 12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:white;font-size:13px;outline:none;font-family:inherit;" />
-            <button onclick="window.open('https://app.dinqdigital.com/track?id='+document.getElementById('trackInput').value,'_blank')"
+            <button onclick="var tid = document.getElementById('trackInput').value.trim(); if(tid) window.open('https://app.dinqdigital.com/track','_blank'); else alert('Please enter your Order ID first');"
               style="padding:9px 16px;background:var(--green-700);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Track →</button>
           </div>
         </div>
@@ -294,7 +294,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Product Type *</label>
-          <select class="form-select" id="q-product" required>
+          <select class="form-select" id="q-product" required onchange="updateCalc()">
             <option value="">Select a product...</option>
             <option>PP Woven Bag — Standard</option>
             <option>PP Woven Bag — Heavy Duty</option>
@@ -308,21 +308,18 @@
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Quantity *</label>
-            <input type="number" class="form-input" id="calcQty" placeholder="e.g. 10000" min="0" />
+            <input type="number" class="form-input" id="calcQty" placeholder="e.g. 10000" min="0" oninput="updateCalc()" />
           </div>
           <div class="form-group">
             <label class="form-label">Unit</label>
-            <select class="form-select" id="q-unit">
+            <select class="form-select" id="q-unit" onchange="updateCalc()">
               <option>units</option>
+              <option>g (grams)</option>
               <option>kg</option>
               <option>tons (MT)</option>
               <option>rolls</option>
             </select>
           </div>
-        </div>
-        <div class="form-calc">
-          <div><div class="calc-label">Estimated Total Weight</div><div class="calc-value" id="calcTotalWeight">—</div></div>
-          <div style="text-align:right"><div class="calc-label">Estimated Order Value</div><div class="calc-value" id="calcTotal">—</div></div>
         </div>
         <!-- Customization -->
         <div style="margin:20px 0 12px;font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:10px;">
@@ -372,6 +369,16 @@
         <div class="form-group">
           <label class="form-label">Additional Notes</label>
           <textarea class="form-textarea" id="q-notes" placeholder="Delivery timeline, special requirements..."></textarea>
+        </div>
+        <div class="form-calc" style="margin-top:16px;">
+          <div>
+            <div class="calc-label">Estimated Total Weight</div>
+            <div class="calc-value" id="calcTotalWeight">—</div>
+          </div>
+          <div style="text-align:right">
+            <div class="calc-label">Estimated Order Value</div>
+            <div class="calc-value" id="calcTotal">—</div>
+          </div>
         </div>
         <button type="submit" class="btn-submit" id="quoteSubmitBtn">Submit Quote Request</button>
       </form>
@@ -472,10 +479,10 @@
               <div class="admin-table-header"><div class="admin-table-title">Staff & Roles</div><div class="admin-table-actions"><button class="btn-sm">+ Add Staff</button></div></div>
               <table><thead><tr><th>Name</th><th>Role</th><th>Email</th><th>Access Level</th></tr></thead>
               <tbody>
-                <tr><td>Abebe Kebede</td><td>Admin</td><td>abebe@titaplc.com</td><td><span class="status-pill status-prod">Full Access</span></td></tr>
-                <tr><td>Tigist Haile</td><td>Sales Manager</td><td>tigist@titaplc.com</td><td><span class="status-pill status-new">Orders + CRM</span></td></tr>
-                <tr><td>Dawit Tesfaye</td><td>Warehouse Manager</td><td>dawit@titaplc.com</td><td><span class="status-pill status-ship">Inventory</span></td></tr>
-                <tr><td>Meron Alemu</td><td>Logistics Manager</td><td>meron@titaplc.com</td><td><span class="status-pill status-ship">Shipments</span></td></tr>
+                <tr><td>Abebe Kebede</td><td>Admin</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfbebdbabdba9fabb6abbeafb3bcf1bcb0b2">[email&#160;protected]</a></td><td><span class="status-pill status-prod">Full Access</span></td></tr>
+                <tr><td>Tigist Haile</td><td>Sales Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f4b5658564c4b7f4b564b5e4f535c115c5052">[email&#160;protected]</a></td><td><span class="status-pill status-new">Orders + CRM</span></td></tr>
+                <tr><td>Dawit Tesfaye</td><td>Warehouse Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c787d6b75685c6875687d6c707f327f7371">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Inventory</span></td></tr>
+                <tr><td>Meron Alemu</td><td>Logistics Manager</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c21293e23220c3825382d3c202f622f2321">[email&#160;protected]</a></td><td><span class="status-pill status-ship">Shipments</span></td></tr>
               </tbody></table>
             </div>
           </div>
@@ -497,7 +504,7 @@
       <div class="contact-info-block fade-up">
         <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-item-label">Factory Address</div><div class="contact-item-value">Desē, Amhara Region<br/>Ethiopia</div></div></div>
         <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-item-label">Phone / WhatsApp</div><div class="contact-item-value">+251 911 234 567<br/>+251 116 789 012</div></div></div>
-        <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-item-label">Email</div><div class="contact-item-value">sales@titaplc.com<br/>export@titaplc.com</div></div></div>
+        <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0b786a676e784b7f627f6a7b676825686466">[email&#160;protected]</a><br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214459514e53556155485540514d420f424e4c">[email&#160;protected]</a></div></div></div>
         <div class="contact-item"><div class="contact-icon">🕐</div><div><div class="contact-item-label">Working Hours</div><div class="contact-item-value">Mon–Fri: 8:00 AM – 6:00 PM EAT<br/>Sat: 9:00 AM – 2:00 PM EAT</div></div></div>
       </div>
       <div class="contact-form-card fade-up">
@@ -557,8 +564,78 @@
 
 <div class="toast" id="toast"><span>✅</span><span class="toast-msg">Done!</span></div>
 
-<script src="js/main.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
 <script>
+// ============================================================
+// Live Calc — Estimated weight & value
+// ============================================================
+function updateCalc() {
+  var qty = parseFloat(document.getElementById('calcQty').value) || 0;
+  var unit = document.getElementById('q-unit').value;
+  var product = document.getElementById('q-product').value;
+
+  // Price per unit estimates
+  var prices = {
+    'PP Woven Bag — Standard': 0.68,
+    'PP Woven Bag — Heavy Duty': 1.10,
+    'Reusable Shopping Bag': 0.45,
+    'BOPP Laminated Bag': 1.40,
+    'PP Granules — Virgin Grade': 1.85,
+    'Woven Fabric Roll': 2.20,
+  };
+
+  // Weight per unit in kg estimates
+  var weights = {
+    'PP Woven Bag — Standard': 0.1,
+    'PP Woven Bag — Heavy Duty': 0.175,
+    'Reusable Shopping Bag': 0.063,
+    'BOPP Laminated Bag': 0.12,
+    'PP Granules — Virgin Grade': 1,
+    'Woven Fabric Roll': 1,
+  };
+
+  var unitPrice = prices[product] || 0;
+  var weightPerUnit = weights[product] || 0;
+
+  // Convert qty to base units for calc
+  var qtyInUnits = qty;
+  var weightLabel = '—';
+  var valueLabel = '—';
+
+  if (qty > 0) {
+    var totalWeight = 0;
+    var totalValue = 0;
+
+    if (unit === 'g (grams)') {
+      totalWeight = qty / 1000;
+      totalValue = (qty / 1000) * (unitPrice / weightPerUnit || 0);
+      weightLabel = totalWeight.toFixed(2) + ' kg';
+    } else if (unit === 'kg') {
+      totalWeight = qty;
+      totalValue = qty * (unitPrice / weightPerUnit || 0);
+      weightLabel = qty.toFixed(1) + ' kg';
+    } else if (unit === 'tons (MT)') {
+      totalWeight = qty * 1000;
+      totalValue = qty * 1000 * (unitPrice / weightPerUnit || 0);
+      weightLabel = qty + ' tons';
+    } else {
+      // units / rolls / meters
+      totalWeight = qty * weightPerUnit;
+      totalValue = qty * unitPrice;
+      weightLabel = totalWeight.toFixed(1) + ' kg';
+    }
+
+    if (unitPrice > 0) {
+      valueLabel = '$' + totalValue.toFixed(2);
+    } else {
+      valueLabel = 'Quote required';
+    }
+  }
+
+  document.getElementById('calcTotalWeight').textContent = weightLabel;
+  document.getElementById('calcTotal').textContent = valueLabel;
+}
+
 // ============================================================
 // Quote Form — ONE handler only, connected to DinqFactory
 // ============================================================
@@ -664,20 +741,4 @@ document.getElementById('modalOrderForm').addEventListener('submit', async funct
         '<div style="text-align:center;padding:40px 20px;">' +
         '<div style="font-size:48px;margin-bottom:16px;">✅</div>' +
         '<h3 style="color:white;margin-bottom:8px;">Order Submitted!</h3>' +
-        '<p style="color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:20px;">We\'ll confirm within 24 hours.</p>' +
-        '<div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:14px 20px;margin-bottom:20px;">' +
-        '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px;">ORDER ID</div>' +
-        '<div style="font-size:28px;font-weight:800;color:#C9A84C;font-family:Playfair Display,serif;">' + data.order_id + '</div>' +
-        '</div>' +
-        '<button onclick="closeModal(\'orderModal\')" style="padding:10px 24px;background:var(--green-600);color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer;">Close</button>' +
-        '</div>';
-    } else { throw new Error(data.error); }
-  } catch(err) {
-    btn.disabled = false;
-    btn.textContent = 'Submit Order Request';
-    if (typeof showToast === 'function') showToast('Something went wrong. Please try again.');
-  }
-});
-</script>
-</body>
-</html>
+        '<p style="color:rgba(255,255,255,0.5);font-size:14p
