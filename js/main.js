@@ -62,29 +62,10 @@ function initProductFilter() {
   });
 }
 
-// ===== ORDER CALCULATOR =====
+// ===== ORDER CALCULATOR (disabled — handled by quote form) =====
 function initCalculator() {
-  const qtyInput = document.getElementById('calcQty');
-  const weightInput = document.getElementById('calcWeight');
-  const totalDisplay = document.getElementById('calcTotal');
-  const weightDisplay = document.getElementById('calcTotalWeight');
-  const priceInput = document.getElementById('calcPrice');
-
-  function updateCalc() {
-    if (!qtyInput || !weightInput || !totalDisplay) return;
-    const qty = parseFloat(qtyInput.value) || 0;
-    const weight = parseFloat(weightInput.value) || 0;
-    const price = parseFloat(priceInput?.value) || 2.5;
-    const totalWeight = qty * weight;
-    const total = totalWeight * price;
-    if (weightDisplay) weightDisplay.textContent = totalWeight.toFixed(1) + ' kg';
-    if (totalDisplay) totalDisplay.textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2 });
-  }
-
-  if (qtyInput) qtyInput.addEventListener('input', updateCalc);
-  if (weightInput) weightInput.addEventListener('input', updateCalc);
-  if (priceInput) priceInput.addEventListener('input', updateCalc);
-  updateCalc();
+  // Calculator is now handled by the quote form's own updateCalc()
+  // which fetches live prices from DinqFactory product catalog
 }
 
 // ===== MODAL =====
@@ -116,7 +97,11 @@ function showToast(msg, duration = 3000) {
 // ===== FORM SUBMIT =====
 function initForms() {
   document.querySelectorAll('form').forEach(form => {
+    // Skip forms that have their own handlers
     if (form.id === 'loginForm') return;
+    if (form.id === 'quoteForm') return;
+    if (form.id === 'modalOrderForm') return;
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type=submit]');
@@ -125,7 +110,7 @@ function initForms() {
         btn.disabled = true;
       }
       setTimeout(() => {
-        showToast('✅ Your request has been submitted successfully!');
+        showToast('✅ Your message has been sent successfully!');
         form.reset();
         if (btn) { btn.textContent = btn.dataset.original || 'Submit'; btn.disabled = false; }
         const modal = form.closest('.modal-overlay');
@@ -189,44 +174,21 @@ async function fetchExchangeRate() {
     const data = await res.json();
     if (data.rates && data.rates.ETB) {
       usdToEtb = data.rates.ETB;
-      renderCurrencyPrices();
       updateCurrencyBadge();
     }
   } catch (e) {
-    renderCurrencyPrices(); // use fallback
     updateCurrencyBadge();
   }
 }
 
-function renderCurrencyPrices() {
-  document.querySelectorAll('[data-usd]').forEach(el => {
-    const usd = parseFloat(el.dataset.usd);
-    const etb = (usd * usdToEtb).toFixed(0);
-    el.innerHTML = `
-      <span class="price-usd">$${usd.toFixed(2)}</span>
-      <span class="price-etb">${Number(etb).toLocaleString()} ETB</span>
-    `;
-  });
-  // also update calculator
-  updateCalcCurrency();
-}
-
 function updateCurrencyBadge() {
   document.querySelectorAll('.rate-badge').forEach(el => {
-    el.textContent = `1 USD = ${usdToEtb.toFixed(1)} ETB (live)`;
+    el.textContent = '1 USD = ' + usdToEtb.toFixed(1) + ' ETB (live)';
   });
 }
 
-function updateCalcCurrency() {
-  const totalEl = document.getElementById('calcTotal');
-  if (!totalEl) return;
-  const qty = parseFloat(document.getElementById('calcQty')?.value) || 0;
-  const weight = parseFloat(document.getElementById('calcWeight')?.value) || 0;
-  const price = parseFloat(document.getElementById('calcPrice')?.value) || 2.5;
-  const totalUsd = qty * weight * price;
-  const totalEtb = (totalUsd * usdToEtb).toLocaleString('en-US', { maximumFractionDigits: 0 });
-  totalEl.innerHTML = `$${totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2 })}<br><span style="font-size:14px;color:var(--earth-400);">${totalEtb} ETB</span>`;
-}
+// updateCalcCurrency is intentionally removed —
+// quote form has its own live pricing from DinqFactory catalog
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -243,11 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const statsSection = document.querySelector('.hero-stats');
   if (statsSection) counterObserver.observe(statsSection);
 
-  // Save original button text
   document.querySelectorAll('button[type=submit]').forEach(btn => {
     btn.dataset.original = btn.textContent;
   });
 
-  // Fetch live exchange rate
   fetchExchangeRate();
 });
