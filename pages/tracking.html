@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -19,95 +20,95 @@
     .btn-track:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,154,74,0.3); }
     .btn-track:disabled { opacity: 0.6; transform: none; cursor: not-allowed; }
 
-    .loading-state { text-align: center; padding: 60px 20px; display: none; }
-    .loading-spinner {
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 3px solid rgba(74,154,74,0.15);
-      border-top-color: var(--green-500);
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-state p { color: var(--text-light); font-size: 14px; }
+```
+.loading-state { text-align: center; padding: 60px 20px; display: none; }
+.loading-spinner {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 3px solid rgba(74,154,74,0.15);
+  border-top-color: var(--green-500);
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-state p { color: var(--text-light); font-size: 14px; }
 
-    .error-state {
-      background: white; border-radius: 16px;
-      border: 1px solid rgba(224,96,96,0.2);
-      padding: 48px 32px; text-align: center; display: none;
-    }
-    .error-icon { font-size: 48px; margin-bottom: 16px; }
-    .error-state h3 { font-family:'Playfair Display',serif; font-size:22px; color:var(--text-dark); margin-bottom:10px; }
-    .error-state p { color:var(--text-light); font-size:14px; line-height:1.6; margin-bottom:24px; }
+.error-state {
+  background: white; border-radius: 16px;
+  border: 1px solid rgba(224,96,96,0.15);
+  padding: 48px 32px; text-align: center; display: none;
+  box-shadow: var(--shadow-soft);
+}
+.error-icon { font-size: 48px; margin-bottom: 16px; }
+.error-state h3 { font-family:'Playfair Display',serif; font-size:22px; color:var(--text-dark); margin-bottom:10px; }
+.error-state p { color:var(--text-light); font-size:14px; line-height:1.6; margin-bottom:24px; }
 
-    .order-result {
-      background: white; border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.07);
-      box-shadow: var(--shadow-med);
-      overflow: hidden; display: none;
-    }
-    .order-result.visible { display: block; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.order-result {
+  background: white; border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-med);
+  overflow: hidden; display: none;
+}
+.order-result.visible { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
-    .order-result-header {
-      background: var(--green-900); padding: 24px 28px;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 16px;
-    }
-    .order-id { font-family:'Playfair Display',serif; color:white; font-size:22px; }
-    .order-status-big { padding: 8px 18px; border-radius: 100px; font-size: 14px; font-weight: 600; }
-    .status-pending     { background:rgba(255,200,60,0.2);  color:#f0c040;           border:1px solid rgba(255,200,60,0.3); }
-    .status-confirmed   { background:rgba(74,154,74,0.2);   color:var(--green-300);  border:1px solid rgba(74,154,74,0.3); }
-    .status-in_progress { background:rgba(74,144,226,0.2);  color:#90c0f0;           border:1px solid rgba(74,144,226,0.3); }
-    .status-completed   { background:rgba(255,255,255,0.15);color:white;             border:1px solid rgba(255,255,255,0.2); }
-    .status-cancelled   { background:rgba(224,96,96,0.2);   color:#e89090;           border:1px solid rgba(224,96,96,0.3); }
+.order-result-header {
+  background: var(--green-900); padding: 24px 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.order-id { font-family:'Playfair Display',serif; color:white; font-size:22px; }
+.order-status-big { padding: 8px 18px; border-radius: 100px; font-size: 14px; font-weight: 600; }
+.status-pending     { background:rgba(255,200,60,0.2);  color:#f0c040;          border:1px solid rgba(255,200,60,0.3); }
+.status-confirmed   { background:rgba(74,154,74,0.2);   color:var(--green-300); border:1px solid rgba(74,154,74,0.3); }
+.status-in_progress { background:rgba(74,144,226,0.2);  color:#90c0f0;          border:1px solid rgba(74,144,226,0.3); }
+.status-completed   { background:rgba(255,255,255,0.15);color:white;            border:1px solid rgba(255,255,255,0.2); }
+.status-cancelled   { background:rgba(224,96,96,0.2);   color:#e89090;          border:1px solid rgba(224,96,96,0.3); }
 
-    .order-meta { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(0,0,0,0.07); }
-    .order-meta-item { background:white; padding:18px 22px; }
-    .order-meta-label { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
-    .order-meta-val { font-weight:600; font-size:15px; color:var(--text-dark); }
+.order-meta { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(0,0,0,0.07); }
+.order-meta-item { background:white; padding:18px 22px; }
+.order-meta-label { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+.order-meta-val { font-weight:600; font-size:15px; color:var(--text-dark); }
 
-    .order-specs {
-      padding: 20px 28px;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      background: var(--cream);
-    }
-    .order-specs-title { font-weight:700; font-size:14px; color:var(--text-dark); margin-bottom:14px; }
-    .order-specs-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .spec-item { display:flex; flex-direction:column; gap:3px; }
-    .spec-label { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:.06em; }
-    .spec-val { font-size:14px; color:var(--text-dark); font-weight:500; }
+.order-specs { padding: 20px 28px; border-bottom: 1px solid rgba(0,0,0,0.06); background: var(--cream); }
+.order-specs-title { font-weight:700; font-size:14px; color:var(--text-dark); margin-bottom:14px; }
+.order-specs-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.spec-item { display:flex; flex-direction:column; gap:3px; }
+.spec-label { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:.06em; }
+.spec-val { font-size:14px; color:var(--text-dark); font-weight:500; }
 
-    .timeline-wrap { padding: 28px; }
-    .timeline-title { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:24px; color:var(--text-dark); }
-    .timeline { display:flex; flex-direction:column; }
-    .timeline-item { display:flex; gap:16px; align-items:flex-start; position:relative; }
-    .timeline-item:not(:last-child)::after {
-      content:''; position:absolute; left:15px; top:36px;
-      width:2px; height:48px;
-      background:linear-gradient(to bottom, var(--green-400), rgba(0,0,0,0.08));
-    }
-    .t-dot {
-      width:32px; height:32px; border-radius:50%;
-      flex-shrink:0; display:flex; align-items:center; justify-content:center;
-      font-size:13px; font-weight:700; color:white; z-index:1; margin-top:4px;
-    }
-    .t-done    { background:var(--green-600); }
-    .t-active  { background:var(--green-500); box-shadow:0 0 0 4px rgba(74,154,74,0.2); }
-    .t-pending { background:rgba(0,0,0,0.1); color:var(--text-light); }
-    .t-body { padding-bottom:44px; }
-    .t-name { font-weight:600; font-size:15px; margin-bottom:2px; color:var(--text-dark); }
-    .t-date { font-size:12px; color:var(--text-light); margin-bottom:4px; }
-    .t-note { font-size:13px; color:var(--text-mid); }
+.timeline-wrap { padding: 28px; }
+.timeline-title { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:24px; color:var(--text-dark); }
+.timeline { display:flex; flex-direction:column; }
+.timeline-item { display:flex; gap:16px; align-items:flex-start; position:relative; }
+.timeline-item:not(:last-child)::after {
+  content:''; position:absolute; left:15px; top:36px;
+  width:2px; height:48px;
+  background:linear-gradient(to bottom, var(--green-400), rgba(0,0,0,0.08));
+}
+.t-dot {
+  width:32px; height:32px; border-radius:50%;
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:700; color:white; z-index:1; margin-top:4px;
+}
+.t-done    { background:var(--green-600); }
+.t-active  { background:var(--green-500); box-shadow:0 0 0 4px rgba(74,154,74,0.2); }
+.t-pending { background:rgba(0,0,0,0.1); color:var(--text-light); }
+.t-body { padding-bottom:44px; }
+.t-name { font-weight:600; font-size:15px; margin-bottom:2px; color:var(--text-dark); }
+.t-date { font-size:12px; color:var(--text-light); margin-bottom:4px; }
+.t-note { font-size:13px; color:var(--text-mid); }
 
-    .help-box { margin-top:48px; background:var(--earth-100); border-radius:12px; padding:28px; }
-    .help-box h3 { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:8px; color:var(--text-dark); }
-    .help-box p { font-size:14px; color:var(--text-light); margin-bottom:16px; }
+.help-box { margin-top:48px; background:var(--earth-100); border-radius:12px; padding:28px; }
+.help-box h3 { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:8px; color:var(--text-dark); }
+.help-box p { font-size:14px; color:var(--text-light); margin-bottom:16px; }
 
-    @media(max-width:600px) {
-      .order-meta { grid-template-columns:1fr 1fr; }
-      .order-specs-grid { grid-template-columns:1fr; }
-      .track-input-row { flex-direction:column; }
-    }
+@media(max-width:600px) {
+  .order-meta { grid-template-columns:1fr 1fr; }
+  .order-specs-grid { grid-template-columns:1fr; }
+  .track-input-row { flex-direction:column; }
+}
+```
+
   </style>
 </head>
 <body>
@@ -142,18 +143,19 @@
 
   <div class="track-input-row fade-up">
     <input type="text" class="form-input" id="trackInput"
-      placeholder="Enter your Order ID (e.g. ETH-E017)..."
-      style="text-transform:uppercase;" />
+      placeholder="Enter your Order ID (e.g. ETH-3576)..." />
     <button class="btn-track" id="trackBtn" onclick="lookupOrder()">Track →</button>
   </div>
 
   <!-- Loading -->
+
   <div class="loading-state" id="loadingState">
     <div class="loading-spinner"></div>
     <p>Looking up your order...</p>
   </div>
 
   <!-- Error -->
+
   <div class="error-state" id="errorState">
     <div class="error-icon">🔍</div>
     <h3>Order Not Found</h3>
@@ -162,6 +164,7 @@
   </div>
 
   <!-- Result -->
+
   <div class="order-result" id="orderResult">
     <div class="order-result-header">
       <div>
@@ -171,39 +174,43 @@
       <div class="order-status-big" id="resultStatusBadge"></div>
     </div>
 
-    <div class="order-meta">
-      <div class="order-meta-item">
-        <div class="order-meta-label">Company</div>
-        <div class="order-meta-val" id="resultCompany">—</div>
-      </div>
-      <div class="order-meta-item">
-        <div class="order-meta-label">Product</div>
-        <div class="order-meta-val" id="resultProduct">—</div>
-      </div>
-      <div class="order-meta-item">
-        <div class="order-meta-label">Quantity</div>
-        <div class="order-meta-val" id="resultQty">—</div>
-      </div>
-      <div class="order-meta-item">
-        <div class="order-meta-label">Order Date</div>
-        <div class="order-meta-val" id="resultDate">—</div>
-      </div>
-    </div>
+```
+<div class="order-meta">
+  <div class="order-meta-item">
+    <div class="order-meta-label">Company</div>
+    <div class="order-meta-val" id="resultCompany">—</div>
+  </div>
+  <div class="order-meta-item">
+    <div class="order-meta-label">Product</div>
+    <div class="order-meta-val" id="resultProduct">—</div>
+  </div>
+  <div class="order-meta-item">
+    <div class="order-meta-label">Quantity</div>
+    <div class="order-meta-val" id="resultQty">—</div>
+  </div>
+  <div class="order-meta-item">
+    <div class="order-meta-label">Order Date</div>
+    <div class="order-meta-val" id="resultDate">—</div>
+  </div>
+</div>
 
-    <!-- Order specs -->
-    <div class="order-specs" id="orderSpecs" style="display:none;">
-      <div class="order-specs-title">📋 Order Specifications</div>
-      <div class="order-specs-grid" id="orderSpecsGrid"></div>
-    </div>
+<!-- Specs — only shown if fields are filled -->
+<div class="order-specs" id="orderSpecs" style="display:none;">
+  <div class="order-specs-title">📋 Order Specifications</div>
+  <div class="order-specs-grid" id="orderSpecsGrid"></div>
+</div>
 
-    <!-- Timeline -->
-    <div class="timeline-wrap">
-      <div class="timeline-title">Order Journey</div>
-      <div class="timeline" id="orderTimeline"></div>
-    </div>
+<!-- Timeline -->
+<div class="timeline-wrap">
+  <div class="timeline-title">Order Journey</div>
+  <div class="timeline" id="orderTimeline"></div>
+</div>
+```
+
   </div>
 
   <!-- Help -->
+
   <div class="help-box fade-up">
     <h3>Need help with your order?</h3>
     <p>If you have questions about your order or need to make changes, our team is here to help.</p>
@@ -225,19 +232,20 @@
 </footer>
 
 <script src="../js/main.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
   // ============================================================
-  // Stage config — matches your API stage numbers exactly
+  // Timeline stages — matches your API stage numbers exactly
   // ============================================================
   var STAGES = [
-    { num: 0, name: 'Quote Received',            note: 'Your quote request has been received and is being reviewed by our sales team.' },
-    { num: 1, name: 'Order Confirmed',            note: 'Your order has been confirmed and production has been scheduled.' },
-    { num: 2, name: 'In Production',              note: 'Your bags are being manufactured — extrusion, weaving, printing, cutting in progress.' },
-    { num: 3, name: 'Quality Check & Packaging',  note: 'Finished bags are being inspected and packaged for shipping.' },
-    { num: 4, name: 'Ready for Shipping',         note: 'Your order has passed quality control and is ready for dispatch.' },
-    { num: 5, name: 'Delivered',                  note: 'Your order has been delivered successfully.' },
+    { name: 'Quote Received',              note: 'Your quote request has been received and is being reviewed by our sales team.' },
+    { name: 'Order Confirmed',             note: 'Your order has been confirmed and production has been scheduled.' },
+    { name: 'In Production',               note: 'Your bags are being manufactured — extrusion, weaving, printing, and cutting in progress.' },
+    { name: 'Quality Check & Packaging',   note: 'Finished bags are being inspected and packaged for shipping.' },
+    { name: 'Ready for Shipping',          note: 'Your order has passed quality control and is ready for dispatch.' },
+    { name: 'Delivered',                   note: 'Your order has been delivered successfully. Thank you for choosing Tita PLC!' },
   ];
 
   var STATUS_CLASSES = {
@@ -249,46 +257,54 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   // ============================================================
+  // Helper — returns value or null if empty/missing
+  // ============================================================
+  function val(v) {
+    return (v && v.toString().trim() !== '') ? v : null;
+  }
+
+  // ============================================================
   // Render order from API response
   // ============================================================
-  function renderOrder(order) {
+  function renderOrder(order, inputId) {
+
     // Header
-    document.getElementById('resultOrderId').textContent = '#' + order.id;
-    var badge = document.getElementById('resultStatusBadge');
-    badge.textContent = order.status_label || order.status;
+    document.getElementById('resultOrderId').textContent = '#' + inputId.toUpperCase();
+    var badge     = document.getElementById('resultStatusBadge');
+    badge.textContent = order.status_label || order.status || 'Pending';
     badge.className   = 'order-status-big ' + (STATUS_CLASSES[order.status] || 'status-pending');
 
     // Meta row
-    document.getElementById('resultCompany').textContent = order.company  || '—';
-    document.getElementById('resultProduct').textContent = order.product  || '—';
-    document.getElementById('resultQty').textContent     = order.qty      || '—';
+    document.getElementById('resultCompany').textContent = val(order.company)  || '—';
+    document.getElementById('resultProduct').textContent = val(order.product)  || '—';
+    document.getElementById('resultQty').textContent     = val(order.qty)      || '—';
     document.getElementById('resultDate').textContent    = order.created_at
       ? new Date(order.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })
       : '—';
 
-    // Specs grid — only show fields that exist
+    // Specs — only show fields that have real values
     var specFields = [
-      { label: 'Bag Size',    val: order.size },
-      { label: 'Print Colors',val: order.colors },
-      { label: 'Lamination',  val: order.lamination },
-      { label: 'Ship To',     val: order.ship_to },
-    ];
-    var specsHtml = specFields
-      .filter(function(f) { return f.val; })
-      .map(function(f) {
+      { label: 'Bag Size',     value: val(order.size) },
+      { label: 'Print Colors', value: val(order.colors) },
+      { label: 'Lamination',   value: val(order.lamination) },
+      { label: 'Ship To',      value: val(order.ship_to) },
+      { label: 'Print Text',   value: val(order.print_text) },
+    ].filter(function(f) { return f.value !== null; });
+
+    if (specFields.length > 0) {
+      document.getElementById('orderSpecsGrid').innerHTML = specFields.map(function(f) {
         return '<div class="spec-item">' +
           '<div class="spec-label">' + f.label + '</div>' +
-          '<div class="spec-val">'   + f.val   + '</div>' +
+          '<div class="spec-val">'   + f.value + '</div>' +
           '</div>';
       }).join('');
-
-    if (specsHtml) {
-      document.getElementById('orderSpecsGrid').innerHTML = specsHtml;
       document.getElementById('orderSpecs').style.display = 'block';
+    } else {
+      document.getElementById('orderSpecs').style.display = 'none';
     }
 
-    // Timeline
-    var currentStage = order.stage;
+    // Timeline — use stage number from API (0,1,2,5,-1)
+    var currentStage = typeof order.stage === 'number' ? order.stage : 0;
     var timelineHtml = '';
 
     if (order.status === 'cancelled') {
@@ -304,16 +320,18 @@ document.addEventListener('DOMContentLoaded', function() {
         var dotClass, dotContent, dateLabel;
 
         if (i < currentStage) {
-          dotClass = 't-done'; dotContent = '✓'; dateLabel = 'Completed';
+          dotClass = 't-done';    dotContent = '✓'; dateLabel = 'Completed';
         } else if (i === currentStage) {
-          dotClass = 't-active'; dotContent = '→'; dateLabel = 'Current stage';
+          dotClass = 't-active';  dotContent = '→'; dateLabel = 'Current stage';
         } else {
           dotClass = 't-pending'; dotContent = (i + 1).toString(); dateLabel = 'Upcoming';
         }
 
         // Show submitted date on first stage
         if (i === 0 && order.created_at) {
-          dateLabel = new Date(order.created_at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+          dateLabel = new Date(order.created_at).toLocaleDateString('en-US', {
+            month:'short', day:'numeric', year:'numeric'
+          });
         }
 
         timelineHtml +=
@@ -321,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div class="t-dot ' + dotClass + '">' + dotContent + '</div>' +
           '<div class="t-body">' +
           '<div class="t-name">' + stage.name + '</div>' +
-          '<div class="t-date">' + dateLabel + '</div>' +
+          '<div class="t-date">' + dateLabel  + '</div>' +
           (i <= currentStage ? '<div class="t-note">' + stage.note + '</div>' : '') +
           '</div></div>';
       });
@@ -329,9 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('orderTimeline').innerHTML = timelineHtml;
 
-    // Show card
-    document.getElementById('orderResult').classList.add('visible');
-    document.getElementById('orderResult').scrollIntoView({ behavior:'smooth', block:'start' });
+    // Show result card
+    var resultEl = document.getElementById('orderResult');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
   // ============================================================
@@ -358,24 +377,27 @@ document.addEventListener('DOMContentLoaded', function() {
       btn.disabled = false; btn.textContent = 'Track →';
 
       if (data.success && data.order) {
-        renderOrder(data.order);
+        renderOrder(data.order, input);
       } else {
         document.getElementById('errorMsg').textContent =
-          data.error || "We couldn't find an order with that ID. Please check and try again.";
+          (data.error && data.error !== 'Database error')
+            ? data.error
+            : "We couldn't find an order with that ID. Please check your order ID and try again.";
         document.getElementById('errorState').style.display = 'block';
       }
+
     } catch(err) {
-      console.error(err);
+      console.error('Track error:', err);
       document.getElementById('loadingState').style.display = 'none';
       btn.disabled = false; btn.textContent = 'Track →';
       document.getElementById('errorMsg').textContent =
-        'Something went wrong. Please try again or contact us directly.';
+        'Something went wrong connecting to our server. Please try again in a moment.';
       document.getElementById('errorState').style.display = 'block';
     }
   };
 
   // ============================================================
-  // Auto-load from URL: tracking.html?id=ETH-E017
+  // Auto-load from URL: tracking.html?id=ETH-3576
   // ============================================================
   var params = new URLSearchParams(window.location.search);
   var urlId  = params.get('id');
@@ -384,11 +406,12 @@ document.addEventListener('DOMContentLoaded', function() {
     window.lookupOrder();
   }
 
-  // Enter key + auto-uppercase
+  // Enter key support
   document.getElementById('trackInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') window.lookupOrder();
   });
 
+  // Auto-uppercase as user types
   document.getElementById('trackInput').addEventListener('input', function() {
     var pos = this.selectionStart;
     this.value = this.value.toUpperCase();
@@ -397,5 +420,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 }); // end DOMContentLoaded
 </script>
+
 </body>
 </html>
