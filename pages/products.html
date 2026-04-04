@@ -6,25 +6,130 @@
   <title>Products — Tita PLC</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
-    .product-sizes { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
-    .size-tag { background:rgba(74,154,74,0.1); border:1px solid rgba(74,154,74,0.2); color:var(--green-300); font-size:11px; padding:3px 10px; border-radius:100px; font-weight:500; cursor:pointer; transition:var(--transition); }
-    .size-tag:hover, .size-tag.selected { background:var(--green-600); border-color:var(--green-500); color:white; }
-    .size-tag.custom-tag { background:rgba(196,154,60,0.1); border-color:rgba(196,154,60,0.25); color:var(--earth-300); }
-    .size-tag.custom-tag:hover, .size-tag.custom-tag.selected { background:var(--earth-600); border-color:var(--earth-500); color:white; }
-    .product-card-dark { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-lg); overflow:hidden; transition:var(--transition); }
-    .product-card-dark:hover { transform:translateY(-4px); border-color:rgba(106,184,106,0.3); box-shadow:0 12px 40px rgba(0,0,0,0.3); }
-    .product-card-dark .product-img { height:200px; display:flex; align-items:center; justify-content:center; font-size:64px; position:relative; overflow:hidden; }
-    .product-card-dark .product-body { padding:22px; }
-    .product-card-dark .product-name { font-family:'Playfair Display',serif; font-size:18px; color:white; margin-bottom:6px; }
-    .product-desc { font-size:13px; color:rgba(255,255,255,0.45); line-height:1.6; margin-bottom:14px; }
-    .product-divider { height:1px; background:rgba(255,255,255,0.07); margin:14px 0; }
-    .product-price-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px; }
-    .price-from { font-size:11px; color:rgba(255,255,255,0.35); margin-bottom:2px; }
-    .moq-badge { font-size:11px; color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.06); padding:4px 10px; border-radius:100px; }
-    .spec-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
-    .spec-item { background:rgba(255,255,255,0.05); border-radius:8px; padding:10px 14px; }
-    .spec-item-label { font-size:10px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:.07em; margin-bottom:3px; }
-    .spec-item-val { font-size:13px; color:rgba(255,255,255,0.8); font-weight:500; }
+    .product-card-dark {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .product-card-dark:hover {
+      transform: translateY(-4px);
+      border-color: rgba(106,184,106,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .product-card-dark .product-img {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 56px; position: relative; overflow: hidden;
+      flex-shrink: 0;
+    }
+    .product-card-dark .product-body {
+      padding: 20px; flex: 1;
+      display: flex; flex-direction: column;
+    }
+    .product-card-dark .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; color: white; margin-bottom: 8px;
+    }
+    .product-badge {
+      position: absolute; top: 12px; right: 12px; z-index: 1;
+      background: var(--earth-500); color: white;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
+    }
+    .spec-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 14px;
+    }
+    .spec-tag {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      font-size: 11px; padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .product-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 12px 0; }
+    .price-from { font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+    .price-usd-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700; color: var(--earth-300);
+    }
+    .price-etb-val {
+      font-size: 13px; color: var(--green-300);
+      margin-top: 2px; font-weight: 500;
+    }
+    .price-request {
+      font-size: 14px; color: rgba(255,255,255,0.4);
+      font-style: italic;
+    }
+    .moq-badge {
+      font-size: 11px; color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.06);
+      padding: 4px 10px; border-radius: 100px;
+      align-self: flex-start; margin-top: 6px;
+    }
+    .btn-product {
+      width: 100%; padding: 11px; margin-top: auto;
+      background: rgba(74,154,74,0.15);
+      border: 1px solid rgba(74,154,74,0.3);
+      color: var(--green-300); border-radius: var(--radius);
+      font-size: 13px; font-weight: 600;
+      transition: var(--transition);
+      letter-spacing: 0.04em; cursor: pointer;
+    }
+    .btn-product:hover {
+      background: var(--green-600);
+      border-color: var(--green-500);
+      color: white;
+    }
+
+    /* Loading skeleton */
+    .skeleton-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+      margin-top: 32px;
+    }
+    .skeleton-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-lg); overflow: hidden;
+      animation: shimmer 1.5s infinite;
+    }
+    .skeleton-img { height: 180px; background: rgba(255,255,255,0.06); }
+    .skeleton-body { padding: 20px; }
+    .skeleton-line {
+      height: 12px; border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 10px;
+    }
+    @keyframes shimmer {
+      0%,100% { opacity: 1; } 50% { opacity: 0.6; }
+    }
+
+    /* Error state */
+    .load-error {
+      grid-column: 1/-1; text-align: center;
+      padding: 60px 20px; color: rgba(255,255,255,0.4);
+    }
+    .load-error h3 {
+      font-family: 'Playfair Display', serif;
+      color: white; margin-bottom: 8px;
+    }
+
+    /* Custom order card */
+    .custom-card {
+      background: rgba(196,154,60,0.04);
+      border: 1px dashed rgba(196,154,60,0.3);
+    }
+    .custom-card:hover {
+      border-color: rgba(196,154,60,0.5);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    @media(max-width:768px) {
+      .skeleton-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -43,7 +148,7 @@
     <li><a href="products.html" class="active">Products</a></li>
     <li><a href="export.html">Export</a></li>
     <li><a href="tracking.html">Track Order</a></li>
-    <li><a href="admin.html">Dashboard</a></li>
+    <li><a href="../login.html">Staff Login</a></li>
     <li><a href="../index.html#quote" class="nav-cta">Request Quote</a></li>
   </ul>
   <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -52,201 +157,38 @@
 <section class="page-hero">
   <div class="page-hero-bg"></div>
   <h1>Product Catalog</h1>
-  <p style="color:rgba(255,255,255,0.6);font-size:17px;max-width:560px;margin-top:16px;line-height:1.7;position:relative;z-index:1;">PP woven bags for every industry — available in standard fixed sizes or fully custom dimensions. All products made in Desē, Ethiopia.</p>
+  <p style="color:rgba(255,255,255,0.6);font-size:17px;max-width:560px;margin-top:16px;line-height:1.7;position:relative;z-index:1;">
+    PP woven bags for every industry — available in standard fixed sizes or fully custom dimensions. All products made in Desē, Ethiopia.
+  </p>
 </section>
 
 <section class="products-section" style="padding-top:60px;">
   <div class="products-inner">
 
     <div style="margin-bottom:12px;">
-      <span class="rate-badge">1 USD = <span id="rateDisplay">57.0</span> ETB (live)</span>
+      <span class="rate-badge" id="rateBadge">Loading prices...</span>
     </div>
 
-    <div class="products-filter fade-up">
+    <!-- Filter buttons — populated dynamically -->
+    <div class="products-filter fade-up" id="filterRow">
       <button class="filter-btn active" data-filter="all">All Products</button>
-      <button class="filter-btn" data-filter="shopping">🛍️ Shopping</button>
-      <button class="filter-btn" data-filter="salt">🧂 Salt</button>
-      <button class="filter-btn" data-filter="flour">🌾 Flour</button>
-      <button class="filter-btn" data-filter="cereal">🌽 Cereal</button>
-      <button class="filter-btn" data-filter="charcoal">🪨 Charcoal</button>
     </div>
 
-    <div class="products-grid" style="margin-top:32px;">
-
-      <!-- SHOPPING BAGS -->
-      <div class="product-card-dark fade-up" data-category="shopping">
-        <div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.8),rgba(196,154,60,0.4));">
-          🛍️<div class="product-badge">Bestseller</div>
-        </div>
-        <div class="product-body">
-          <div class="product-name">PP Woven Shopping Bag</div>
-          <div class="product-desc">Reusable, durable woven bags for retail and grocery use. Available with custom printing up to 6 colors.</div>
-          <div class="product-sizes">
-            <span class="size-tag selected">38×42 cm</span>
-            <span class="size-tag">40×45 cm</span>
-            <span class="size-tag">45×50 cm</span>
-            <span class="size-tag custom-tag">✦ Custom Size</span>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item"><div class="spec-item-label">Weight/unit</div><div class="spec-item-val">55–80 g</div></div>
-            <div class="spec-item"><div class="spec-item-label">Load capacity</div><div class="spec-item-val">Up to 10 kg</div></div>
-            <div class="spec-item"><div class="spec-item-label">Printing</div><div class="spec-item-val">Up to 6 colors</div></div>
-            <div class="spec-item"><div class="spec-item-label">Handle type</div><div class="spec-item-val">Loop / Flat</div></div>
-          </div>
-          <div class="product-divider"></div>
-          <div class="price-from">Starting from</div>
-          <div class="product-price-row">
-            <span data-usd="0.45"><span class="price-usd">$0.45</span><span class="price-etb">26 ETB</span></span>
-            <span class="moq-badge">MOQ: 2,000 units</span>
-          </div>
-          <button class="btn-product" onclick="openOrderModal('PP Woven Shopping Bag')">Order Now</button>
-        </div>
-      </div>
-
-      <!-- SALT BAGS -->
-      <div class="product-card-dark fade-up" data-category="salt">
-        <div class="product-img" style="background:linear-gradient(135deg,rgba(26,46,26,0.9),rgba(144,208,144,0.2));">
-          🧂<div class="product-badge">Export Ready</div>
-        </div>
-        <div class="product-body">
-          <div class="product-name">PP Woven Salt Bag</div>
-          <div class="product-desc">Moisture-resistant woven bags for salt packaging. UV stabilized for outdoor storage.</div>
-          <div class="product-sizes">
-            <span class="size-tag selected">50×80 cm (25 kg)</span>
-            <span class="size-tag">60×90 cm (50 kg)</span>
-            <span class="size-tag custom-tag">✦ Custom Size</span>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item"><div class="spec-item-label">Weight/unit</div><div class="spec-item-val">80–140 g</div></div>
-            <div class="spec-item"><div class="spec-item-label">Load capacity</div><div class="spec-item-val">25–50 kg</div></div>
-            <div class="spec-item"><div class="spec-item-label">UV resistance</div><div class="spec-item-val">Stabilized</div></div>
-            <div class="spec-item"><div class="spec-item-label">Closure</div><div class="spec-item-val">Stitched / Valve</div></div>
-          </div>
-          <div class="product-divider"></div>
-          <div class="price-from">Starting from</div>
-          <div class="product-price-row">
-            <span data-usd="0.62"><span class="price-usd">$0.62</span><span class="price-etb">35 ETB</span></span>
-            <span class="moq-badge">MOQ: 1,000 units</span>
-          </div>
-          <button class="btn-product" onclick="openOrderModal('PP Woven Salt Bag')">Order Now</button>
-        </div>
-      </div>
-
-      <!-- FLOUR BAGS -->
-      <div class="product-card-dark fade-up" data-category="flour">
-        <div class="product-img" style="background:linear-gradient(135deg,rgba(196,154,60,0.35),rgba(26,46,26,0.95));">
-          🌾
-        </div>
-        <div class="product-body">
-          <div class="product-name">PP Woven Flour Bag</div>
-          <div class="product-desc">Food-grade PP woven bags for flour and milled grain products. Laminated options available for dust-proof sealing.</div>
-          <div class="product-sizes">
-            <span class="size-tag selected">50×80 cm (25 kg)</span>
-            <span class="size-tag">55×90 cm (50 kg)</span>
-            <span class="size-tag">60×95 cm (50 kg)</span>
-            <span class="size-tag custom-tag">✦ Custom Size</span>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item"><div class="spec-item-label">Weight/unit</div><div class="spec-item-val">90–160 g</div></div>
-            <div class="spec-item"><div class="spec-item-label">Load capacity</div><div class="spec-item-val">25–50 kg</div></div>
-            <div class="spec-item"><div class="spec-item-label">Lamination</div><div class="spec-item-val">Optional BOPP</div></div>
-            <div class="spec-item"><div class="spec-item-label">Food safe</div><div class="spec-item-val">Yes ✓</div></div>
-          </div>
-          <div class="product-divider"></div>
-          <div class="price-from">Starting from</div>
-          <div class="product-price-row">
-            <span data-usd="0.72"><span class="price-usd">$0.72</span><span class="price-etb">41 ETB</span></span>
-            <span class="moq-badge">MOQ: 1,000 units</span>
-          </div>
-          <button class="btn-product" onclick="openOrderModal('PP Woven Flour Bag')">Order Now</button>
-        </div>
-      </div>
-
-      <!-- CEREAL BAGS -->
-      <div class="product-card-dark fade-up" data-category="cereal">
-        <div class="product-img" style="background:linear-gradient(135deg,rgba(45,90,45,0.85),rgba(196,154,60,0.25));">
-          🌽
-        </div>
-        <div class="product-body">
-          <div class="product-name">PP Woven Cereal Bag</div>
-          <div class="product-desc">Strong breathable woven bags for maize, wheat, teff, sorghum, and other cereal grains.</div>
-          <div class="product-sizes">
-            <span class="size-tag selected">60×100 cm (50 kg)</span>
-            <span class="size-tag">65×105 cm (100 kg)</span>
-            <span class="size-tag custom-tag">✦ Custom Size</span>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item"><div class="spec-item-label">Weight/unit</div><div class="spec-item-val">120–200 g</div></div>
-            <div class="spec-item"><div class="spec-item-label">Load capacity</div><div class="spec-item-val">50–100 kg</div></div>
-            <div class="spec-item"><div class="spec-item-label">Breathability</div><div class="spec-item-val">Ventilated</div></div>
-            <div class="spec-item"><div class="spec-item-label">Printing</div><div class="spec-item-val">Up to 4 colors</div></div>
-          </div>
-          <div class="product-divider"></div>
-          <div class="price-from">Starting from</div>
-          <div class="product-price-row">
-            <span data-usd="0.85"><span class="price-usd">$0.85</span><span class="price-etb">48 ETB</span></span>
-            <span class="moq-badge">MOQ: 500 units</span>
-          </div>
-          <button class="btn-product" onclick="openOrderModal('PP Woven Cereal Bag')">Order Now</button>
-        </div>
-      </div>
-
-      <!-- CHARCOAL BAGS -->
-      <div class="product-card-dark fade-up" data-category="charcoal">
-        <div class="product-img" style="background:linear-gradient(135deg,rgba(15,15,15,0.95),rgba(45,90,45,0.4));">
-          🪨
-        </div>
-        <div class="product-body">
-          <div class="product-name">PP Woven Charcoal Bag</div>
-          <div class="product-desc">Heavy-duty woven bags for charcoal and biomass. Tear-resistant with reinforced double stitching.</div>
-          <div class="product-sizes">
-            <span class="size-tag selected">60×90 cm (25 kg)</span>
-            <span class="size-tag">65×100 cm (40 kg)</span>
-            <span class="size-tag custom-tag">✦ Custom Size</span>
-          </div>
-          <div class="spec-grid">
-            <div class="spec-item"><div class="spec-item-label">Weight/unit</div><div class="spec-item-val">100–160 g</div></div>
-            <div class="spec-item"><div class="spec-item-label">Load capacity</div><div class="spec-item-val">25–40 kg</div></div>
-            <div class="spec-item"><div class="spec-item-label">Reinforced</div><div class="spec-item-val">Double stitch</div></div>
-            <div class="spec-item"><div class="spec-item-label">Closure</div><div class="spec-item-val">Sewn top</div></div>
-          </div>
-          <div class="product-divider"></div>
-          <div class="price-from">Starting from</div>
-          <div class="product-price-row">
-            <span data-usd="0.78"><span class="price-usd">$0.78</span><span class="price-etb">44 ETB</span></span>
-            <span class="moq-badge">MOQ: 500 units</span>
-          </div>
-          <button class="btn-product" onclick="openOrderModal('PP Woven Charcoal Bag')">Order Now</button>
-        </div>
-      </div>
-
-      <!-- CUSTOM ORDER -->
-      <div class="product-card-dark fade-up" data-category="all" style="border-style:dashed;border-color:rgba(196,154,60,0.3);background:rgba(196,154,60,0.04);">
-        <div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.3),rgba(26,46,26,0.8));font-size:48px;">
-          ✦<div class="product-badge" style="background:var(--earth-600);">Custom</div>
-        </div>
-        <div class="product-body">
-          <div class="product-name" style="color:var(--earth-300);">Custom Order</div>
-          <div class="product-desc">Need a specific size, print, or material not listed above? We manufacture fully custom bags to your exact specs.</div>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
-            <div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Any width, height, or gusset</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Custom print, logo, branding</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Special lamination or coating</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Any closure type (valve, zipper, sewn)</div>
-          </div>
-          <div class="product-divider"></div>
-          <div style="color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:16px;">Price on request — quote within 24 hours</div>
-          <button class="btn-product" style="background:rgba(196,154,60,0.15);border-color:rgba(196,154,60,0.3);color:var(--earth-300);" onclick="openOrderModal('Custom Order')">Request Custom Quote</button>
-        </div>
-      </div>
-
+    <!-- Loading skeletons -->
+    <div class="skeleton-grid" id="skeletonGrid">
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line" style="width:70%"></div><div class="skeleton-line" style="width:50%"></div><div class="skeleton-line" style="width:90%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:80%"></div><div class="skeleton-line" style="width:40%"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line" style="width:75%"></div><div class="skeleton-line" style="width:55%"></div><div class="skeleton-line" style="width:85%"></div></div></div>
     </div>
 
-    <!-- DISCLAIMER NOTE -->
-    <div style="margin-top:40px;background:rgba(74,154,74,0.07);border:1px solid rgba(74,154,74,0.15);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;" class="fade-up">
+    <!-- Dynamic product grid -->
+    <div class="products-grid" id="productsGrid" style="margin-top:32px;display:none;"></div>
+
+    <!-- Disclaimer -->
+    <div style="margin-top:40px;background:rgba(74,154,74,0.07);border:1px solid rgba(74,154,74,0.15);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;" class="fade-up" id="disclaimer" style="display:none;">
       <div style="font-size:28px;">💡</div>
       <div>
-        <div style="color:white;font-weight:600;font-size:15px;margin-bottom:4px;">Prices shown are placeholder estimates</div>
+        <div style="color:white;font-weight:600;font-size:15px;margin-bottom:4px;">Prices are set by Tita PLC</div>
         <div style="color:rgba(255,255,255,0.5);font-size:13px;">Final pricing depends on quantity, size, print complexity, and shipping destination. Request a quote for an accurate price.</div>
       </div>
     </div>
@@ -260,34 +202,44 @@
     <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
     <h2 id="modalProductName">Place an Order</h2>
     <p>Fill in the details below. Our team will respond within 24 hours.</p>
-    <form>
+    <form id="modalOrderForm">
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Company Name *</label>
-          <input type="text" class="form-input" placeholder="Your company" required />
+          <input type="text" class="form-input" id="mo-company" placeholder="Your company" required />
         </div>
         <div class="form-group">
           <label class="form-label">Contact Name *</label>
-          <input type="text" class="form-input" placeholder="Full name" required />
+          <input type="text" class="form-input" id="mo-contact" placeholder="Full name" required />
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Email *</label>
-        <input type="email" class="form-input" placeholder="you@company.com" required />
+        <input type="email" class="form-input" id="mo-email" placeholder="you@company.com" required />
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Quantity (units) *</label>
-          <input type="number" class="form-input" placeholder="e.g. 5,000" required />
+          <label class="form-label">Quantity *</label>
+          <input type="number" class="form-input" id="mo-qty" placeholder="e.g. 5,000" min="0" required />
         </div>
         <div class="form-group">
-          <label class="form-label">Preferred Size</label>
-          <input type="text" class="form-input" placeholder="e.g. 50×80 cm or custom" />
+          <label class="form-label">Unit</label>
+          <select class="form-select" id="mo-unit">
+            <option>units</option>
+            <option>g (grams)</option>
+            <option>kg</option>
+            <option>tons (MT)</option>
+            <option>rolls</option>
+          </select>
         </div>
       </div>
       <div class="form-group">
+        <label class="form-label">Preferred Size</label>
+        <input type="text" class="form-input" id="mo-size" placeholder="e.g. 50×80 cm or custom" />
+      </div>
+      <div class="form-group">
         <label class="form-label">Shipping Destination</label>
-        <select class="form-select">
+        <select class="form-select" id="mo-shipping">
           <option>Local — Ethiopia</option>
           <option>International — Sea Freight</option>
           <option>International — Air Freight</option>
@@ -295,9 +247,9 @@
       </div>
       <div class="form-group">
         <label class="form-label">Customization / Notes</label>
-        <textarea class="form-textarea" placeholder="Print requirements, colors, special specs..."></textarea>
+        <textarea class="form-textarea" id="mo-notes" placeholder="Print requirements, colors, special specs..."></textarea>
       </div>
-      <button type="submit" class="btn-submit">Submit Order Request</button>
+      <button type="submit" class="btn-submit" id="moSubmitBtn">Submit Order Request</button>
     </form>
   </div>
 </div>
@@ -310,38 +262,302 @@
 
 <script src="../js/main.js"></script>
 <script>
-  // Size tag selection
-  document.querySelectorAll('.product-sizes').forEach(group => {
-    group.querySelectorAll('.size-tag').forEach(tag => {
-      tag.addEventListener('click', () => {
-        group.querySelectorAll('.size-tag').forEach(t => t.classList.remove('selected'));
-        tag.classList.add('selected');
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ============================================================
+  // Product visual config — maps product name keywords → icon/bg
+  // ============================================================
+  var VISUALS = [
+    { keys: ['shopping','reusable'],        icon:'🛍️', bg:'linear-gradient(135deg,rgba(107,76,30,0.8),rgba(196,154,60,0.4))',  badge:'Popular' },
+    { keys: ['salt'],                        icon:'🧂', bg:'linear-gradient(135deg,rgba(26,46,26,0.9),rgba(144,208,144,0.2))', badge:'Export Ready' },
+    { keys: ['flour'],                       icon:'🌾', bg:'linear-gradient(135deg,rgba(196,154,60,0.35),rgba(26,46,26,0.95))',badge:'' },
+    { keys: ['cereal','grain','maize','teff'],icon:'🌽',bg:'linear-gradient(135deg,rgba(45,90,45,0.85),rgba(196,154,60,0.25))',badge:'' },
+    { keys: ['charcoal','biomass'],          icon:'🪨', bg:'linear-gradient(135deg,rgba(15,15,15,0.95),rgba(45,90,45,0.4))',   badge:'' },
+    { keys: ['bopp','laminated'],            icon:'🖨️', bg:'linear-gradient(135deg,rgba(107,76,30,0.6),rgba(26,46,26,0.9))',  badge:'Custom Print' },
+    { keys: ['granule','pp granule'],        icon:'🧵', bg:'linear-gradient(135deg,rgba(26,46,26,0.95),rgba(74,154,74,0.2))', badge:'Raw' },
+    { keys: ['fabric','roll','woven fabric'],icon:'🧶', bg:'linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95))',  badge:'Raw' },
+    { keys: ['standard','heavy','woven bag'],icon:'📦', bg:'linear-gradient(135deg,rgba(30,58,30,0.9),rgba(45,90,45,0.6))',   badge:'Bestseller' },
+  ];
+
+  function getVisual(name) {
+    var lower = name.toLowerCase();
+    for (var i = 0; i < VISUALS.length; i++) {
+      var v = VISUALS[i];
+      for (var j = 0; j < v.keys.length; j++) {
+        if (lower.indexOf(v.keys[j]) !== -1) return v;
+      }
+    }
+    return { icon:'📦', bg:'linear-gradient(135deg,rgba(45,90,45,0.8),rgba(26,46,26,0.95))', badge:'' };
+  }
+
+  // ============================================================
+  // Parse description — pipe-separated specs
+  // ============================================================
+  function parseDescription(desc) {
+    if (!desc) return { specs: [], badge: '', moq: '' };
+    var parts = desc.split('|').map(function(p) { return p.trim(); }).filter(Boolean);
+    var badge = '';
+    var moq   = '';
+    var specs = [];
+
+    parts.forEach(function(part) {
+      var lower = part.toLowerCase();
+      if (lower.indexOf('min order') !== -1 || lower.indexOf('moq') !== -1) {
+        moq = part.replace(/min order/i,'').replace(/moq/i,'').trim();
+      } else if (lower === 'bestseller' || lower === 'export ready' || lower === 'custom print' || lower === 'raw' || lower === 'popular') {
+        badge = part;
+      } else {
+        specs.push(part);
+      }
+    });
+
+    return { specs: specs, badge: badge, moq: moq };
+  }
+
+  // ============================================================
+  // Detect filter category from product name
+  // ============================================================
+  function getCategory(name) {
+    var lower = name.toLowerCase();
+    if (lower.indexOf('shopping') !== -1 || lower.indexOf('reusable') !== -1) return 'shopping';
+    if (lower.indexOf('salt') !== -1)     return 'salt';
+    if (lower.indexOf('flour') !== -1)    return 'flour';
+    if (lower.indexOf('cereal') !== -1 || lower.indexOf('grain') !== -1) return 'cereal';
+    if (lower.indexOf('charcoal') !== -1) return 'charcoal';
+    if (lower.indexOf('granule') !== -1 || lower.indexOf('fabric') !== -1 || lower.indexOf('roll') !== -1) return 'raw';
+    return 'other';
+  }
+
+  // ============================================================
+  // Build filter buttons dynamically from products
+  // ============================================================
+  var FILTER_LABELS = {
+    shopping: '🛍️ Shopping',
+    salt:     '🧂 Salt',
+    flour:    '🌾 Flour',
+    cereal:   '🌽 Cereal',
+    charcoal: '🪨 Charcoal',
+    raw:      '🧵 Raw Materials',
+    other:    '📦 Other',
+  };
+
+  function buildFilters(categories) {
+    var row = document.getElementById('filterRow');
+    var seen = {};
+    categories.forEach(function(cat) {
+      if (!seen[cat] && FILTER_LABELS[cat]) {
+        seen[cat] = true;
+        var btn = document.createElement('button');
+        btn.className    = 'filter-btn';
+        btn.dataset.filter = cat;
+        btn.textContent  = FILTER_LABELS[cat];
+        row.appendChild(btn);
+      }
+    });
+
+    // Wire up filter clicks
+    row.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        row.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var filter = btn.dataset.filter;
+        document.querySelectorAll('.product-card-dark').forEach(function(card) {
+          card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+        });
       });
     });
-  });
-
-  function openOrderModal(name) {
-    document.getElementById('modalProductName').textContent = name;
-    openModal('orderModal');
   }
 
-  // Live ETB rate
+  // ============================================================
+  // Render product card HTML
+  // ============================================================
+  function renderCard(product) {
+    var visual  = getVisual(product.name);
+    var parsed  = parseDescription(product.description);
+    var cat     = getCategory(product.name);
+    var badge   = parsed.badge || visual.badge;
+    var usd     = parseFloat(product.price)     || 0;
+    var etb     = parseFloat(product.etb_price) || 0;
+
+    // Price HTML
+    var priceHtml = '';
+    if (usd > 0 || etb > 0) {
+      priceHtml = '<div class="price-from">Starting from</div>';
+      if (usd > 0) priceHtml += '<div class="price-usd-val">$' + usd.toFixed(2) + '</div>';
+      if (etb > 0) priceHtml += '<div class="price-etb-val">' + etb.toLocaleString() + ' ETB</div>';
+    } else {
+      priceHtml = '<div class="price-request">Price on request</div>';
+    }
+
+    // Spec tags from description
+    var specsHtml = parsed.specs.map(function(s) {
+      return '<span class="spec-tag">' + s + '</span>';
+    }).join('');
+
+    var moqHtml = parsed.moq
+      ? '<div class="moq-badge">MOQ: ' + parsed.moq + '</div>'
+      : '';
+
+    return '<div class="product-card-dark fade-up" data-category="' + cat + '">' +
+      '<div class="product-img" style="background:' + visual.bg + ';">' +
+        visual.icon +
+        (badge ? '<div class="product-badge">' + badge + '</div>' : '') +
+      '</div>' +
+      '<div class="product-body">' +
+        '<div class="product-name">' + product.name + '</div>' +
+        (specsHtml ? '<div class="spec-tags">' + specsHtml + '</div>' : '') +
+        '<div class="product-divider"></div>' +
+        priceHtml +
+        moqHtml +
+        '<div style="flex:1;"></div>' +
+        '<button class="btn-product" style="margin-top:14px;" onclick="openOrderModal(\'' + product.name.replace(/'/g,"\\'") + '\')">Order Now</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  // Custom order card — always shown at the end
+  var CUSTOM_CARD =
+    '<div class="product-card-dark custom-card fade-up" data-category="all">' +
+    '<div class="product-img" style="background:linear-gradient(135deg,rgba(107,76,30,0.3),rgba(26,46,26,0.8));font-size:48px;">✦' +
+      '<div class="product-badge" style="background:var(--earth-600);">Custom</div>' +
+    '</div>' +
+    '<div class="product-body">' +
+      '<div class="product-name" style="color:var(--earth-300);">Custom Order</div>' +
+      '<div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:14px;">Need a specific size, print, or material not listed above? We manufacture fully custom bags to your exact specs.</div>' +
+      '<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">' +
+        '<div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Any width, height, or gusset</div>' +
+        '<div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Custom print, logo, branding</div>' +
+        '<div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Special lamination or coating</div>' +
+        '<div style="font-size:13px;color:rgba(255,255,255,0.6);"><span style="color:var(--earth-400);">✓</span> Any closure type (valve, zipper, sewn)</div>' +
+      '</div>' +
+      '<div class="product-divider"></div>' +
+      '<div style="color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:14px;">Price on request — quote within 24 hours</div>' +
+      '<button class="btn-product" style="margin-top:auto;background:rgba(196,154,60,0.15);border-color:rgba(196,154,60,0.3);color:var(--earth-300);" onclick="openOrderModal(\'Custom Order\')">Request Custom Quote</button>' +
+    '</div></div>';
+
+  // ============================================================
+  // Fetch products from DinqFactory API
+  // ============================================================
+  async function loadProducts() {
+    try {
+      var res  = await fetch('https://app.dinqdigital.com/api/products');
+      var data = await res.json();
+
+      document.getElementById('skeletonGrid').style.display = 'none';
+
+      if (!data.success || !data.products || data.products.length === 0) {
+        document.getElementById('productsGrid').style.display = 'grid';
+        document.getElementById('productsGrid').innerHTML =
+          '<div class="load-error"><div style="font-size:48px;margin-bottom:16px;">📦</div>' +
+          '<h3>No products available</h3>' +
+          '<p>Please check back soon or contact us directly.</p></div>';
+        return;
+      }
+
+      var categories = data.products.map(function(p) { return getCategory(p.name); });
+      buildFilters(categories);
+
+      var html = data.products.map(renderCard).join('') + CUSTOM_CARD;
+      document.getElementById('productsGrid').innerHTML = html;
+      document.getElementById('productsGrid').style.display = 'grid';
+      document.getElementById('disclaimer').style.display = 'flex';
+
+      // Animate cards
+      setTimeout(function() {
+        document.querySelectorAll('#productsGrid .fade-up').forEach(function(el) {
+          el.classList.add('animate');
+          setTimeout(function() { el.classList.add('visible'); }, 100);
+        });
+      }, 50);
+
+    } catch(err) {
+      console.error('Failed to load products:', err);
+      document.getElementById('skeletonGrid').style.display = 'none';
+      document.getElementById('productsGrid').style.display = 'grid';
+      document.getElementById('productsGrid').innerHTML =
+        '<div class="load-error"><div style="font-size:48px;margin-bottom:16px;">⚠️</div>' +
+        '<h3>Could not load products</h3>' +
+        '<p style="margin-bottom:20px;">Please try refreshing the page or contact us directly.</p>' +
+        '<a href="../index.html#quote" class="btn-primary" style="display:inline-flex;">Request a Quote →</a></div>';
+    }
+  }
+
+  // ============================================================
+  // Live ETB rate badge
+  // ============================================================
   async function fetchRate() {
     try {
-      const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-      const data = await res.json();
-      if (data.rates?.ETB) {
-        const rate = data.rates.ETB;
-        document.getElementById('rateDisplay').textContent = rate.toFixed(1);
-        document.querySelectorAll('[data-usd]').forEach(el => {
-          const usd = parseFloat(el.dataset.usd);
-          el.querySelector('.price-etb').textContent = Math.round(usd * rate).toLocaleString() + ' ETB';
-        });
+      var res  = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+      var data = await res.json();
+      if (data.rates && data.rates.ETB) {
+        document.getElementById('rateBadge').textContent =
+          '1 USD = ' + data.rates.ETB.toFixed(1) + ' ETB (live)';
+      } else {
+        document.getElementById('rateBadge').textContent = 'Prices in USD & ETB';
       }
-    } catch(e) {}
+    } catch(e) {
+      document.getElementById('rateBadge').textContent = 'Prices in USD & ETB';
+    }
   }
 
+  // ============================================================
+  // Modal order form → DinqFactory API
+  // ============================================================
+  window.openOrderModal = function(name) {
+    document.getElementById('modalProductName').textContent = name;
+    openModal('orderModal');
+  };
+
+  document.getElementById('modalOrderForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('moSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Submitting...';
+
+    var productName = document.getElementById('modalProductName').textContent;
+    var qty  = document.getElementById('mo-qty').value;
+    var unit = document.getElementById('mo-unit').value;
+    var size = document.getElementById('mo-size').value.trim();
+
+    try {
+      var res  = await fetch('https://app.dinqdigital.com/api/quote', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company_name:         document.getElementById('mo-company').value.trim(),
+          contact_name:         document.getElementById('mo-contact').value.trim(),
+          email:                document.getElementById('mo-email').value.trim(),
+          product_type:         productName,
+          quantity:             qty + ' ' + unit,
+          shipping_destination: document.getElementById('mo-shipping').value,
+          customization_notes:  (size ? 'Size: ' + size + ' | ' : '') + document.getElementById('mo-notes').value.trim(),
+        }),
+      });
+      var data = await res.json();
+
+      if (data.success) {
+        document.querySelector('#orderModal .modal').innerHTML =
+          '<div style="text-align:center;padding:40px 20px;">' +
+          '<div style="font-size:48px;margin-bottom:16px;">✅</div>' +
+          '<h3 style="font-family:\'Playfair Display\',serif;margin-bottom:8px;">Order Submitted!</h3>' +
+          '<p style="color:var(--text-light);font-size:14px;margin-bottom:20px;">Your order ID is:</p>' +
+          '<div style="font-size:32px;font-weight:800;color:var(--green-600);font-family:\'Playfair Display\',serif;">' + data.order_id + '</div>' +
+          '<p style="color:var(--text-light);font-size:13px;margin:12px 0 24px;">Save this to track your order</p>' +
+          '<a href="tracking.html?id=' + data.order_id + '" style="display:inline-flex;padding:11px 24px;background:var(--green-700);color:white;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">🔍 Track Order →</a>' +
+          '</div>';
+      } else {
+        throw new Error(data.error || 'Failed');
+      }
+    } catch(err) {
+      btn.disabled = false; btn.textContent = 'Submit Order Request';
+      showToast('Something went wrong. Please try again.');
+    }
+  });
+
+  // Init
+  loadProducts();
   fetchRate();
+
+}); // end DOMContentLoaded
 </script>
 </body>
 </html>
