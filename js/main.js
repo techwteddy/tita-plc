@@ -43,12 +43,10 @@ document.querySelectorAll('.fade-up').forEach(el => {
 function initProductFilter() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const productCards = document.querySelectorAll('.product-card');
-
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.dataset.filter;
       productCards.forEach(card => {
         if (filter === 'all' || card.dataset.category === filter) {
@@ -62,10 +60,9 @@ function initProductFilter() {
   });
 }
 
-// ===== ORDER CALCULATOR (disabled — handled by quote form) =====
+// ===== ORDER CALCULATOR =====
 function initCalculator() {
-  // Calculator is now handled by the quote form's own updateCalc()
-  // which fetches live prices from DinqFactory product catalog
+  // Handled by each page's own inline script
 }
 
 // ===== MODAL =====
@@ -97,18 +94,14 @@ function showToast(msg, duration = 3000) {
 // ===== FORM SUBMIT =====
 function initForms() {
   document.querySelectorAll('form').forEach(form => {
-    // Skip forms that have their own handlers
-    if (form.id === 'loginForm') return;
-    if (form.id === 'quoteForm') return;
+    // Skip forms with their own handlers
+    if (form.id === 'loginForm')      return;
+    if (form.id === 'quoteForm')      return;
     if (form.id === 'modalOrderForm') return;
-
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type=submit]');
-      if (btn) {
-        btn.textContent = 'Sending...';
-        btn.disabled = true;
-      }
+      if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
       setTimeout(() => {
         showToast('✅ Your message has been sent successfully!');
         form.reset();
@@ -166,7 +159,7 @@ function animateCounters() {
 }
 
 // ===== LIVE CURRENCY (USD → ETB) =====
-let usdToEtb = 57; // fallback rate
+let usdToEtb = 57;
 
 async function fetchExchangeRate() {
   try {
@@ -187,9 +180,6 @@ function updateCurrencyBadge() {
   });
 }
 
-// updateCalcCurrency is intentionally removed —
-// quote form has its own live pricing from DinqFactory catalog
-
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   initProductFilter();
@@ -199,7 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
   animateStages();
 
   const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { animateCounters(); counterObserver.disconnect(); } });
+    entries.forEach(e => {
+      if (e.isIntersecting) { animateCounters(); counterObserver.disconnect(); }
+    });
   }, { threshold: 0.3 });
 
   const statsSection = document.querySelector('.hero-stats');
