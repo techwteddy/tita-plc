@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — Tita Factory</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="css/factory.css" />
+  </head>
+  <body class="factory-body">
+    <!-- SIDEBAR -->
+    <aside class="sidebar sidebar-admin" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-mark">T</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Tita Factory</span>
+          <span class="sidebar-logo-role">Admin</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="dashboard-admin.html" class="sidebar-link active">
+          <span class="sidebar-icon">📊</span> Dashboard
+        </a>
+        <a href="orders.html" class="sidebar-link">
+          <span class="sidebar-icon">📋</span> Orders
+        </a>
+        <a href="inventory.html" class="sidebar-link">
+          <span class="sidebar-icon">📦</span> Inventory
+        </a>
+        <a href="material-requests.html" class="sidebar-link">
+          <span class="sidebar-icon">🔄</span> Material Requests
+        </a>
+        <a href="goods-transfer.html" class="sidebar-link">
+          <span class="sidebar-icon">🚚</span> Goods Transfer
+        </a>
+        <a href="sales.html" class="sidebar-link">
+          <span class="sidebar-icon">💰</span> Sales
+        </a>
+
+        <div class="sidebar-nav-label" style="margin-top: 16px">Production</div>
+        <a href="production-tplant.html" class="sidebar-link">
+          <span class="sidebar-icon">🏭</span> T-Plant
+        </a>
+        <a href="production-loom.html" class="sidebar-link">
+          <span class="sidebar-icon">🧵</span> Loom
+        </a>
+        <a href="production-printing.html" class="sidebar-link">
+          <span class="sidebar-icon">🖨️</span> Printing
+        </a>
+        <a href="production-cutting.html" class="sidebar-link">
+          <span class="sidebar-icon">✂️</span> Cutting
+        </a>
+        <a href="production-stitching.html" class="sidebar-link">
+          <span class="sidebar-icon">🪡</span> Stitching
+        </a>
+        <a href="production-packaging.html" class="sidebar-link">
+          <span class="sidebar-icon">📫</span> Packaging
+        </a>
+
+        <div class="sidebar-nav-label" style="margin-top: 16px">Management</div>
+        <a href="analytics.html" class="sidebar-link">
+          <span class="sidebar-icon">📈</span> Analytics
+        </a>
+        <a href="staff.html" class="sidebar-link">
+          <span class="sidebar-icon">👥</span> Staff
+        </a>
+        <a href="settings.html" class="sidebar-link">
+          <span class="sidebar-icon">⚙️</span> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="sidebar-logout" id="logoutBtn">
+          <span>🚪</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="factory-main">
+      <!-- HEADER -->
+      <header class="factory-header">
+        <div class="factory-header-left">
+          <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+          <div>
+            <div class="factory-header-title">Dashboard</div>
+            <div class="factory-header-sub">
+              Welcome back — here's today's overview
+            </div>
+          </div>
+        </div>
+        <div class="factory-header-right">
+          <div class="header-date" id="headerDate"></div>
+          <div class="header-avatar">A</div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="factory-content">
+        <!-- STATS ROW -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(6, 95, 70, 0.15)">
+              📋
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statOrders">—</div>
+              <div class="stat-label">Total Orders</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(29, 78, 216, 0.15)">
+              📦
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statInventory">—</div>
+              <div class="stat-label">Inventory Items</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(146, 64, 14, 0.15)">
+              🏭
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statBatches">—</div>
+              <div class="stat-label">Production Batches</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(107, 33, 168, 0.15)">
+              💰
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statSales">—</div>
+              <div class="stat-label">Total Sales (ETB)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMN -->
+        <div class="dashboard-grid">
+          <!-- RECENT ORDERS -->
+          <div class="factory-card">
+            <div class="factory-card-header">
+              <div class="factory-card-title">Recent Orders</div>
+              <a href="orders.html" class="factory-card-link">View all →</a>
+            </div>
+            <div class="factory-table-wrap">
+              <table class="factory-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                  <tr>
+                    <td colspan="4" class="table-empty">Loading...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- RECENT REQUESTS -->
+          <div class="factory-card">
+            <div class="factory-card-header">
+              <div class="factory-card-title">Material Requests</div>
+              <a href="material-requests.html" class="factory-card-link"
+                >View all →</a
+              >
+            </div>
+            <div class="factory-table-wrap">
+              <table class="factory-table">
+                <thead>
+                  <tr>
+                    <th>Requested By</th>
+                    <th>Items</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="requestsTableBody">
+                  <tr>
+                    <td colspan="4" class="table-empty">Loading...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- INVENTORY SUMMARY -->
+        <div class="factory-card" style="margin-top: 24px">
+          <div class="factory-card-header">
+            <div class="factory-card-title">Inventory Summary</div>
+            <a href="inventory.html" class="factory-card-link">Manage →</a>
+          </div>
+          <div class="factory-table-wrap">
+            <table class="factory-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <tr>
+                  <td colspan="5" class="table-empty">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      import { requireAuth, logout } from "./js/auth.js";
+      import { supabase } from "./js/supabase.js";
+
+      // Guard — admin only
+      const role = await requireAuth(["admin"]);
+      if (!role) throw new Error("Unauthorized");
+
+      // Date
+      document.getElementById("headerDate").textContent =
+        new Date().toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+
+      // Sidebar toggle
+      document.getElementById("sidebarToggle").addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("open");
+      });
+
+      // Load stats
+      async function loadStats() {
+        const orgId = sessionStorage.getItem("tita_org_id");
+
+        const [orders, inventory, batches, sales] = await Promise.all([
+          supabase
+            .from("sales_orders")
+            .select("id", { count: "exact" })
+            .eq("org_id", orgId),
+          supabase
+            .from("inventory")
+            .select("id", { count: "exact" })
+            .eq("org_id", orgId),
+          supabase
+            .from("production_batches")
+            .select("id", { count: "exact" })
+            .eq("org_id", orgId),
+          supabase
+            .from("factory_sales")
+            .select("total_etb")
+            .eq("org_id", orgId),
+        ]);
+
+        document.getElementById("statOrders").textContent = orders.count ?? "0";
+        document.getElementById("statInventory").textContent =
+          inventory.count ?? "0";
+        document.getElementById("statBatches").textContent =
+          batches.count ?? "0";
+
+        const totalSales = (sales.data || []).reduce(
+          (sum, s) => sum + (s.total_etb || 0),
+          0
+        );
+        document.getElementById("statSales").textContent =
+          totalSales.toLocaleString("en-ET") + " ETB";
+      }
+
+      // Load recent orders
+      async function loadOrders() {
+        const orgId = sessionStorage.getItem("tita_org_id");
+        const { data } = await supabase
+          .from("sales_orders")
+          .select("id, customer_name, status, date_of_order")
+          .eq("org_id", orgId)
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        const tbody = document.getElementById("ordersTableBody");
+        if (!data || data.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="4" class="table-empty">No orders yet</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data
+          .map(
+            (o) => `
+      <tr>
+        <td><span class="order-id">${o.id.slice(0, 8).toUpperCase()}</span></td>
+        <td>${o.customer_name}</td>
+        <td><span class="status-pill status-${o.status}">${o.status}</span></td>
+        <td>${new Date(o.date_of_order).toLocaleDateString()}</td>
+      </tr>
+    `
+          )
+          .join("");
+      }
+
+      // Load material requests
+      async function loadRequests() {
+        const orgId = sessionStorage.getItem("tita_org_id");
+        const { data } = await supabase
+          .from("material_requests")
+          .select("id, requested_by, items, status, request_date")
+          .eq("org_id", orgId)
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        const tbody = document.getElementById("requestsTableBody");
+        if (!data || data.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="4" class="table-empty">No requests yet</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data
+          .map(
+            (r) => `
+      <tr>
+        <td>${r.requested_by}</td>
+        <td>${(r.items || []).length} items</td>
+        <td><span class="status-pill status-${r.status}">${r.status}</span></td>
+        <td>${new Date(r.request_date).toLocaleDateString()}</td>
+      </tr>
+    `
+          )
+          .join("");
+      }
+
+      // Load inventory
+      async function loadInventory() {
+        const orgId = sessionStorage.getItem("tita_org_id");
+        const { data } = await supabase
+          .from("inventory")
+          .select("name, category, quantity, unit, low_stock_threshold")
+          .eq("org_id", orgId)
+          .order("category")
+          .limit(8);
+
+        const tbody = document.getElementById("inventoryTableBody");
+        if (!data || data.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="table-empty">No inventory yet</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data
+          .map((i) => {
+            const isLow =
+              i.low_stock_threshold && i.quantity <= i.low_stock_threshold;
+            return `
+        <tr>
+          <td>${i.name}</td>
+          <td>${i.category}</td>
+          <td>${Number(i.quantity).toLocaleString()}</td>
+          <td>${i.unit}</td>
+          <td><span class="status-pill ${isLow ? "status-low" : "status-ok"}">
+            ${isLow ? "⚠️ Low" : "✅ OK"}
+          </span></td>
+        </tr>
+      `;
+          })
+          .join("");
+      }
+
+      // Run all
+      loadStats();
+      loadOrders();
+      loadRequests();
+      loadInventory();
+    </script>
+  </body>
+</html>
