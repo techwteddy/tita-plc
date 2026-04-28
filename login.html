@@ -1,41 +1,42 @@
 <script type="module">
-  import { login } from "./factory/js/auth.js";
+  import { login } from './factory/js/auth.js'
 
-  // If already logged in, redirect
-  const role = sessionStorage.getItem("tita_role");
-  if (role) {
-    const routes = {
-      admin: "factory/dashboard-admin.html",
-      store_manager: "factory/dashboard-store.html",
-      production_manager: "factory/dashboard-production.html",
-      marketing_manager: "factory/dashboard-marketing.html",
-    };
-    if (routes[role]) window.location.href = routes[role];
-  }
+  document.addEventListener('DOMContentLoaded', function() {
 
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", async function (e) {
-      e.preventDefault();
+    const role = sessionStorage.getItem('tita_role')
+    if (role) {
+      const routes = {
+        admin: 'factory/dashboard-admin.html',
+        store_manager: 'factory/dashboard-store.html',
+        production_manager: 'factory/dashboard-production.html',
+        marketing_manager: 'factory/dashboard-marketing.html'
+      }
+      if (routes[role]) window.location.href = routes[role]
+    }
 
-      const email = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value;
-      const btn = document.getElementById("loginBtn");
-      const errorMsg = document.getElementById("errorMsg");
-      const errorText = document.getElementById("errorText");
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault()
 
-      btn.disabled = true;
-      btn.textContent = "Signing in...";
-      errorMsg.classList.remove("show");
+      const email = document.getElementById('username').value.trim()
+      const password = document.getElementById('password').value
+      const btn = document.getElementById('loginBtn')
+      const errorMsg = document.getElementById('errorMsg')
+      const errorText = document.getElementById('errorText')
 
-      const result = await login(email, password);
+      btn.disabled = true
+      btn.textContent = 'Signing in...'
+      errorMsg.classList.remove('show')
+
+      const result = await login(email, password)
 
       if (result?.error) {
-        errorText.textContent = result.error;
-        errorMsg.classList.add("show");
-        btn.disabled = false;
-        btn.textContent = "Sign In";
-        document.getElementById("password").value = "";
+        errorText.textContent = result.error
+        errorMsg.classList.add('show')
+        btn.disabled = false
+        btn.textContent = 'Sign In'
+        document.getElementById('password').value = ''
       }
-    });
+    })
+
+  })
 </script>
