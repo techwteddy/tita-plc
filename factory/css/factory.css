@@ -21,18 +21,10 @@
   transition: transform 0.3s ease;
 }
 
-.sidebar-admin {
-  background: #065f46;
-}
-.sidebar-store {
-  background: #1d4ed8;
-}
-.sidebar-production {
-  background: #92400e;
-}
-.sidebar-marketing {
-  background: #6b21a8;
-}
+.sidebar-admin     { background: #1a1f1a; border-right: 1px solid rgba(196,168,76,0.2); }
+.sidebar-store     { background: #1a1f1a; border-right: 1px solid rgba(196,168,76,0.2); }
+.sidebar-production{ background: #1a1f1a; border-right: 1px solid rgba(196,168,76,0.2); }
+.sidebar-marketing { background: #1a1f1a; border-right: 1px solid rgba(196,168,76,0.2); }
 
 .sidebar-logo {
   display: flex;
