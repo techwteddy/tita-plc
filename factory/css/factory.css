@@ -423,3 +423,54 @@
     padding: 16px;
   }
 }
+
+/* ===== COLLAPSIBLE SIDEBAR ===== */
+.sidebar.collapsed {
+  width: 64px;
+}
+
+.sidebar.collapsed .sidebar-logo-text,
+.sidebar.collapsed .sidebar-nav-label,
+.sidebar.collapsed .sidebar-link span:not(.sidebar-icon),
+.sidebar.collapsed .sidebar-logo-role,
+.sidebar.collapsed .sidebar-logout span:last-child {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  padding: 10px;
+}
+
+.sidebar.collapsed .sidebar-logo {
+  justify-content: center;
+  padding: 24px 10px;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 16px 10px;
+}
+
+.sidebar.collapsed .sidebar-logout {
+  justify-content: center;
+  padding: 10px;
+}
+
+.factory-main {
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed ~ .factory-main {
+  margin-left: 64px;
+}
+
+.sidebar-toggle {
+  display: block !important;
+  background: none; border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 20px; cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.sidebar-toggle:hover { color: #C4A85A; }
