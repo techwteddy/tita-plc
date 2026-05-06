@@ -579,3 +579,13 @@
   justify-content: center;
   padding: 12px 0;
 }
+
+/* ===== HEADER ALIGNMENT FIX ===== */
+.factory-header {
+  border-left: none !important;
+  border-top: none !important;
+}
+
+.factory-body {
+  align-items: stretch;
+}
