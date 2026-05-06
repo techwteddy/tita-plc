@@ -194,74 +194,47 @@
   </div>
 </div>
 
-<script>
-  // =============================================
-  // USERS — Edit these to change credentials
-  // =============================================
-  const USERS = [
-    {
-      username: 'admin',
-      password: 'tita2025',
-      role: 'management',
-      name: 'Management',
-      redirect: 'pages/admin.html'
-    },
-    {
-      username: 'worker1',
-      password: 'worker123',
-      role: 'worker',
-      name: 'Worker',
-      redirect: 'pages/production-entry.html'
-    },
-    {
-      username: 'worker2',
-      password: 'worker123',
-      role: 'worker',
-      name: 'Worker 2',
-      redirect: 'pages/production-entry.html'
-    }
-  ];
-  // =============================================
+<script type="module">
+  import { login } from "./factory/js/auth.js"
 
-  // If already logged in, redirect
-  const session = JSON.parse(sessionStorage.getItem('tita_user') || 'null');
-  if (session) {
-    window.location.href = session.redirect;
-  }
+  document.addEventListener("DOMContentLoaded", function() {
 
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const username = document.getElementById('username').value.trim().toLowerCase();
-    const password = document.getElementById('password').value;
-    const btn = document.getElementById('loginBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    const errorText = document.getElementById('errorText');
-
-    btn.disabled = true;
-    btn.textContent = 'Signing in...';
-    errorMsg.classList.remove('show');
-
-    setTimeout(() => {
-      const user = USERS.find(u => u.username === username && u.password === password);
-
-      if (user) {
-        // Save session
-        sessionStorage.setItem('tita_user', JSON.stringify(user));
-        btn.textContent = '✓ Redirecting...';
-        setTimeout(() => {
-          window.location.href = user.redirect;
-        }, 600);
-      } else {
-        errorText.textContent = 'Invalid username or password. Please try again.';
-        errorMsg.classList.add('show');
-        btn.disabled = false;
-        btn.textContent = 'Sign In';
-        document.getElementById('password').value = '';
-        document.getElementById('password').focus();
+    const role = sessionStorage.getItem("tita_role")
+    if (role) {
+      const routes = {
+        admin: "factory/dashboard-admin.html",
+        store_manager: "factory/dashboard-store.html",
+        production_manager: "factory/dashboard-production.html",
+        marketing_manager: "factory/dashboard-marketing.html"
       }
-    }, 800);
-  });
+      if (routes[role]) window.location.href = routes[role]
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault()
+
+      const email = document.getElementById("username").value.trim()
+      const password = document.getElementById("password").value
+      const btn = document.getElementById("loginBtn")
+      const errorMsg = document.getElementById("errorMsg")
+      const errorText = document.getElementById("errorText")
+
+      btn.disabled = true
+      btn.textContent = "Signing in..."
+      errorMsg.classList.remove("show")
+
+      const result = await login(email, password)
+
+      if (result && result.error) {
+        errorText.textContent = result.error
+        errorMsg.classList.add("show")
+        btn.disabled = false
+        btn.textContent = "Sign In"
+        document.getElementById("password").value = ""
+      }
+    })
+
+  })
 </script>
 </body>
 </html>
