@@ -466,3 +466,75 @@
 }
 
 .sidebar-toggle:hover { color: #C4A85A; }
+
+/* ===== SMOOTH COLLAPSE OVERRIDE ===== */
+.sidebar {
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar.collapsed {
+  width: 64px;
+}
+
+.sidebar.collapsed .sidebar-logo-text,
+.sidebar.collapsed .sidebar-nav-label,
+.sidebar.collapsed .sidebar-logo-role {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.sidebar.collapsed .sidebar-link span:last-child {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-logo {
+  justify-content: center;
+  padding: 24px 8px;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 16px 8px;
+}
+
+.sidebar.collapsed .sidebar-logout {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.sidebar.collapsed .sidebar-logout span:last-child {
+  display: none;
+}
+
+.factory-main {
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed + .factory-main {
+  margin-left: 64px;
+}
+
+/* Toggle button — always visible */
+.sidebar-toggle {
+  display: block !important;
+  color: rgba(255,255,255,0.5);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  background: none;
+  border: none;
+}
+
+.sidebar-toggle:hover {
+  color: #C4A85A;
+  background: rgba(196,168,76,0.1);
+}
