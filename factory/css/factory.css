@@ -538,3 +538,44 @@
   color: #C4A85A;
   background: rgba(196,168,76,0.1);
 }
+
+/* ===== SIDEBAR COLLAPSE BUTTON ===== */
+.sidebar-collapse-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.4);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.sidebar-collapse-btn:hover {
+  color: #C4A85A;
+  background: rgba(196,168,76,0.08);
+}
+
+.collapse-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.sidebar.collapsed .collapse-icon {
+  transform: rotate(180deg);
+}
+
+.sidebar.collapsed .collapse-label {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-collapse-btn {
+  justify-content: center;
+  padding: 12px 0;
+}
