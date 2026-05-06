@@ -356,7 +356,7 @@
           <li><a href="pages/tracking.html">Track Order</a></li>
           <li><a href="#quote">Request Quote</a></li>
           <li><a href="login.html">Staff Login</a></li>
-          <li><a href="https://app.dinqdigital.com" target="_blank">Admin Dashboard</a></li>
+          <li><a href="login.html" target="_blank">Admin Dashboard</a></li>
         </ul>
       </div>
     </div>
@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   async function loadProductPrices() {
     try {
-      var res  = await fetch('https://app.dinqdigital.com/api/products');
+      var res  = await fetch('login.html/api/products');
       var data = await res.json();
       if (data.success && data.products) {
         data.products.forEach(function(p) {
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.textContent = 'Submitting...';
 
     try {
-      var res  = await fetch('https://app.dinqdigital.com/api/quote', {
+      var res  = await fetch('login.html/api/quote', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var btn = document.getElementById('modalSubmitBtn');
     btn.disabled = true; btn.textContent = 'Submitting...';
     try {
-      var res  = await fetch('https://app.dinqdigital.com/api/quote', {
+      var res  = await fetch('login.html/api/quote', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
