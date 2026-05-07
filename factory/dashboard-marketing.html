@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing Dashboard — Tita Factory</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="css/factory.css" />
+</head>
+<body class="factory-body">
+
+<aside class="sidebar sidebar-marketing" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-mark">T</div>
+    <div class="sidebar-logo-text">
+      <span class="sidebar-logo-name">Tita Factory</span>
+      <span class="sidebar-logo-role">Marketing</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-nav-label">Main</div>
+    <a href="dashboard-marketing.html" class="sidebar-link active"><span class="sidebar-icon">📊</span> Dashboard</a>
+    <a href="orders.html" class="sidebar-link"><span class="sidebar-icon">📋</span> Orders</a>
+    <a href="sales.html" class="sidebar-link"><span class="sidebar-icon">💰</span> Sales</a>
+    <a href="analytics.html" class="sidebar-link"><span class="sidebar-icon">📈</span> Analytics</a>
+  </nav>
+  <div class="sidebar-collapse-btn" id="sidebarToggle">
+    <span class="collapse-icon">«</span>
+    <span class="collapse-label">Collapse</span>
+  </div>
+  <div class="sidebar-footer">
+    <button class="sidebar-logout" id="logoutBtn"><span>🚪</span> Sign Out</button>
+  </div>
+</aside>
+
+<div class="factory-main">
+  <header class="factory-header">
+    <div class="factory-header-left">
+      <div>
+        <div class="factory-header-title">Marketing Dashboard</div>
+        <div class="factory-header-sub">Sales performance and order overview</div>
+      </div>
+    </div>
+    <div class="factory-header-right">
+      <div class="header-date" id="headerDate"></div>
+      <div class="header-avatar">M</div>
+    </div>
+  </header>
+
+  <main class="factory-content">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(107,33,168,0.15);">📋</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statOrders">—</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(107,33,168,0.15);">💰</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statSales">—</div>
+          <div class="stat-label">Total Sales (ETB)</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(107,33,168,0.15);">✅</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statFulfilled">—</div>
+          <div class="stat-label">Fulfilled Orders</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(107,33,168,0.15);">⏳</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statPending">—</div>
+          <div class="stat-label">Pending Orders</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="factory-card">
+        <div class="factory-card-header">
+          <div class="factory-card-title">Recent Orders</div>
+          <a href="orders.html" class="factory-card-link">View all →</a>
+        </div>
+        <div class="factory-table-wrap">
+          <table class="factory-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="4" class="table-empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="factory-card">
+        <div class="factory-card-header">
+          <div class="factory-card-title">Recent Sales</div>
+          <a href="sales.html" class="factory-card-link">View all →</a>
+        </div>
+        <div class="factory-table-wrap">
+          <table class="factory-table">
+            <thead><tr><th>Customer</th><th>Total (ETB)</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="salesTableBody">
+              <tr><td colspan="4" class="table-empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module">
+  import { requireAuth, logout } from './js/auth.js'
+  import { supabase } from './js/supabase.js'
+
+  const role = await requireAuth(['admin', 'marketing_manager'])
+  if (!role) throw new Error('Unauthorized')
+
+  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  document.getElementById('logoutBtn').addEventListener('click', logout)
+  document.getElementById('sidebarToggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('collapsed')
+  })
+
+  const orgId = sessionStorage.getItem('tita_org_id')
+
+  async function loadStats() {
+    const [orders, sales] = await Promise.all([
+      supabase.from('sales_orders').select('id, status').eq('org_id', orgId),
+      supabase.from('factory_sales').select('total_etb, status').eq('org_id', orgId)
+    ])
+    const orderData = orders.data || []
+    const salesData = sales.data || []
+    document.getElementById('statOrders').textContent = orderData.length
+    document.getElementById('statFulfilled').textContent = orderData.filter(o => o.status === 'fulfilled').length
+    document.getElementById('statPending').textContent = orderData.filter(o => o.status === 'pending').length
+    const totalSales = salesData.reduce((sum, s) => sum + (s.total_etb || 0), 0)
+    document.getElementById('statSales').textContent = totalSales.toLocaleString('en-ET') + ' ETB'
+  }
+
+  async function loadOrders() {
+    const { data } = await supabase.from('sales_orders').select('id, customer_name, status, date_of_order').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
+    const tbody = document.getElementById('ordersTableBody')
+    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No orders yet</td></tr>'; return }
+    tbody.innerHTML = data.map(o => `<tr><td><span class="order-id">${o.id.slice(0,8).toUpperCase()}</span></td><td>${o.customer_name}</td><td><span class="status-pill status-${o.status}">${o.status}</span></td><td>${new Date(o.date_of_order).toLocaleDateString()}</td></tr>`).join('')
+  }
+
+  async function loadSales() {
+    const { data } = await supabase.from('factory_sales').select('customer_name, total_etb, status, sale_date').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
+    const tbody = document.getElementById('salesTableBody')
+    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No sales yet</td></tr>'; return }
+    tbody.innerHTML = data.map(s => `<tr><td>${s.customer_name}</td><td>${Number(s.total_etb).toLocaleString()} ETB</td><td><span class="status-pill status-${s.status}">${s.status}</span></td><td>${new Date(s.sale_date).toLocaleDateString()}</td></tr>`).join('')
+  }
+
+  loadStats(); loadOrders(); loadSales()
+</script>
+</body>
+</html>

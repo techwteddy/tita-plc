@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store Dashboard — Tita Factory</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="css/factory.css" />
+</head>
+<body class="factory-body">
+
+<aside class="sidebar sidebar-store" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-mark">T</div>
+    <div class="sidebar-logo-text">
+      <span class="sidebar-logo-name">Tita Factory</span>
+      <span class="sidebar-logo-role">Store Manager</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-nav-label">Main</div>
+    <a href="dashboard-store.html" class="sidebar-link active"><span class="sidebar-icon">📊</span> Dashboard</a>
+    <a href="orders.html" class="sidebar-link"><span class="sidebar-icon">📋</span> Orders</a>
+    <a href="inventory.html" class="sidebar-link"><span class="sidebar-icon">📦</span> Inventory</a>
+    <a href="material-requests.html" class="sidebar-link"><span class="sidebar-icon">🔄</span> Material Requests</a>
+    <a href="goods-transfer.html" class="sidebar-link"><span class="sidebar-icon">🚚</span> Goods Transfer</a>
+    <a href="sales.html" class="sidebar-link"><span class="sidebar-icon">💰</span> Sales</a>
+    <a href="analytics.html" class="sidebar-link"><span class="sidebar-icon">📈</span> Analytics</a>
+    <a href="settings.html" class="sidebar-link"><span class="sidebar-icon">⚙️</span> Settings</a>
+  </nav>
+  <div class="sidebar-collapse-btn" id="sidebarToggle">
+    <span class="collapse-icon">«</span>
+    <span class="collapse-label">Collapse</span>
+  </div>
+  <div class="sidebar-footer">
+    <button class="sidebar-logout" id="logoutBtn"><span>🚪</span> Sign Out</button>
+  </div>
+</aside>
+
+<div class="factory-main">
+  <header class="factory-header">
+    <div class="factory-header-left">
+      <div>
+        <div class="factory-header-title">Store Dashboard</div>
+        <div class="factory-header-sub">Inventory, orders and goods overview</div>
+      </div>
+    </div>
+    <div class="factory-header-right">
+      <div class="header-date" id="headerDate"></div>
+      <div class="header-avatar">S</div>
+    </div>
+  </header>
+
+  <main class="factory-content">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(29,78,216,0.15);">📋</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statOrders">—</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(29,78,216,0.15);">📦</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statInventory">—</div>
+          <div class="stat-label">Inventory Items</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(239,68,68,0.15);">⚠️</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statLowStock">—</div>
+          <div class="stat-label">Low Stock Items</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(29,78,216,0.15);">🚚</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statTransfers">—</div>
+          <div class="stat-label">Goods Transfers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="factory-card">
+        <div class="factory-card-header">
+          <div class="factory-card-title">Recent Orders</div>
+          <a href="orders.html" class="factory-card-link">View all →</a>
+        </div>
+        <div class="factory-table-wrap">
+          <table class="factory-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="4" class="table-empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="factory-card">
+        <div class="factory-card-header">
+          <div class="factory-card-title">Material Requests</div>
+          <a href="material-requests.html" class="factory-card-link">View all →</a>
+        </div>
+        <div class="factory-table-wrap">
+          <table class="factory-table">
+            <thead><tr><th>Requested By</th><th>Items</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="requestsTableBody">
+              <tr><td colspan="4" class="table-empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="factory-card" style="margin-top:24px;">
+      <div class="factory-card-header">
+        <div class="factory-card-title">Inventory Status</div>
+        <a href="inventory.html" class="factory-card-link">Manage →</a>
+      </div>
+      <div class="factory-table-wrap">
+        <table class="factory-table">
+          <thead><tr><th>Item</th><th>Category</th><th>Quantity</th><th>Unit</th><th>Status</th></tr></thead>
+          <tbody id="inventoryTableBody">
+            <tr><td colspan="5" class="table-empty">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module">
+  import { requireAuth, logout } from './js/auth.js'
+  import { supabase } from './js/supabase.js'
+
+  const role = await requireAuth(['admin', 'store_manager'])
+  if (!role) throw new Error('Unauthorized')
+
+  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  document.getElementById('logoutBtn').addEventListener('click', logout)
+  document.getElementById('sidebarToggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('collapsed')
+  })
+
+  const orgId = sessionStorage.getItem('tita_org_id')
+
+  async function loadStats() {
+    const [orders, inventory, transfers] = await Promise.all([
+      supabase.from('sales_orders').select('id', { count: 'exact' }).eq('org_id', orgId),
+      supabase.from('inventory').select('id, quantity, low_stock_threshold').eq('org_id', orgId),
+      supabase.from('goods_transfers').select('id', { count: 'exact' }).eq('org_id', orgId)
+    ])
+    document.getElementById('statOrders').textContent = orders.count ?? '0'
+    document.getElementById('statInventory').textContent = inventory.count ?? '0'
+    document.getElementById('statTransfers').textContent = transfers.count ?? '0'
+    const lowStock = (inventory.data || []).filter(i => i.low_stock_threshold && i.quantity <= i.low_stock_threshold).length
+    document.getElementById('statLowStock').textContent = lowStock
+  }
+
+  async function loadOrders() {
+    const { data } = await supabase.from('sales_orders').select('id, customer_name, status, date_of_order').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
+    const tbody = document.getElementById('ordersTableBody')
+    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No orders yet</td></tr>'; return }
+    tbody.innerHTML = data.map(o => `<tr><td><span class="order-id">${o.id.slice(0,8).toUpperCase()}</span></td><td>${o.customer_name}</td><td><span class="status-pill status-${o.status}">${o.status}</span></td><td>${new Date(o.date_of_order).toLocaleDateString()}</td></tr>`).join('')
+  }
+
+  async function loadRequests() {
+    const { data } = await supabase.from('material_requests').select('requested_by, items, status, request_date').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
+    const tbody = document.getElementById('requestsTableBody')
+    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No requests yet</td></tr>'; return }
+    tbody.innerHTML = data.map(r => `<tr><td>${r.requested_by}</td><td>${(r.items||[]).length} items</td><td><span class="status-pill status-${r.status}">${r.status}</span></td><td>${new Date(r.request_date).toLocaleDateString()}</td></tr>`).join('')
+  }
+
+  async function loadInventory() {
+    const { data } = await supabase.from('inventory').select('name, category, quantity, unit, low_stock_threshold').eq('org_id', orgId).order('category').limit(8)
+    const tbody = document.getElementById('inventoryTableBody')
+    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="5" class="table-empty">No inventory yet</td></tr>'; return }
+    tbody.innerHTML = data.map(i => {
+      const isLow = i.low_stock_threshold && i.quantity <= i.low_stock_threshold
+      return `<tr><td>${i.name}</td><td>${i.category}</td><td>${Number(i.quantity).toLocaleString()}</td><td>${i.unit}</td><td><span class="status-pill ${isLow ? 'status-low' : 'status-ok'}">${isLow ? '⚠️ Low' : '✅ OK'}</span></td></tr>`
+    }).join('')
+  }
+
+  loadStats(); loadOrders(); loadRequests(); loadInventory()
+</script>
+</body>
+</html>
