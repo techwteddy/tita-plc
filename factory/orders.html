@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders — Tita Factory</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="css/factory.css" />
+  </head>
+  <body class="factory-body">
+    <aside class="sidebar sidebar-admin" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-mark">T</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Tita Factory</span>
+          <span class="sidebar-logo-role" id="roleLabel">—</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="#" class="sidebar-link" id="dashLink"
+          ><span class="sidebar-icon">📊</span> Dashboard</a
+        >
+        <a href="orders.html" class="sidebar-link active"
+          ><span class="sidebar-icon">📋</span> Orders</a
+        >
+        <a href="inventory.html" class="sidebar-link"
+          ><span class="sidebar-icon">📦</span> Inventory</a
+        >
+        <a href="material-requests.html" class="sidebar-link"
+          ><span class="sidebar-icon">🔄</span> Material Requests</a
+        >
+        <a href="goods-transfer.html" class="sidebar-link"
+          ><span class="sidebar-icon">🚚</span> Goods Transfer</a
+        >
+        <a href="sales.html" class="sidebar-link"
+          ><span class="sidebar-icon">💰</span> Sales</a
+        >
+        <a href="analytics.html" class="sidebar-link"
+          ><span class="sidebar-icon">📈</span> Analytics</a
+        >
+      </nav>
+      <div class="sidebar-collapse-btn" id="sidebarToggle">
+        <span class="collapse-icon">«</span>
+        <span class="collapse-label">Collapse</span>
+      </div>
+      <div class="sidebar-footer">
+        <button class="sidebar-logout" id="logoutBtn">
+          <span>🚪</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <div class="factory-main">
+      <header class="factory-header">
+        <div class="factory-header-left">
+          <div>
+            <div class="factory-header-title">Orders</div>
+            <div class="factory-header-sub">Manage customer orders</div>
+          </div>
+        </div>
+        <div class="factory-header-right">
+          <button class="btn-factory-primary" id="newOrderBtn">
+            + New Order
+          </button>
+          <div class="header-avatar" id="avatarEl">—</div>
+        </div>
+      </header>
+
+      <main class="factory-content">
+        <!-- ORDER FORM -->
+        <div
+          class="factory-card"
+          id="orderForm"
+          style="display: none; margin-bottom: 24px"
+        >
+          <div class="factory-card-header">
+            <div class="factory-card-title">New Order</div>
+            <button class="factory-card-link" id="closeFormBtn">✕ Close</button>
+          </div>
+          <div class="factory-form">
+            <div class="form-section-label">Customer Information</div>
+            <div class="form-grid-2">
+              <div class="factory-form-group">
+                <label>Company / Customer Name *</label>
+                <input
+                  type="text"
+                  id="f-customer"
+                  placeholder="e.g. Selam Trading PLC"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Phone</label>
+                <input type="text" id="f-phone" placeholder="+251 9..." />
+              </div>
+              <div class="factory-form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  id="f-email"
+                  placeholder="customer@company.com"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Address</label>
+                <input
+                  type="text"
+                  id="f-address"
+                  placeholder="City, Region, Country"
+                />
+              </div>
+            </div>
+
+            <div class="form-section-label">Order Details</div>
+            <div class="form-grid-2">
+              <div class="factory-form-group">
+                <label>Product Type *</label>
+                <select id="f-product">
+                  <option value="">Select...</option>
+                  <option>PP Bag</option>
+                  <option>Hessian Cloth</option>
+                  <option>Laminated</option>
+                  <option>Inner Liner</option>
+                  <option>Jumbo Bag</option>
+                </select>
+              </div>
+              <div class="factory-form-group">
+                <label>Quantity *</label>
+                <input
+                  type="number"
+                  id="f-quantity"
+                  placeholder="e.g. 10000"
+                  min="0"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Bag Size</label>
+                <select id="f-bagsize">
+                  <option value="">Select size...</option>
+                </select>
+              </div>
+              <div class="factory-form-group">
+                <label>Weight (grams)</label>
+                <input
+                  type="number"
+                  id="f-weight"
+                  placeholder="e.g. 120"
+                  min="0"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Color</label>
+                <input
+                  type="text"
+                  id="f-color"
+                  placeholder="e.g. White, Natural"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Printing</label>
+                <select id="f-printing">
+                  <option value="">None</option>
+                  <option>Single Side</option>
+                  <option>Double Side</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-section-label">Payment & Delivery</div>
+            <div class="form-grid-2">
+              <div class="factory-form-group">
+                <label>Payment Terms *</label>
+                <select id="f-payment">
+                  <option value="">Select...</option>
+                  <option>100% Advance</option>
+                  <option>50% Advance + Remainder on Delivery</option>
+                  <option>30% Advance + Remainder on Delivery</option>
+                </select>
+              </div>
+              <div class="factory-form-group">
+                <label>Date of Order</label>
+                <input type="date" id="f-orderdate" />
+              </div>
+              <div class="factory-form-group">
+                <label>Delivery Date</label>
+                <input type="date" id="f-deliverydate" />
+              </div>
+              <div class="factory-form-group">
+                <label>Delivery Place</label>
+                <input
+                  type="text"
+                  id="f-delivery"
+                  placeholder="e.g. Addis Ababa warehouse"
+                />
+              </div>
+            </div>
+
+            <div class="factory-form-group" style="margin-top: 8px">
+              <label>Notes</label>
+              <textarea
+                id="f-notes"
+                placeholder="Additional requirements..."
+              ></textarea>
+            </div>
+
+            <div style="margin-top: 20px; display: flex; gap: 12px">
+              <button class="btn-factory-primary" id="submitOrderBtn">
+                Save Order
+              </button>
+              <button class="btn-factory-secondary" id="cancelOrderBtn">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDERS TABLE -->
+        <div class="factory-card">
+          <div class="factory-card-header">
+            <div class="factory-card-title">All Orders</div>
+            <div style="display: flex; gap: 8px">
+              <select class="filter-select" id="statusFilter">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="in_production">In Production</option>
+                <option value="fulfilled">Fulfilled</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="factory-table-wrap">
+            <table class="factory-table">
+              <thead>
+                <tr>
+                  <th>Order Ref</th>
+                  <th>Customer</th>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <tr>
+                  <td colspan="7" class="table-empty">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="factory-toast" id="toast"></div>
+
+    <script type="module">
+      import { requireAuth, logout } from "./js/auth.js";
+      import { supabase } from "./js/supabase.js";
+
+      const role = await requireAuth([
+        "admin",
+        "store_manager",
+        "marketing_manager",
+      ]);
+      if (!role) throw new Error("Unauthorized");
+
+      const orgId = sessionStorage.getItem("tita_org_id");
+
+      // Set dashboard link and role label per role
+      const dashLinks = {
+        admin: "dashboard-admin.html",
+        store_manager: "dashboard-store.html",
+        marketing_manager: "dashboard-marketing.html",
+      };
+      document.getElementById("dashLink").href =
+        dashLinks[role] || "dashboard-admin.html";
+      document.getElementById("roleLabel").textContent = role.replace("_", " ");
+      document.getElementById("avatarEl").textContent = role[0].toUpperCase();
+
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+      document.getElementById("sidebarToggle").addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("collapsed");
+      });
+
+      // Set default dates
+      document.getElementById("f-orderdate").value = new Date()
+        .toISOString()
+        .split("T")[0];
+
+      // Load bag sizes
+      async function loadBagSizes() {
+        const { data } = await supabase
+          .from("bag_sizes")
+          .select("id, name")
+          .eq("org_id", orgId)
+          .eq("active", true)
+          .order("sort_order");
+        const sel = document.getElementById("f-bagsize");
+        if (data)
+          data.forEach((b) => {
+            const opt = document.createElement("option");
+            opt.value = b.id;
+            opt.textContent = b.name;
+            sel.appendChild(opt);
+          });
+      }
+
+      // Load orders
+      async function loadOrders(statusFilter = "") {
+        let query = supabase
+          .from("sales_orders")
+          .select("*")
+          .eq("org_id", orgId)
+          .order("created_at", { ascending: false });
+        if (statusFilter) query = query.eq("status", statusFilter);
+        const { data } = await query;
+
+        const tbody = document.getElementById("ordersTableBody");
+        if (!data || !data.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="7" class="table-empty">No orders yet</td></tr>';
+          return;
+        }
+        tbody.innerHTML = data
+          .map(
+            (o) => `
+      <tr>
+        <td><span class="order-id">${
+          o.order_ref || o.id.slice(0, 8).toUpperCase()
+        }</span></td>
+        <td>${o.customer_name}</td>
+        <td>${o.product_type || "—"}</td>
+        <td>${o.quantity ? Number(o.quantity).toLocaleString() : "—"}</td>
+        <td style="font-size:12px;">${o.payment_terms || "—"}</td>
+        <td><span class="status-pill status-${o.status}">${o.status}</span></td>
+        <td>${
+          o.date_of_order ? new Date(o.date_of_order).toLocaleDateString() : "—"
+        }</td>
+      </tr>
+    `
+          )
+          .join("");
+      }
+
+      // Generate order ref
+      function genOrderRef() {
+        const num = Math.floor(1000 + Math.random() * 9000);
+        return `ETH-${num}`;
+      }
+
+      // Show/hide form
+      document.getElementById("newOrderBtn").addEventListener("click", () => {
+        document.getElementById("orderForm").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      document.getElementById("closeFormBtn").addEventListener("click", () => {
+        document.getElementById("orderForm").style.display = "none";
+      });
+      document
+        .getElementById("cancelOrderBtn")
+        .addEventListener("click", () => {
+          document.getElementById("orderForm").style.display = "none";
+        });
+
+      // Submit order
+      document
+        .getElementById("submitOrderBtn")
+        .addEventListener("click", async () => {
+          const customer = document.getElementById("f-customer").value.trim();
+          const product = document.getElementById("f-product").value;
+          const quantity = document.getElementById("f-quantity").value;
+          const payment = document.getElementById("f-payment").value;
+
+          if (!customer || !product || !quantity || !payment) {
+            showToast("Please fill in all required fields");
+            return;
+          }
+
+          const btn = document.getElementById("submitOrderBtn");
+          btn.disabled = true;
+          btn.textContent = "Saving...";
+
+          const { error } = await supabase.from("sales_orders").insert({
+            org_id: orgId,
+            order_ref: genOrderRef(),
+            customer_name: customer,
+            customer_phone: document.getElementById("f-phone").value.trim(),
+            customer_email: document.getElementById("f-email").value.trim(),
+            customer_address: document.getElementById("f-address").value.trim(),
+            product_type: product,
+            quantity: parseInt(quantity),
+            payment_terms: payment,
+            date_of_order: document.getElementById("f-orderdate").value,
+            delivery_date:
+              document.getElementById("f-deliverydate").value || null,
+            notes: document.getElementById("f-notes").value.trim(),
+            status: "pending",
+          });
+
+          btn.disabled = false;
+          btn.textContent = "Save Order";
+
+          if (error) {
+            showToast("Error: " + error.message);
+            return;
+          }
+
+          showToast("Order saved successfully!");
+          document.getElementById("orderForm").style.display = "none";
+          loadOrders();
+        });
+
+      // Status filter
+      document
+        .getElementById("statusFilter")
+        .addEventListener("change", (e) => {
+          loadOrders(e.target.value);
+        });
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      loadBagSizes();
+      loadOrders();
+    </script>
+  </body>
+</html>
