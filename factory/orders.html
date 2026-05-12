@@ -19,15 +19,7 @@
           <span class="sidebar-logo-role" id="roleLabel">—</span>
         </div>
       </div>
-      <div class="sidebar-user">
-    <div class="sidebar-avatar">S</div>
-    <div class="sidebar-user-info">
-      <div class="sidebar-user-name">Store Manager</div>
-      <div class="sidebar-user-role" id="roleLabel">Admin</div>
-    </div>
-  </div>
-
-  <nav class="sidebar-nav">
+      <nav class="sidebar-nav">
         <div class="sidebar-nav-label">Main</div>
         <a href="#" class="sidebar-link" id="dashLink"
           ><span class="sidebar-icon">📊</span> Dashboard</a
@@ -51,10 +43,6 @@
           ><span class="sidebar-icon">📈</span> Analytics</a
         >
       </nav>
-      <div class="sidebar-collapse-btn" id="sidebarToggle">
-        <span class="collapse-icon">«</span>
-        <span class="collapse-label">Collapse</span>
-      </div>
       <div class="sidebar-footer">
         <button class="sidebar-logout" id="logoutBtn">
           <span>🚪</span> Sign Out
@@ -292,7 +280,6 @@
 
       document.getElementById("logoutBtn").addEventListener("click", logout);
       document.getElementById("sidebarToggle").addEventListener("click", () => {
-        document.getElementById("sidebar").classList.toggle("collapsed");
       });
 
       // Set default dates
