@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="css/factory.css" />
   </head>
   <body class="factory-body">
-    <aside class="sidebar sidebar-admin" id="sidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()" title="Collapse sidebar">&#x276E;</button>
+
+<aside class="sidebar sidebar-admin" id="sidebar">
       <div class="sidebar-logo">
         <div class="sidebar-logo-mark">T</div>
         <div class="sidebar-logo-text">
@@ -16,7 +19,15 @@
           <span class="sidebar-logo-role" id="roleLabel">—</span>
         </div>
       </div>
-      <nav class="sidebar-nav">
+      <div class="sidebar-user">
+    <div class="sidebar-avatar">S</div>
+    <div class="sidebar-user-info">
+      <div class="sidebar-user-name">Store Manager</div>
+      <div class="sidebar-user-role" id="roleLabel">Admin</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
         <div class="sidebar-nav-label">Main</div>
         <a href="#" class="sidebar-link" id="dashLink"
           ><span class="sidebar-icon">📊</span> Dashboard</a
