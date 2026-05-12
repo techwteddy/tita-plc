@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing Dashboard — Tita Factory</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="css/factory.css" />
+</head>
+<body class="factory-body">
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()" title="Collapse sidebar">&#x276E;</button>
+
+<aside class="sidebar sidebar-marketing" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-mark">T</div>
+    <div class="sidebar-logo-text">
+      <span class="sidebar-logo-name">Tita Factory</span>
+      <span class="sidebar-logo-role">Marketing</span>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-nav-label">Main</div>
+    <a href="dashboard-marketing.html" class="sidebar-link active" data-label="Dashboard">
+      <span class="sidebar-icon">📊</span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <a href="orders.html" class="sidebar-link" data-label="Orders">
+      <span class="sidebar-icon">&#x1F4CB;</span>
+      <span class="nav-label">Orders</span>
+    </a>
+    <a href="sales.html" class="sidebar-link" data-label="Sales">
+      <span class="sidebar-icon">💰</span>
+      <span class="nav-label">Sales</span>
+    </a>
+    <a href="analytics.html" class="sidebar-link" data-label="Analytics">
+      <span class="sidebar-icon">📈</span>
+      <span class="nav-label">Analytics</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" style="margin-bottom:8px;">
+      <div class="sidebar-avatar" id="sidebarAvatar">M</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarName">Marketing Manager</div>
+        <div class="sidebar-user-role" id="sidebarRole">Marketing Manager</div>
+      </div>
+    </div>
+    <button class="sidebar-logout" id="logoutBtn">
+      <span>🚪</span>
+      <span class="sign-out-label">Sign Out</span>
+    </button>
+  </div>
+</aside>
+
+<div class="factory-main">
+  <header class="factory-header">
+    <div class="factory-header-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="openMobileSidebar()">☰</button>
+      <div>
+        <div class="factory-header-title">Marketing Dashboard</div>
+        <div class="factory-header-sub">Sales performance and order overview</div>
+      </div>
+    </div>
+    <div class="factory-header-right">
+      <div class="header-date" id="headerDate"></div>
+      <div class="header-avatar" id="headerAvatar">M</div>
+    </div>
+  </header>
+
+  <main class="factory-content">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(196,168,76,0.1);">&#x1F4CB;</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statOrders">—</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(34,197,94,0.1);">💰</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statSales">—</div>
+          <div class="stat-label">Total Sales (ETB)</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(34,197,94,0.1);">✅</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statFulfilled">—</div>
+          <div class="stat-label">Fulfilled Orders</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(234,179,8,0.1);">⏳</div>
+        <div class="stat-body">
+          <div class="stat-val" id="statPending">—</div>
+          <div class="stat-label">Pending Orders</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="factory-card">
+        <div class="factory-card-header">
+          <div class="factory-card-title">Recent Orders</div>
+          <a href="orders.html" class="factory-card-link">View all →</a>
+        </div>
+        <div class="factory-table-wrap">
+          <table class="factory-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="4" class="table-empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="factory-card">
+        <div class="factory-card-header">
+          <div class="factory-card-title">Recent Sales</div>
+          <a href="sales.html" class="factory-card-link">View all →</a>
+        </div>
+        <div class="factory-table-wrap">
+          <table class="factory-table">
+            <thead><tr><th>Customer</th><th>Total (ETB)</th><th>Status</th><th>Date</th></tr></thead>
+            <tbody id="salesTableBody">
+              <tr><td colspan="4" class="table-empty">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module">
+  import { requireAuth, logout } from './js/auth.js'
+  import { supabase } from './js/supabase.js'
+
+  const role = await requireAuth(['admin', 'marketing_manager'])
+  if (!role) throw new Error('Unauthorized')
+
+  const orgId = sessionStorage.getItem('tita_org_id')
+  const userId = sessionStorage.getItem('tita_user_id')
+
+  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+  const { data: profile } = await supabase.from('profiles').select('full_name').eq('id', userId).single()
+  if (profile?.full_name) {
+    const initials = profile.full_name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase()
+    document.getElementById('sidebarAvatar').textContent = initials
+    document.getElementById('headerAvatar').textContent = initials
+    document.getElementById('sidebarName').textContent = profile.full_name
+    document.getElementById('sidebarRole').textContent = role.replace(/_/g, ' ')
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', logout)
+
+  function toggleSidebar() {
+    const collapsed = document.body.classList.toggle('sidebar-collapsed')
+    localStorage.setItem('sidebarCollapsed', collapsed ? '1' : '0')
+    document.getElementById('sidebarToggleBtn').innerHTML = collapsed ? '&#x276F;' : '&#x276E;'
+    document.getElementById('sidebar').classList.toggle('collapsed', collapsed)
+  }
+  function openMobileSidebar() {
+    document.getElementById('sidebar').classList.add('mobile-open')
+    document.getElementById('sidebarOverlay').classList.add('active')
+  }
+  function closeMobileSidebar() {
+    document.getElementById('sidebar').classList.remove('mobile-open')
+    document.getElementById('sidebarOverlay').classList.remove('active')
+  }
+  window.toggleSidebar = toggleSidebar
+  window.openMobileSidebar = openMobileSidebar
+  window.closeMobileSidebar = closeMobileSidebar
+  if (localStorage.getItem('sidebarCollapsed') === '1') {
+    document.body.classList.add('sidebar-collapsed')
+    document.getElementById('sidebar').classList.add('collapsed')
+    document.getElementById('sidebarToggleBtn').innerHTML = '&#x276F;'
+  }
+
+  async function loadStats() {
+    const [orders, sales] = await Promise.all([
+      supabase.from('sales_orders').select('id, status').eq('org_id', orgId),
+      supabase.from('factory_sales').select('total_etb').eq('org_id', orgId)
+    ])
+    const orderData = orders.data || []
+    document.getElementById('statOrders').textContent = orderData.length
+    document.getElementById('statFulfilled').textContent = orderData.filter(o => o.status === 'fulfilled').length
+    document.getElementById('statPending').textContent = orderData.filter(o => o.status === 'pending').length
+    const total = (sales.data || []).reduce((s, r) => s + (r.total_etb || 0), 0)
+    document.getElementById('statSales').textContent = total.toLocaleString('en-ET')
+  }
+
+  async function loadOrders() {
+    const { data } = await supabase.from('sales_orders').select('id, customer_name, status, date_of_order').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
+    const tbody = document.getElementById('ordersTableBody')
+    if (!data?.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No orders yet</td></tr>'; return }
+    tbody.innerHTML = data.map(o => `<tr><td><span class="order-id">${o.id.slice(0,8).toUpperCase()}</span></td><td>${o.customer_name}</td><td><span class="status-pill status-${o.status}">${o.status}</span></td><td>${new Date(o.date_of_order).toLocaleDateString()}</td></tr>`).join('')
+  }
+
+  async function loadSales() {
+    const { data } = await supabase.from('factory_sales').select('customer_name, total_etb, status, sale_date').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
+    const tbody = document.getElementById('salesTableBody')
+    if (!data?.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No sales yet</td></tr>'; return }
+    tbody.innerHTML = data.map(s => `<tr><td>${s.customer_name}</td><td>${Number(s.total_etb).toLocaleString()} ETB</td><td><span class="status-pill status-${s.status}">${s.status}</span></td><td>${new Date(s.sale_date).toLocaleDateString()}</td></tr>`).join('')
+  }
+
+  loadStats(); loadOrders(); loadSales()
+</script>
+</body>
+</html>

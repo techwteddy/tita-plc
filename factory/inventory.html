@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory — Tita Factory</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="css/factory.css" />
+  </head>
+  <body class="factory-body">
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="closeMobileSidebar()"
+    ></div>
+    <button
+      class="sidebar-toggle-btn"
+      id="sidebarToggleBtn"
+      onclick="toggleSidebar()"
+      title="Collapse sidebar"
+    >
+      &#x276E;
+    </button>
+
+    <aside class="sidebar sidebar-admin" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-mark">T</div>
+        <div class="sidebar-logo-text">
+          <span class="sidebar-logo-name">Tita Factory</span>
+          <span class="sidebar-logo-role" id="roleLabel">—</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="#" class="sidebar-link" id="dashLink" data-label="Dashboard">
+          <span class="sidebar-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="orders.html" class="sidebar-link" data-label="Orders">
+          <span class="sidebar-icon">&#x1F4CB;</span>
+          <span class="nav-label">Orders</span>
+        </a>
+        <a
+          href="inventory.html"
+          class="sidebar-link active"
+          data-label="Inventory"
+        >
+          <span class="sidebar-icon">📦</span>
+          <span class="nav-label">Inventory</span>
+        </a>
+        <a
+          href="material-requests.html"
+          class="sidebar-link"
+          data-label="Material Requests"
+        >
+          <span class="sidebar-icon">🔄</span>
+          <span class="nav-label">Material Requests</span>
+        </a>
+        <a
+          href="goods-transfer.html"
+          class="sidebar-link"
+          data-label="Goods Transfer"
+        >
+          <span class="sidebar-icon">&#x1F69A;</span>
+          <span class="nav-label">Goods Transfer</span>
+        </a>
+        <a href="sales.html" class="sidebar-link" data-label="Sales">
+          <span class="sidebar-icon">💰</span>
+          <span class="nav-label">Sales</span>
+        </a>
+        <a href="analytics.html" class="sidebar-link" data-label="Analytics">
+          <span class="sidebar-icon">📈</span>
+          <span class="nav-label">Analytics</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user" style="margin-bottom: 8px">
+          <div class="sidebar-avatar" id="sidebarAvatar">—</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebarName">—</div>
+            <div class="sidebar-user-role" id="sidebarRole">—</div>
+          </div>
+        </div>
+        <button class="sidebar-logout" id="logoutBtn">
+          <span>🚪</span>
+          <span class="sign-out-label">Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="factory-main">
+      <header class="factory-header">
+        <div class="factory-header-left">
+          <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            onclick="openMobileSidebar()"
+          >
+            ☰
+          </button>
+          <div>
+            <div class="factory-header-title">Inventory</div>
+            <div class="factory-header-sub">
+              Manage stock levels and materials
+            </div>
+          </div>
+        </div>
+        <div class="factory-header-right">
+          <button class="btn-factory-primary" id="newItemBtn">
+            + Add Item
+          </button>
+          <div class="header-avatar" id="headerAvatar">—</div>
+        </div>
+      </header>
+
+      <main class="factory-content">
+        <!-- STATS -->
+        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1)">
+              📦
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statTotal">—</div>
+              <div class="stat-label">Total Items</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1)">
+              ⚠️
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statLow">—</div>
+              <div class="stat-label">Low Stock</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(34, 197, 94, 0.1)">
+              ✅
+            </div>
+            <div class="stat-body">
+              <div class="stat-val" id="statOk">—</div>
+              <div class="stat-label">Stock OK</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADD ITEM FORM -->
+        <div
+          class="factory-card"
+          id="itemForm"
+          style="display: none; margin-bottom: 24px"
+        >
+          <div class="factory-card-header">
+            <div class="factory-card-title" id="formTitle">Add Item</div>
+            <button class="factory-card-link close-btn" id="closeFormBtn">
+              ✕ Close
+            </button>
+          </div>
+          <div class="factory-form">
+            <div class="form-grid-2">
+              <div class="factory-form-group">
+                <label>Item Name *</label>
+                <input
+                  type="text"
+                  id="f-name"
+                  placeholder="e.g. PP Pellets — Virgin Grade"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Category *</label>
+                <select id="f-category">
+                  <option value="Raw Material">Raw Material</option>
+                  <option value="Finished Goods">Finished Goods</option>
+                  <option value="Packaging">Packaging</option>
+                  <option value="Consumable">Consumable</option>
+                </select>
+              </div>
+              <div class="factory-form-group">
+                <label>Quantity *</label>
+                <input
+                  type="number"
+                  id="f-quantity"
+                  placeholder="0"
+                  min="0"
+                  step="0.001"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Unit *</label>
+                <select id="f-unit">
+                  <option value="kg">kg</option>
+                  <option value="units">units</option>
+                  <option value="rolls">rolls</option>
+                  <option value="liters">liters</option>
+                  <option value="bags">bags</option>
+                </select>
+              </div>
+              <div class="factory-form-group">
+                <label>Low Stock Threshold</label>
+                <input
+                  type="number"
+                  id="f-threshold"
+                  placeholder="e.g. 500"
+                  min="0"
+                  step="0.001"
+                />
+              </div>
+              <div class="factory-form-group">
+                <label>Notes</label>
+                <input type="text" id="f-notes" placeholder="Optional notes" />
+              </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 12px">
+              <button class="btn-factory-primary" id="submitItemBtn">
+                Save Item
+              </button>
+              <button class="btn-factory-secondary" id="cancelItemBtn">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- INVENTORY TABLE -->
+        <div class="factory-card">
+          <div class="factory-card-header">
+            <div class="factory-card-title">All Inventory</div>
+            <div style="display: flex; gap: 8px">
+              <select class="filter-select" id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Raw Material">Raw Material</option>
+                <option value="Finished Goods">Finished Goods</option>
+                <option value="Packaging">Packaging</option>
+                <option value="Consumable">Consumable</option>
+              </select>
+              <select class="filter-select" id="stockFilter">
+                <option value="">All Stock</option>
+                <option value="low">Low Stock Only</option>
+                <option value="ok">Stock OK</option>
+              </select>
+            </div>
+          </div>
+          <div class="factory-table-wrap">
+            <table class="factory-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>Threshold</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <tr>
+                  <td colspan="7" class="table-empty">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- UPDATE QTY MODAL -->
+    <div
+      id="updateModal"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          background: #1a1f1a;
+          border: 1px solid rgba(196, 168, 76, 0.2);
+          border-radius: 16px;
+          padding: 32px;
+          width: 100%;
+          max-width: 400px;
+          margin: 20px;
+        "
+      >
+        <div
+          style="
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+          "
+          id="modalItemName"
+        >
+          Update Stock
+        </div>
+        <div
+          style="
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            margin-bottom: 24px;
+          "
+          id="modalItemCurrent"
+        >
+          Current: —
+        </div>
+        <div class="factory-form-group" style="margin-bottom: 16px">
+          <label>Action</label>
+          <select
+            id="modalAction"
+            style="
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 8px;
+              color: white;
+              font-family: 'DM Sans', sans-serif;
+              font-size: 14px;
+              padding: 10px 12px;
+              outline: none;
+              width: 100%;
+            "
+          >
+            <option value="set">Set exact quantity</option>
+            <option value="add">Add to stock</option>
+            <option value="subtract">Remove from stock</option>
+          </select>
+        </div>
+        <div class="factory-form-group" style="margin-bottom: 24px">
+          <label>Quantity</label>
+          <input
+            type="number"
+            id="modalQty"
+            min="0"
+            step="0.001"
+            placeholder="Enter amount"
+            style="
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 8px;
+              color: white;
+              font-family: 'DM Sans', sans-serif;
+              font-size: 14px;
+              padding: 10px 12px;
+              outline: none;
+              width: 100%;
+            "
+          />
+        </div>
+        <div style="display: flex; gap: 12px">
+          <button class="btn-factory-primary" id="modalSaveBtn">Update</button>
+          <button class="btn-factory-secondary" onclick="closeModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="factory-toast" id="toast"></div>
+
+    <script type="module">
+      import { requireAuth, logout } from "./js/auth.js";
+      import { supabase } from "./js/supabase.js";
+
+      const role = await requireAuth(["admin", "store_manager"]);
+      if (!role) throw new Error("Unauthorized");
+
+      const orgId = sessionStorage.getItem("tita_org_id");
+      const userId = sessionStorage.getItem("tita_user_id");
+
+      // Dashboard link per role
+      const dashLinks = {
+        admin: "dashboard-admin.html",
+        store_manager: "dashboard-store.html",
+      };
+      document.getElementById("dashLink").href =
+        dashLinks[role] || "dashboard-admin.html";
+      document.getElementById("roleLabel").textContent = role.replace(
+        /_/g,
+        " "
+      );
+
+      // Profile
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("full_name")
+        .eq("id", userId)
+        .single();
+      if (profile?.full_name) {
+        const initials = profile.full_name
+          .split(" ")
+          .map((w) => w[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        document.getElementById("sidebarAvatar").textContent = initials;
+        document.getElementById("headerAvatar").textContent = initials;
+        document.getElementById("sidebarName").textContent = profile.full_name;
+        document.getElementById("sidebarRole").textContent = role.replace(
+          /_/g,
+          " "
+        );
+      }
+
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+
+      // Sidebar
+      function toggleSidebar() {
+        const collapsed = document.body.classList.toggle("sidebar-collapsed");
+        localStorage.setItem("sidebarCollapsed", collapsed ? "1" : "0");
+        document.getElementById("sidebarToggleBtn").innerHTML = collapsed
+          ? "&#x276F;"
+          : "&#x276E;";
+        document
+          .getElementById("sidebar")
+          .classList.toggle("collapsed", collapsed);
+      }
+      function openMobileSidebar() {
+        document.getElementById("sidebar").classList.add("mobile-open");
+        document.getElementById("sidebarOverlay").classList.add("active");
+      }
+      function closeMobileSidebar() {
+        document.getElementById("sidebar").classList.remove("mobile-open");
+        document.getElementById("sidebarOverlay").classList.remove("active");
+      }
+      window.toggleSidebar = toggleSidebar;
+      window.openMobileSidebar = openMobileSidebar;
+      window.closeMobileSidebar = closeMobileSidebar;
+      if (localStorage.getItem("sidebarCollapsed") === "1") {
+        document.body.classList.add("sidebar-collapsed");
+        document.getElementById("sidebar").classList.add("collapsed");
+        document.getElementById("sidebarToggleBtn").innerHTML = "&#x276F;";
+      }
+
+      // State
+      let allItems = [];
+      let editingId = null;
+      let modalItemId = null;
+      let modalCurrentQty = 0;
+
+      // Load inventory
+      async function loadInventory() {
+        const { data } = await supabase
+          .from("inventory")
+          .select("*")
+          .eq("org_id", orgId)
+          .order("category");
+
+        allItems = data || [];
+        applyFilters();
+        updateStats();
+      }
+
+      function updateStats() {
+        const low = allItems.filter(
+          (i) => i.low_stock_threshold && i.quantity <= i.low_stock_threshold
+        ).length;
+        document.getElementById("statTotal").textContent = allItems.length;
+        document.getElementById("statLow").textContent = low;
+        document.getElementById("statOk").textContent = allItems.length - low;
+      }
+
+      function applyFilters() {
+        const cat = document.getElementById("categoryFilter").value;
+        const stock = document.getElementById("stockFilter").value;
+        let filtered = allItems;
+
+        if (cat) filtered = filtered.filter((i) => i.category === cat);
+        if (stock === "low")
+          filtered = filtered.filter(
+            (i) => i.low_stock_threshold && i.quantity <= i.low_stock_threshold
+          );
+        if (stock === "ok")
+          filtered = filtered.filter(
+            (i) => !i.low_stock_threshold || i.quantity > i.low_stock_threshold
+          );
+
+        renderTable(filtered);
+      }
+
+      function renderTable(items) {
+        const tbody = document.getElementById("inventoryTableBody");
+        if (!items.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="7" class="table-empty">No items found</td></tr>';
+          return;
+        }
+        tbody.innerHTML = items
+          .map((i) => {
+            const isLow =
+              i.low_stock_threshold && i.quantity <= i.low_stock_threshold;
+            return `<tr>
+        <td style="font-weight:600;color:white;">${i.name}</td>
+        <td><span class="status-pill" style="background:rgba(196,168,76,0.1);color:#C4A85A;">${
+          i.category
+        }</span></td>
+        <td style="font-family:'DM Mono',monospace;font-size:14px;">${Number(
+          i.quantity
+        ).toLocaleString()}</td>
+        <td style="color:rgba(255,255,255,0.5);">${i.unit}</td>
+        <td style="color:rgba(255,255,255,0.4);font-size:13px;">${
+          i.low_stock_threshold
+            ? Number(i.low_stock_threshold).toLocaleString()
+            : "—"
+        }</td>
+        <td><span class="status-pill ${isLow ? "status-low" : "status-ok"}">${
+              isLow ? "⚠️ Low" : "✅ OK"
+            }</span></td>
+        <td>
+          <div style="display:flex;gap:6px;">
+            <button onclick="openUpdateModal('${i.id}','${i.name.replace(
+              /'/g,
+              "\\'"
+            )}',${i.quantity},'${i.unit}')"
+              style="background:rgba(196,168,76,0.1);border:1px solid rgba(196,168,76,0.2);color:#C4A85A;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">
+              Update
+            </button>
+            <button onclick="editItem('${i.id}')"
+              style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;">
+              Edit
+            </button>
+          </div>
+        </td>
+      </tr>`;
+          })
+          .join("");
+      }
+
+      // Add item form
+      document.getElementById("newItemBtn").addEventListener("click", () => {
+        editingId = null;
+        document.getElementById("formTitle").textContent = "Add Item";
+        document.getElementById("f-name").value = "";
+        document.getElementById("f-quantity").value = "";
+        document.getElementById("f-threshold").value = "";
+        document.getElementById("f-notes").value = "";
+        document.getElementById("itemForm").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.getElementById("closeFormBtn").addEventListener("click", () => {
+        document.getElementById("itemForm").style.display = "none";
+      });
+      document.getElementById("cancelItemBtn").addEventListener("click", () => {
+        document.getElementById("itemForm").style.display = "none";
+      });
+
+      window.editItem = function (id) {
+        const item = allItems.find((i) => i.id === id);
+        if (!item) return;
+        editingId = id;
+        document.getElementById("formTitle").textContent = "Edit Item";
+        document.getElementById("f-name").value = item.name;
+        document.getElementById("f-category").value = item.category;
+        document.getElementById("f-quantity").value = item.quantity;
+        document.getElementById("f-unit").value = item.unit;
+        document.getElementById("f-threshold").value =
+          item.low_stock_threshold || "";
+        document.getElementById("f-notes").value = item.notes || "";
+        document.getElementById("itemForm").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      document
+        .getElementById("submitItemBtn")
+        .addEventListener("click", async () => {
+          const name = document.getElementById("f-name").value.trim();
+          const quantity = parseFloat(
+            document.getElementById("f-quantity").value
+          );
+          if (!name || isNaN(quantity)) {
+            showToast("Name and quantity are required");
+            return;
+          }
+
+          const btn = document.getElementById("submitItemBtn");
+          btn.disabled = true;
+          btn.textContent = "Saving...";
+
+          const payload = {
+            org_id: orgId,
+            name,
+            category: document.getElementById("f-category").value,
+            quantity,
+            unit: document.getElementById("f-unit").value,
+            low_stock_threshold:
+              parseFloat(document.getElementById("f-threshold").value) || null,
+            notes: document.getElementById("f-notes").value.trim() || null,
+            updated_at: new Date().toISOString(),
+          };
+
+          let error;
+          if (editingId) {
+            ({ error } = await supabase
+              .from("inventory")
+              .update(payload)
+              .eq("id", editingId));
+          } else {
+            ({ error } = await supabase.from("inventory").insert(payload));
+          }
+
+          btn.disabled = false;
+          btn.textContent = "Save Item";
+          if (error) {
+            showToast("Error: " + error.message);
+            return;
+          }
+          showToast(editingId ? "Item updated!" : "Item added!");
+          document.getElementById("itemForm").style.display = "none";
+          editingId = null;
+          loadInventory();
+        });
+
+      // Update qty modal
+      window.openUpdateModal = function (id, name, currentQty, unit) {
+        modalItemId = id;
+        modalCurrentQty = currentQty;
+        document.getElementById("modalItemName").textContent = name;
+        document.getElementById(
+          "modalItemCurrent"
+        ).textContent = `Current stock: ${Number(
+          currentQty
+        ).toLocaleString()} ${unit}`;
+        document.getElementById("modalQty").value = "";
+        document.getElementById("updateModal").style.display = "flex";
+      };
+
+      window.closeModal = function () {
+        document.getElementById("updateModal").style.display = "none";
+      };
+
+      document
+        .getElementById("modalSaveBtn")
+        .addEventListener("click", async () => {
+          const action = document.getElementById("modalAction").value;
+          const qty = parseFloat(document.getElementById("modalQty").value);
+          if (isNaN(qty) || qty < 0) {
+            showToast("Enter a valid quantity");
+            return;
+          }
+
+          let newQty;
+          if (action === "set") newQty = qty;
+          else if (action === "add") newQty = modalCurrentQty + qty;
+          else if (action === "subtract")
+            newQty = Math.max(0, modalCurrentQty - qty);
+
+          const { error } = await supabase
+            .from("inventory")
+            .update({ quantity: newQty, updated_at: new Date().toISOString() })
+            .eq("id", modalItemId);
+
+          if (error) {
+            showToast("Error: " + error.message);
+            return;
+          }
+          showToast("Stock updated!");
+          closeModal();
+          loadInventory();
+        });
+
+      // Filters
+      document
+        .getElementById("categoryFilter")
+        .addEventListener("change", applyFilters);
+      document
+        .getElementById("stockFilter")
+        .addEventListener("change", applyFilters);
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      loadInventory();
+    </script>
+  </body>
+</html>
