@@ -426,6 +426,31 @@
 
       loadBagSizes();
       loadOrders();
+
+  // Sidebar collapse
+  function toggleSidebar() {
+    const collapsed = document.body.classList.toggle('sidebar-collapsed')
+    localStorage.setItem('sidebarCollapsed', collapsed ? '1' : '0')
+    const btn = document.getElementById('sidebarToggleBtn')
+    btn.innerHTML = collapsed ? '&#x276F;' : '&#x276E;'
+    document.getElementById('sidebar').classList.toggle('collapsed', collapsed)
+  }
+  function openMobileSidebar() {
+    document.getElementById('sidebar').classList.add('mobile-open')
+    document.getElementById('sidebarOverlay').classList.add('active')
+  }
+  function closeMobileSidebar() {
+    document.getElementById('sidebar').classList.remove('mobile-open')
+    document.getElementById('sidebarOverlay').classList.remove('active')
+  }
+  window.toggleSidebar = toggleSidebar
+  window.openMobileSidebar = openMobileSidebar
+  window.closeMobileSidebar = closeMobileSidebar
+  if (localStorage.getItem('sidebarCollapsed') === '1') {
+    document.body.classList.add('sidebar-collapsed')
+    document.getElementById('sidebar').classList.add('collapsed')
+    document.getElementById('sidebarToggleBtn').innerHTML = '&#x276F;'
+  }
     </script>
   </body>
 </html>
