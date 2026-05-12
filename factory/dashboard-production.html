@@ -9,6 +9,9 @@
 </head>
 <body class="factory-body">
 
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()" title="Collapse sidebar">&#x276E;</button>
+
 <aside class="sidebar sidebar-production" id="sidebar">
   <div class="sidebar-logo">
     <div class="sidebar-logo-mark">T</div>
@@ -19,28 +22,59 @@
   </div>
   <nav class="sidebar-nav">
     <div class="sidebar-nav-label">Main</div>
-    <a href="dashboard-production.html" class="sidebar-link active"><span class="sidebar-icon">📊</span> Dashboard</a>
-    <a href="material-requests.html" class="sidebar-link"><span class="sidebar-icon">🔄</span> Material Requests</a>
-    <div class="sidebar-nav-label" style="margin-top:16px;">Production</div>
-    <a href="production-tplant.html" class="sidebar-link"><span class="sidebar-icon">🏭</span> T-Plant</a>
-    <a href="production-loom.html" class="sidebar-link"><span class="sidebar-icon">🧵</span> Loom</a>
-    <a href="production-printing.html" class="sidebar-link"><span class="sidebar-icon">🖨️</span> Printing</a>
-    <a href="production-cutting.html" class="sidebar-link"><span class="sidebar-icon">✂️</span> Cutting</a>
-    <a href="production-stitching.html" class="sidebar-link"><span class="sidebar-icon">🪡</span> Stitching</a>
-    <a href="production-packaging.html" class="sidebar-link"><span class="sidebar-icon">📫</span> Packaging</a>
+    <a href="dashboard-production.html" class="sidebar-link active" data-label="Dashboard">
+      <span class="sidebar-icon">📊</span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <a href="material-requests.html" class="sidebar-link" data-label="Material Requests">
+      <span class="sidebar-icon">🔄</span>
+      <span class="nav-label">Material Requests</span>
+    </a>
+    <div class="sidebar-nav-label" style="margin-top:8px;">Production</div>
+    <a href="production-tplant.html" class="sidebar-link" data-label="T-Plant">
+      <span class="sidebar-icon">🏭</span>
+      <span class="nav-label">T-Plant</span>
+    </a>
+    <a href="production-loom.html" class="sidebar-link" data-label="Loom">
+      <span class="sidebar-icon">🧵</span>
+      <span class="nav-label">Loom</span>
+    </a>
+    <a href="production-printing.html" class="sidebar-link" data-label="Printing">
+      <span class="sidebar-icon">🖨️</span>
+      <span class="nav-label">Printing</span>
+    </a>
+    <a href="production-cutting.html" class="sidebar-link" data-label="Cutting">
+      <span class="sidebar-icon">✂️</span>
+      <span class="nav-label">Cutting</span>
+    </a>
+    <a href="production-stitching.html" class="sidebar-link" data-label="Stitching">
+      <span class="sidebar-icon">🪡</span>
+      <span class="nav-label">Stitching</span>
+    </a>
+    <a href="production-packaging.html" class="sidebar-link" data-label="Packaging">
+      <span class="sidebar-icon">📫</span>
+      <span class="nav-label">Packaging</span>
+    </a>
   </nav>
-  <div class="sidebar-collapse-btn" id="sidebarToggle">
-    <span class="collapse-icon">«</span>
-    <span class="collapse-label">Collapse</span>
-  </div>
   <div class="sidebar-footer">
-    <button class="sidebar-logout" id="logoutBtn"><span>🚪</span> Sign Out</button>
+    <div class="sidebar-user" style="margin-bottom:8px;">
+      <div class="sidebar-avatar" id="sidebarAvatar">P</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarName">Production Manager</div>
+        <div class="sidebar-user-role" id="sidebarRole">Production Manager</div>
+      </div>
+    </div>
+    <button class="sidebar-logout" id="logoutBtn">
+      <span>🚪</span>
+      <span class="sign-out-label">Sign Out</span>
+    </button>
   </div>
 </aside>
 
 <div class="factory-main">
   <header class="factory-header">
     <div class="factory-header-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="openMobileSidebar()">☰</button>
       <div>
         <div class="factory-header-title">Production Dashboard</div>
         <div class="factory-header-sub">Track production stages and batches</div>
@@ -48,35 +82,35 @@
     </div>
     <div class="factory-header-right">
       <div class="header-date" id="headerDate"></div>
-      <div class="header-avatar">P</div>
+      <div class="header-avatar" id="headerAvatar">P</div>
     </div>
   </header>
 
   <main class="factory-content">
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon" style="background:rgba(146,64,14,0.15);">🏭</div>
+        <div class="stat-icon" style="background:rgba(196,168,76,0.1);">🏭</div>
         <div class="stat-body">
           <div class="stat-val" id="statBatches">—</div>
           <div class="stat-label">Total Batches</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon" style="background:rgba(146,64,14,0.15);">🧵</div>
+        <div class="stat-icon" style="background:rgba(196,168,76,0.1);">🧵</div>
         <div class="stat-body">
           <div class="stat-val" id="statTplant">—</div>
           <div class="stat-label">T-Plant Entries</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon" style="background:rgba(146,64,14,0.15);">🔄</div>
+        <div class="stat-icon" style="background:rgba(196,168,76,0.1);">🔄</div>
         <div class="stat-body">
           <div class="stat-val" id="statRequests">—</div>
           <div class="stat-label">Material Requests</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon" style="background:rgba(146,64,14,0.15);">📦</div>
+        <div class="stat-icon" style="background:rgba(196,168,76,0.1);">📦</div>
         <div class="stat-body">
           <div class="stat-val" id="statLoom">—</div>
           <div class="stat-label">Loom Entries</div>
@@ -99,7 +133,6 @@
           </table>
         </div>
       </div>
-
       <div class="factory-card">
         <div class="factory-card-header">
           <div class="factory-card-title">Material Requests</div>
@@ -116,7 +149,7 @@
       </div>
     </div>
 
-    <div class="factory-card" style="margin-top:24px;">
+    <div class="factory-card" style="margin-top:16px;">
       <div class="factory-card-header">
         <div class="factory-card-title">Production Pipeline</div>
       </div>
@@ -144,13 +177,44 @@
   const role = await requireAuth(['admin', 'production_manager'])
   if (!role) throw new Error('Unauthorized')
 
-  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-  document.getElementById('logoutBtn').addEventListener('click', logout)
-  document.getElementById('sidebarToggle').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('collapsed')
-  })
-
   const orgId = sessionStorage.getItem('tita_org_id')
+  const userId = sessionStorage.getItem('tita_user_id')
+
+  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+  const { data: profile } = await supabase.from('profiles').select('full_name').eq('id', userId).single()
+  if (profile?.full_name) {
+    const initials = profile.full_name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase()
+    document.getElementById('sidebarAvatar').textContent = initials
+    document.getElementById('headerAvatar').textContent = initials
+    document.getElementById('sidebarName').textContent = profile.full_name
+    document.getElementById('sidebarRole').textContent = role.replace(/_/g, ' ')
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', logout)
+
+  function toggleSidebar() {
+    const collapsed = document.body.classList.toggle('sidebar-collapsed')
+    localStorage.setItem('sidebarCollapsed', collapsed ? '1' : '0')
+    document.getElementById('sidebarToggleBtn').innerHTML = collapsed ? '&#x276F;' : '&#x276E;'
+    document.getElementById('sidebar').classList.toggle('collapsed', collapsed)
+  }
+  function openMobileSidebar() {
+    document.getElementById('sidebar').classList.add('mobile-open')
+    document.getElementById('sidebarOverlay').classList.add('active')
+  }
+  function closeMobileSidebar() {
+    document.getElementById('sidebar').classList.remove('mobile-open')
+    document.getElementById('sidebarOverlay').classList.remove('active')
+  }
+  window.toggleSidebar = toggleSidebar
+  window.openMobileSidebar = openMobileSidebar
+  window.closeMobileSidebar = closeMobileSidebar
+  if (localStorage.getItem('sidebarCollapsed') === '1') {
+    document.body.classList.add('sidebar-collapsed')
+    document.getElementById('sidebar').classList.add('collapsed')
+    document.getElementById('sidebarToggleBtn').innerHTML = '&#x276F;'
+  }
 
   async function loadStats() {
     const [batches, tplant, loom, requests] = await Promise.all([
@@ -168,14 +232,14 @@
   async function loadBatches() {
     const { data } = await supabase.from('production_batches').select('batch_ref, stage, output_kg, date').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
     const tbody = document.getElementById('batchesTableBody')
-    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No batches yet</td></tr>'; return }
-    tbody.innerHTML = data.map(b => `<tr><td><span class="order-id">${b.batch_ref || '—'}</span></td><td>${b.stage}</td><td>${b.output_kg ?? '—'} kg</td><td>${new Date(b.date).toLocaleDateString()}</td></tr>`).join('')
+    if (!data?.length) { tbody.innerHTML = '<tr><td colspan="4" class="table-empty">No batches yet</td></tr>'; return }
+    tbody.innerHTML = data.map(b => `<tr><td><span class="order-id">${b.batch_ref||'—'}</span></td><td>${b.stage}</td><td>${b.output_kg??'—'} kg</td><td>${new Date(b.date).toLocaleDateString()}</td></tr>`).join('')
   }
 
   async function loadRequests() {
     const { data } = await supabase.from('material_requests').select('items, status, request_date').eq('org_id', orgId).order('created_at', { ascending: false }).limit(5)
     const tbody = document.getElementById('requestsTableBody')
-    if (!data || !data.length) { tbody.innerHTML = '<tr><td colspan="3" class="table-empty">No requests yet</td></tr>'; return }
+    if (!data?.length) { tbody.innerHTML = '<tr><td colspan="3" class="table-empty">No requests yet</td></tr>'; return }
     tbody.innerHTML = data.map(r => `<tr><td>${(r.items||[]).length} items</td><td><span class="status-pill status-${r.status}">${r.status}</span></td><td>${new Date(r.request_date).toLocaleDateString()}</td></tr>`).join('')
   }
 
