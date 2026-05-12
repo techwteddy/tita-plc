@@ -21,31 +21,38 @@
       </div>
       <nav class="sidebar-nav">
         <div class="sidebar-nav-label">Main</div>
-        <a href="#" class="sidebar-link" id="dashLink"
-          ><span class="sidebar-icon">📊</span> Dashboard</a
-        >
-        <a href="orders.html" class="sidebar-link active"
-          ><span class="sidebar-icon">📋</span> Orders</a
-        >
-        <a href="inventory.html" class="sidebar-link"
-          ><span class="sidebar-icon">📦</span> Inventory</a
-        >
-        <a href="material-requests.html" class="sidebar-link"
-          ><span class="sidebar-icon">🔄</span> Material Requests</a
-        >
-        <a href="goods-transfer.html" class="sidebar-link"
-          ><span class="sidebar-icon">🚚</span> Goods Transfer</a
-        >
-        <a href="sales.html" class="sidebar-link"
-          ><span class="sidebar-icon">💰</span> Sales</a
-        >
-        <a href="analytics.html" class="sidebar-link"
-          ><span class="sidebar-icon">📈</span> Analytics</a
-        >
+        <a href="#" class="sidebar-link" id="dashLink" data-label="Dashboard">
+          <span class="sidebar-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="orders.html" class="sidebar-link active" data-label="Orders">
+          <span class="sidebar-icon">📋</span>
+          <span class="nav-label">Orders</span>
+        </a>
+        <a href="inventory.html" class="sidebar-link" data-label="Inventory">
+          <span class="sidebar-icon">📦</span>
+          <span class="nav-label">Inventory</span>
+        </a>
+        <a href="material-requests.html" class="sidebar-link" data-label="Material Requests">
+          <span class="sidebar-icon">🔄</span>
+          <span class="nav-label">Material Requests</span>
+        </a>
+        <a href="goods-transfer.html" class="sidebar-link" data-label="Goods Transfer">
+          <span class="sidebar-icon">🚚</span>
+          <span class="nav-label">Goods Transfer</span>
+        </a>
+        <a href="sales.html" class="sidebar-link" data-label="Sales">
+          <span class="sidebar-icon">💰</span>
+          <span class="nav-label">Sales</span>
+        </a>
+        <a href="analytics.html" class="sidebar-link" data-label="Analytics">
+          <span class="sidebar-icon">📈</span>
+          <span class="nav-label">Analytics</span>
+        </a>
       </nav>
       <div class="sidebar-footer">
         <button class="sidebar-logout" id="logoutBtn">
-          <span>🚪</span> Sign Out
+          <span>🚪</span><span class="sign-out-label"> Sign Out</span>
         </button>
       </div>
     </aside>
