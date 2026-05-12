@@ -392,6 +392,22 @@ body.sidebar-collapsed .factory-main { margin-left: 60px; }
 
 .factory-card-link:hover { color: var(--gold); }
 
+.factory-card-link.close-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.factory-card-link.close-btn:hover {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.3);
+  color: #f87171;
+}
+
 .dashboard-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }

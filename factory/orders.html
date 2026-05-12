@@ -20,13 +20,6 @@
       <span class="sidebar-logo-role" id="roleLabel">—</span>
     </div>
   </div>
-  <div class="sidebar-user">
-    <div class="sidebar-avatar" id="sidebarAvatar">—</div>
-    <div class="sidebar-user-info">
-      <div class="sidebar-user-name" id="sidebarName">—</div>
-      <div class="sidebar-user-role" id="sidebarRole">—</div>
-    </div>
-  </div>
   <nav class="sidebar-nav">
     <div class="sidebar-nav-label">Main</div>
     <a href="#" class="sidebar-link" id="dashLink" data-label="Dashboard">
@@ -59,6 +52,13 @@
     </a>
   </nav>
   <div class="sidebar-footer">
+    <div class="sidebar-user" style="margin-bottom:8px;">
+      <div class="sidebar-avatar" id="sidebarAvatar">—</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarName">—</div>
+        <div class="sidebar-user-role" id="sidebarRole">—</div>
+      </div>
+    </div>
     <button class="sidebar-logout" id="logoutBtn">
       <span>🚪</span>
       <span class="sign-out-label">Sign Out</span>
@@ -87,7 +87,7 @@
     <div class="factory-card" id="orderForm" style="display:none;margin-bottom:24px;">
       <div class="factory-card-header">
         <div class="factory-card-title">New Order</div>
-        <button class="factory-card-link" id="closeFormBtn">✕ Close</button>
+        <button class="factory-card-link close-btn" id="closeFormBtn">✕ Close</button>
       </div>
       <div class="factory-form">
         <div class="form-section-label">Customer Information</div>
